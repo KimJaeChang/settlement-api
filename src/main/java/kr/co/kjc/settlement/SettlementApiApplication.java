@@ -1,4 +1,4 @@
-package kr.co.kjc.settlementapi;
+package kr.co.kjc.settlement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
