@@ -7,30 +7,30 @@ spring:
   thymeleaf:
     cache: false
     suffix: .html
-  # H2 Setting Info (H2 Console? ???? ?? ???? ??)
+  # H2 Setting Info (H2 Console에 접속하기 위한 설정정보 입력)
   ############# local mode #############
   #  h2:
   #    console:
-  #      enabled: true  # H2 Console? ???? ?? (H2 Console? H2 Database? UI? ????? ??)
-  #      path: /h2-console  # H2 Console? Path
-  # Database Setting Info (Database? H2? ???? ?? H2?? ?? ??)
+  #      enabled: true  # H2 Console을 사용할지 여부 (H2 Console은 H2 Database를 UI로 제공해주는 기능)
+  #      path: /h2-console  # H2 Console의 Path
+  # Database Setting Info (Database를 H2로 사용하기 위해 H2연결 정보 입력)
   #  datasource:
-  #    driver-class-name: org.h2.Driver  # Database? H2? ?????.
-  #    url: jdbc:h2:~/testDB  # H2 ?? ??
-  #    username: sa  # H2 ?? ? ??? username ?? (??? ??? ??)
-  #    password:  # H2 ?? ? ??? password ?? (??? ??? ??)
-  ############# ?? mode #############
+  #    driver-class-name: org.h2.Driver  # Database를 H2로 사용하겠다.
+  #    url: jdbc:h2:~/testDB  # H2 접속 정보
+  #    username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
+  #    password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
+  ############# 서버 mode #############
   #  datasource:
-  #    driver-class-name: org.h2.Driver  # Database? H2? ?????.
-  #    url: jdbc:h2:tcp://localhost/~/test # H2 ?? ??
-  #    username: sa  # H2 ?? ? ??? username ?? (??? ??? ??)
-  #    password:  # H2 ?? ? ??? password ?? (??? ??? ??)
-  ############# p6spy ?? mode #############
+  #    driver-class-name: org.h2.Driver  # Database를 H2로 사용하겠다.
+  #    url: jdbc:h2:tcp://localhost/~/test # H2 접속 정보
+  #    username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
+  #    password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
+  ############# p6spy 서버 mode #############
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:h2:tcp://localhost/~/settlement # H2 ?? ??
-    username: sa  # H2 ?? ? ??? username ?? (??? ??? ??)
-    password:  # H2 ?? ? ??? password ?? (??? ??? ??)
+    url: jdbc:p6spy:h2:tcp://localhost/~/test # H2 접속 정보
+    username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
+    password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
   jpa:
     hibernate:
       ddl-auto: create
@@ -42,18 +42,18 @@ spring:
 #        default_batch_fetch_size: 30
 #        jdbc:
 #          batch_size: 100
-# ?? ?? ??
+# 로그 레벨 설정
 logging:
   level:
     p6spy: debug
-    # hibernate ? ??? ?? ??? debug??? ??
-    # jpa hibernate? ???? sql? ??? ??? ???? ?? ??
+    # hibernate 가 남기는 모든 로그가 debug모드로 설정
+    # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
   charset:
     console: UTF-8
   file:
     path: /logs
 #    org.hibernate.SQL: debug
-#    org.hibernate.type: trace # ?? ???? ????? ???? ??
+#    org.hibernate.type: trace # 실제 들어가는 파라미터값 찍어주는 설정
 
 #p6spy query logging
 decorator.datasource.p6spy:
