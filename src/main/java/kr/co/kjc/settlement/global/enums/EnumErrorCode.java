@@ -8,12 +8,12 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum EnumErrorCode {
 
-    INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter included"),
-    NOT_FOUND(HttpStatus.NOT_FOUND, "Resource not exists"),
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에러가 발생했습니다.")
-    ;
+  INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter included"),
+  NOT_FOUND(HttpStatus.NOT_FOUND, "Resource not exists"),
+  NOT_FOUND_ENUM(HttpStatus.NOT_FOUND, "Enum을 찾을 수 없습니다."),
+  INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에러가 발생했습니다.");
 
-    private final HttpStatus httpStatus;
-    private final String message;
+  private final HttpStatus httpStatus;
+  private final String message;
 
 }

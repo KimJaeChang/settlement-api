@@ -9,13 +9,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class CommonWebConfig implements WebMvcConfigurer {
 
- @Override
- public void addResourceHandlers(ResourceHandlerRegistry registry) { // 기본 resourceHandler 유지하면서 추가
-  registry.addResourceHandler("resources/**")
-      .addResourceLocations("classpath:/static/") // '/'으로 끝나도록
-      .setCachePeriod(20);
-
- }
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) { // 기본 resourceHandler 유지하면서 추가
+    registry.addResourceHandler("/**")
+        .addResourceLocations("classpath:/templates/", "classpath:/static/") // '/'으로 끝나도록
+        .setCachePeriod(20);
+  }
 
 
 }
