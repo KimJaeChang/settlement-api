@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.common.config;
+package kr.co.kjc.settlement.global.config;
 
 import com.p6spy.engine.common.P6Util;
 import com.p6spy.engine.logging.Category;
