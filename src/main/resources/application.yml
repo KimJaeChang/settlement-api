@@ -1,6 +1,12 @@
 spring:
   application:
     name: settlement
+  devtools:
+    livereload:
+      enabled: false
+  thymeleaf:
+    cache: false
+    suffix: .html
   # H2 Setting Info (H2 Console? ???? ?? ???? ??)
   ############# local mode #############
   #  h2:

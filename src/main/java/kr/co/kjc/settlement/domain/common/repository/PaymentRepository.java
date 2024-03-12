@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.payment.repository;
+package kr.co.kjc.settlement.domain.common.repository;
 
 public interface PaymentRepository {
 
