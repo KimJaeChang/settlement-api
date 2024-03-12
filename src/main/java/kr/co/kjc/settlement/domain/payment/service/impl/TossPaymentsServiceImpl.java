@@ -1,6 +1,6 @@
-package kr.co.kjc.settlement.domain.toss_payments.service;
+package kr.co.kjc.settlement.domain.payment.service.impl;
 
-import kr.co.kjc.settlement.domain.common.service.PaymentService;
+import kr.co.kjc.settlement.domain.payment.service.PaymentService;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -28,7 +28,7 @@ spring:
   ############# p6spy 서버 mode #############
   datasource:
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    url: jdbc:p6spy:h2:tcp://localhost/~/test # H2 접속 정보
+    url: jdbc:p6spy:h2:tcp://localhost/~/settlement # H2 접속 정보
     username: sa  # H2 접속 시 입력할 username 정보 (원하는 것으로 입력)
     password:  # H2 접속 시 입력할 password 정보 (원하는 것으로 입력)
   jpa:
