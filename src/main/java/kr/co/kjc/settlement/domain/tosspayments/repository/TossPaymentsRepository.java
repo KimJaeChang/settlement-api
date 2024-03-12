@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.domain.payment.tosspayments.repository;
+package kr.co.kjc.settlement.domain.tosspayments.repository;
 
 import org.springframework.stereotype.Repository;
 
