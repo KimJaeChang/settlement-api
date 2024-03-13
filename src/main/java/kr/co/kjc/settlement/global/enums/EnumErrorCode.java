@@ -14,6 +14,6 @@ public enum EnumErrorCode {
   INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에러가 발생했습니다.");
 
   private final HttpStatus httpStatus;
-  private final String message;
+  private final String detail;
 
 }
