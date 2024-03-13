@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: settlement
@@ -79,3 +80,8 @@ springdoc:
     groups:
       enabled: true
   override-with-generic-response: true
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: lax

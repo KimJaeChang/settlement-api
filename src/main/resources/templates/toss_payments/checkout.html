@@ -9,6 +9,48 @@
 
   // 2. 브랜드페이 객체 생성
   var brandpay = BrandPay(clientKey, customerKey, {
-    redirectUrl: 'http://1.232.56.200:3000/v1/toss-payments/payment-key/return'
+    redirectUrl: 'http://example.com',
+    ui: {
+      buttonStyle: 'full',
+      highlightColor: '#26C2E3',
+      labels: {
+        oneTouchPay: '내 상점 원터치결제',
+      },
+    },
   })
+
+  // brandpay.requestPayment({
+  //   amount: 10,
+  //   orderId: 'm3RoujoY9gVDZY-oOtHAU',
+  //   orderName: '토스 티셔츠 외 2건',
+  //   // 테스트에서는 성공, 실패 페이지가 없어도 URL에서 쿼리 파라미터를 확인할 수 있어요.
+  //   successUrl: 'http://1.232.56.32:12456/v1/toss-payments/success', // 성공 리다이렉트 URL
+  //   failUrl: 'http://1.232.56.32:8080/v1/toss-payments/fail', // 실패 리다이렉트 URL
+  // })
+  // // 결제창을 띄울수 없는 에러가 발생하면 리다이렉트 URL로 에러를 받을 수 없어요.
+  // .catch(function (error) {
+  //   if (error.code === 'INVALID_ORDER_NAME') {
+  //     // 유효하지 않은 'orderName' 처리하기
+  //   } else if (error.code === 'INVALID_ORDER_ID') {
+  //     // 유효하지 않은 'orderId' 처리하기
+  //   }
+  // })
+
+  brandpay.requestPayment({
+    //결제 정보 파라미터
+    // successUrl, failUrl, windowTarget 파라미터를 넘기지 마세요.
+  })
+  .then(function (data) {
+    // 성공 처리: 서버 측에서 결제 승인 API를 호출하세요
+  })
+  .catch(error => {
+    // 에러 처리: 에러 목록을 확인하세요
+    // https://docs.tosspayments.com/reference/error-codes#failurl로-전달되는-에러
+    if (error.code === 'USER_CANCEL') {
+      // 결제 고객이 결제창을 닫았을 때 에러 처리
+    } else if (error.code === 'INVALID_CARD_COMPANY') {
+      // 유효하지 않은 카드 코드에 대한 에러 처리
+    }
+  })
+
 </script>
