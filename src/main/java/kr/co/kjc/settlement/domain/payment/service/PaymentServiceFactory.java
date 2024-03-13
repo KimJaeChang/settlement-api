@@ -15,7 +15,7 @@ public class PaymentServiceFactory {
   public void save(EnumPaymentBroker enumPaymentBroker) {
     serviceMap.computeIfAbsent(enumPaymentBroker
         , (paymentBroker) -> {
-          throw new RuntimeException(EnumErrorCode.NOT_FOUND_ENUM.getMessage());
+          throw new RuntimeException(EnumErrorCode.NOT_FOUND_ENUM.getDetail());
         });
   }
 

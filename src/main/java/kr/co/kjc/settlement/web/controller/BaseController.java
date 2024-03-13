@@ -12,7 +12,7 @@ public class BaseController {
     return "index";
   }
 
-  @GetMapping("/toss-payments")
+  @GetMapping("/v1/toss-payments")
   public String tossPayments() {
     return "toss_payments/index";
   }
