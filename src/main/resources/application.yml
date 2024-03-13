@@ -2,11 +2,15 @@ spring:
   application:
     name: settlement
   devtools:
-    livereload:
+    restart:
       enabled: false
   thymeleaf:
     cache: false
     suffix: .html
+  mvc:
+    view:
+      prefix: /WEB-INF/
+      suffix: .jsp
   # H2 Setting Info (H2 Console에 접속하기 위한 설정정보 입력)
   ############# local mode #############
   #  h2:

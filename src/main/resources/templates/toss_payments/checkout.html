@@ -1,0 +1,14 @@
+<head>
+  <meta charset="utf-8" />
+  <!-- 1. 스크립트 추가 -->
+  <script src="https://js.tosspayments.com/v1/brandpay"></script>
+</head>
+<script>
+  var clientKey = 'test_ck_d26DlbXAaV0eaqLkoDbrqY50Q9RB' // 테스트용 클라이언트 키
+  var customerKey = 'test_sk_YyZqmkKeP8gQWd5OeyYVbQRxB9lG' // 내 상점에서 고객을 구분하기 위해 발급한 고객의 고유 ID
+
+  // 2. 브랜드페이 객체 생성
+  var brandpay = BrandPay(clientKey, customerKey, {
+    redirectUrl: 'http://example.com'
+  })
+</script>
