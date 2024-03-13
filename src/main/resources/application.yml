@@ -3,15 +3,19 @@ spring:
   application:
     name: settlement
   devtools:
+    livereload:
+      enabled: true
     restart:
       enabled: false
   thymeleaf:
     cache: false
     suffix: .html
+    check-template-location: true
   mvc:
     view:
       prefix: /WEB-INF/
       suffix: .jsp
+    static-path-pattern: "/static/**"
   # H2 Setting Info (H2 Console에 접속하기 위한 설정정보 입력)
   ############# local mode #############
   #  h2:
