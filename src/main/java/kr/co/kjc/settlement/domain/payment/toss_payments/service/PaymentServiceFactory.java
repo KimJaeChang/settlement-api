@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.domain.payment.service;
+package kr.co.kjc.settlement.domain.payment.toss_payments.service;
 
 import java.util.Map;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;

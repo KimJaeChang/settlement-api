@@ -1,0 +1,9 @@
+payments:
+  toss-payments:
+    keys:
+      widget:
+        client-key: test_ck_d26DlbXAaV0eaqLkoDbrqY50Q9RB
+        secret-key: test_sk_YyZqmkKeP8gQWd5OeyYVbQRxB9lG
+      api:
+        client-key: test_ck_d26DlbXAaV0eaqLkoDbrqY50Q9RB
+        secret-key: test_sk_YyZqmkKeP8gQWd5OeyYVbQRxB9lG

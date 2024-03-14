@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.domain.payment.controller;
+package kr.co.kjc.settlement.domain.payment.toss_payments.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
