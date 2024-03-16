@@ -1,8 +1,8 @@
 spring:
   application:
     name: settlement
-  config:
-    import: kjc-secret.yml
+  #  config:
+  #    import: kjc-secret.yml
   devtools:
     livereload:
       enabled: true

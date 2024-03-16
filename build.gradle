@@ -14,7 +14,8 @@ java {
 ext {
     openapi_starter_version = "2.3.0"
     jasypt_version = "3.0.5"
-    p6spy_version = "1.8.1"
+    p6spy_version = "1.9.1"
+    apache_poi_xlsx_version = "5.2.5"
 }
 
 configurations {
@@ -35,6 +36,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation "com.google.code.gson:gson"
+    implementation 'org.springframework.security:spring-security-crypto'
 
     // https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:'.concat(jasypt_version)
@@ -49,11 +53,17 @@ dependencies {
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+    // Apache - POI
+    implementation 'org.apache.poi:poi-ooxml:'.concat(apache_poi_xlsx_version)
+
     compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
-    annotationProcessor 'org.projectlombok:lombok'
+
+    // 테스트일 때만 구동
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1'
 
     // Client
     compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
