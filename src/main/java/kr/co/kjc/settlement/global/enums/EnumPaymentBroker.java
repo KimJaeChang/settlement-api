@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum EnumPaymentBroker implements BaseEnum {
 
+  PORT_ONE("port-one", "아임포트(포트원)"),
   TOSS_PAYMENTS("toss-payments", "토스페이먼츠"),
   TOSS_PAY("toss-pay", "토스페이");
 

@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global;
+package kr.co.kjc.settlement.global.validator;
 
 
 import jakarta.validation.ConstraintValidator;

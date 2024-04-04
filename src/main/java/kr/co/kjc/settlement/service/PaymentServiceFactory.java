@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.domain.payment.toss_payments.service;
+package kr.co.kjc.settlement.service;
 
 import java.util.Map;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
@@ -12,8 +12,8 @@ public class PaymentServiceFactory {
 
   private static Map<EnumPaymentBroker, PaymentService> serviceMap;
 
-  public void save(EnumPaymentBroker enumPaymentBroker) {
-    serviceMap.computeIfAbsent(enumPaymentBroker
+  public PaymentService get(EnumPaymentBroker enumPaymentBroker) {
+    return serviceMap.computeIfAbsent(enumPaymentBroker
         , (paymentBroker) -> {
           throw new RuntimeException(EnumErrorCode.NOT_FOUND_ENUM.getDetail());
         });

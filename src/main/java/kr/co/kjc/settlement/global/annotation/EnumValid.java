@@ -6,7 +6,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import kr.co.kjc.settlement.global.EnumValidator;
+import kr.co.kjc.settlement.global.validator.EnumValidator;
 
 @Constraint(validatedBy = EnumValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE,
