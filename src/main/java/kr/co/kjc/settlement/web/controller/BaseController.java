@@ -4,8 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.stream.Collectors;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BaseController {
@@ -13,6 +15,13 @@ public class BaseController {
   @GetMapping("/")
   public String index() {
     return "index";
+  }
+
+  @ResponseBody
+  @GetMapping("/health-check")
+  public ResponseEntity<String> healthCheck() {
+    return ResponseEntity.ok()
+        .body("success");
   }
 
   @GetMapping("/v1/toss-payments")
