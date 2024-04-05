@@ -1,24 +1,22 @@
 package kr.co.kjc.settlement.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.kjc.settlement.domain.Payment;
+import kr.co.kjc.settlement.domain.PaymentHistory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-public interface PaymentRepository extends JpaRepository<Payment, Long> {
+public interface PaymentHistoryRepository extends JpaRepository<PaymentHistory, Long> {
 
 }
 
-interface CustomPaymentRepository {
+interface CustomPaymentHistoryRepository {
 
 }
 
 @Repository
 @RequiredArgsConstructor
-class CustomPaymentRepositoryImpl implements CustomPaymentRepository {
+class CustomPaymentHistoryRepositoryImpl implements CustomPaymentHistoryRepository {
 
   private final JPAQueryFactory queryFactory;
 
