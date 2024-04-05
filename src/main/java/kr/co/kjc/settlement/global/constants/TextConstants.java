@@ -17,5 +17,9 @@ public class TextConstants {
 
   public static final String LOGGING_PREFIX_RESPONSE = "RESPONSE : [{}]";
 
-
+  public static final String LOGGING_FORMAT = """ 
+      [REQUEST] {} - {} {} - {} ms
+      {}
+      [RESPONSE] {}
+      """;
 }

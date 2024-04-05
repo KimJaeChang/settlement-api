@@ -1,7 +1,11 @@
 package kr.co.kjc.settlement.global.aspect;
 
 import com.google.gson.Gson;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.List;
 import kr.co.kjc.settlement.global.constants.TextConstants;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,74 +15,66 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@Slf4j
 @Aspect
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class CommonLogAspect {
 
-  private final Gson gson;
+  private static final List<Class<? extends Annotation>> requestMappingList = Arrays.asList(
+      GetMapping.class, PutMapping.class, PostMapping.class,
+      PatchMapping.class, DeleteMapping.class, RequestMapping.class);
 
   /**
-   * printControllerLoc : Request에 매핑된 컨트롤러 위치 출력
+   * printRestControllerStart : Request에 매핑된 컨트롤러 위치 출력
    */
   @Before("execution(* kr.co.kjc.settlement..*(..)) && @within(org.springframework.web.bind.annotation.RestController)")
-  public void printControllerLoc(JoinPoint joinPoint) {
+  public void printRestControllerStart(JoinPoint joinPoint) {
     MethodSignature ms = (MethodSignature) joinPoint.getSignature();
     Method calledMethod = ms.getMethod();
-    // Class<?> calledClass = ms.getMethod().getDeclaringClass();
     String className = calledMethod.getDeclaringClass().getSimpleName();
     String calledMethodName = calledMethod.getName();
-    log.info(TextConstants.LOGGING_PREFIX_START, className, calledMethodName);
-    // Request Parameter 출력
-    log.info(TextConstants.LOGGING_PREFIX_REQUEST, gson.toJson(joinPoint.getArgs()));
+    String url = requestMappingList.stream()
+        .filter(calledMethod::isAnnotationPresent)
+        .map(mappingClass -> {
+          try {
+            // 메소드 단위 매핑 어노테이션 주소를 가져온다.
+            return ((String[]) mappingClass.getMethod("value").invoke(calledMethod.getAnnotation(mappingClass)))[0];
+          } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            return "";
+          }
+        })
+        .findFirst()
+        .orElse(null);
+
+    log.info(TextConstants.LOGGING_PREFIX_START, url, className, calledMethodName);
+    // Request body logging
+    // log.info(TextConstants.LOGGING_PREFIX_REQUEST, gson.toJson(joinPoint.getArgs()));
   }
 
   /**
-   * printReturnDataAndViewName NOTE 1) 컨트롤러가 리턴하는 값 로깅 정상응답 일 경우 2) 컨트롤러 명 과 응답객체 출력 예외발생일 경우 응답객체
-   * 출력
+   * printRestControllerEnd
    */
   @AfterReturning(pointcut = """
         (execution(* kr.co.kjc.settlement..*(..)) && @within(org.springframework.web.bind.annotation.RestController)) ||
          execution(* kr.co.kjc.settlement..BaseAPIControllerAdvice.*(..))
       """, returning = "returnValue")
-  public void printReturnDataAndViewName(JoinPoint joinPoint, Object returnValue) {
+  public void printRestControllerEnd(JoinPoint joinPoint, Object returnValue) {
     MethodSignature ms = (MethodSignature) joinPoint.getSignature();
     Method calledMethod = ms.getMethod();
     String className = calledMethod.getDeclaringClass().getSimpleName();
     String calledMethodName = calledMethod.getName();
     log.info(TextConstants.LOGGING_PREFIX_END, className, calledMethodName);
-    // response logging
-    log.info(TextConstants.LOGGING_PREFIX_RESPONSE, gson.toJson(returnValue));
+    // Response body logging
+    // log.info(TextConstants.LOGGING_PREFIX_RESPONSE, gson.toJson(returnValue));
   }
 
-  /**
-   * printServiceLoc : Service 레이어 위치 출력 및 변수 세팅
-   *
-   * @param pjp
-   * @return ProceedingJoinPoint.proceed()
-   * @throws Throwable 2019.01.29 spring-data-rest 를 쓰게 되면 에러가 나기때문에 execution package 규칙 추가 (기본 내장
-   *                   클래스의 프록시를 만들 수 없어서 AOP 불가)
-   */
-//  @Around("execution(* kr.co.everon..*(..)) && @within(org.springframework.stereotype.Service)")
-//  public Object printServiceLoc(ProceedingJoinPoint pjp) throws Throwable {
-//    MethodSignature ms = (MethodSignature) pjp.getSignature();
-//    Method calledMethod = ms.getMethod();
-//    // Class<?> calledClass = ms.getMethod().getDeclaringClass();
-//    String className = calledMethod.getDeclaringClass().getSimpleName();
-//    String calledMethodName = calledMethod.getName();
-//    // 수행 시간 측정 로직 추가
-//    log.info(TextConstants.LOGGING_PREFIX_START, className, calledMethodName);
-//    StopWatch stopWatch = new StopWatch();
-//    stopWatch.start();
-//
-//    Object proceed = pjp.proceed();
-//
-//    stopWatch.stop();
-//    log.info(TextConstants.LOGGING_PREFIX_END + TextConstants.EXECUTE_TIME_CHECK_MESSAGE, className,
-//        calledMethodName, stopWatch.getTotalTimeSeconds());
-//    return proceed;
-//  }
 }
 
