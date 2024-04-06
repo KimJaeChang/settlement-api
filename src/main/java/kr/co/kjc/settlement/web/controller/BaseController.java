@@ -26,7 +26,12 @@ public class BaseController {
 
   @GetMapping("/v1/toss-payments")
   public String tossPayments() {
-    return "/toss_payments/checkout";
+    return "/toss_payments/main";
+  }
+
+  @GetMapping("/v1/port-one")
+  public String portOne() {
+    return "/port_one/main";
   }
 
   @GetMapping("/v1/toss-payments/success")

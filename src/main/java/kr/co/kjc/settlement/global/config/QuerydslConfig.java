@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.config;
+package kr.co.kjc.settlement.global.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
