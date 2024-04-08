@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.google.gson.Gson;
 import java.nio.charset.Charset;
+import java.util.UUID;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,5 +52,17 @@ class BaseControllerTest {
 //    });
   }
 
+  @Test
+  @DisplayName("uuid 생성")
+  void create_uuid() {
+    // given
+
+    // when
+    String uuid = UUID.randomUUID().toString();
+    System.out.println("uuid : " + uuid);
+
+    // then
+    Assertions.assertThat(uuid).isNotNull();
+  }
 
 }
