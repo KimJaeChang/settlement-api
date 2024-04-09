@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config;
+package kr.co.kjc.settlement.global.config.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import kr.co.kjc.settlement.global.config.gson.GsonLocalDateConfig;
 import kr.co.kjc.settlement.global.config.gson.GsonLocalDateTimeConfig;
+import kr.co.kjc.settlement.global.config.gson.GsonMultipartFileAdaptorConfig;
 import kr.co.kjc.settlement.global.config.gson.GsonPageConfig;
 import kr.co.kjc.settlement.global.config.gson.GsonProblemDetailConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

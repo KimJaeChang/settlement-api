@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config;
+package kr.co.kjc.settlement.global.config.gson;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
