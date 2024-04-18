@@ -35,7 +35,7 @@ class JasyptConfigTest {
     }
 
     StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-    encryptor.setPassword("");
+    encryptor.setPassword("kjc_secret!@#$%");
 
     System.out.println(
         "widgetClientKey : " + encryptor.encrypt("test_ck_d26DlbXAaV0eaqLkoDbrqY50Q9RB"));
@@ -48,12 +48,13 @@ class JasyptConfigTest {
     System.out.println("bucket : " + encryptor.encrypt("everon-test"));
     System.out.println("region : " + encryptor.encrypt("ap-northeast-2"));
     System.out.println(
-        "path : " + encryptor.encrypt("/upload/v1"));
+        "path : " + encryptor.encrypt("upload/v1"));
     System.out.println(
         "decrypt : " + encryptor.decrypt("jDLGE7NjYfXqdrYrRUDxHlPL7Gtlop8tsUbrJBwuX90="));
     System.out.println("decrypt : " + encryptor.decrypt(
         "zxcCkAjJABQViY4GZk5KtUA1IOem8M805smRek34/9wu8TrQfQMOkxPCllZtwenwAEFPpMYVyt8="));
     System.out.println("decrypt : " + encryptor.decrypt("uNUz/YWyDxH9jOUx69uetp3DwCQyKESp"));
+    System.out.println("decrypt : " + encryptor.decrypt("WtlwqcWP8ctfb+4MMSB4G4t1THCUNpT0"));
   }
 
 }

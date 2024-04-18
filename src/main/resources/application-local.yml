@@ -5,7 +5,7 @@ spring:
         bucket: ENC(zaf5L5ffbcCT39F2EFimCbo4/e0LYObd)
         stack:
           auto: false
-        path: ENC(WtlwqcWP8ctfb+4MMSB4G4t1THCUNpT0)
+        path: ENC(YaHBjwgB1PyeBsqXpOp7tywbFtxU94dw)
         region:
           static: ENC(uNUz/YWyDxH9jOUx69uetp3DwCQyKESp)
         credentials:
@@ -26,5 +26,4 @@ logging:
   level:
     com:
       amazonaws:
-        util:
-          EC2MetadataUtils: error
+        util: DEBUG

@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import kr.co.kjc.settlement.service.AwsS3Service;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 @Tag(name = "96. Aws-S3", description = "Aws S3 API 입니다.")
 @RestController
@@ -33,7 +33,7 @@ public class AwsS3Controller {
       }
   )
   @PostMapping(value = "/excels/uploads", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public BaseResponseDTO<PutObjectResponse> upload(@RequestPart MultipartFile multipartFile) {
+  public BaseResponseDTO<List<String>> upload(@RequestPart MultipartFile multipartFile) {
     return new BaseResponseDTO<>(awsS3Service.uploadFile(multipartFile));
   }
 
