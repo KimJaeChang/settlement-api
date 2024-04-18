@@ -1,14 +1,16 @@
-cloud:
-  aws:
-    s3:
-      bucket: everon-test
-      region:
-        static: ap-northeast-2
-      stack:
-        auto: false
-      credentials:
-        access-key: ENC(jDLGE7NjYfXqdrYrRUDxHlPL7Gtlop8tsUbrJBwuX90=)
-        secret-key: ENC(zxcCkAjJABQViY4GZk5KtUA1IOem8M805smRek34/9wu8TrQfQMOkxPCllZtwenwAEFPpMYVyt8=)
+spring:
+  cloud:
+    aws:
+      s3:
+        bucket: ENC(zaf5L5ffbcCT39F2EFimCbo4/e0LYObd)
+        stack:
+          auto: false
+        path: ENC(WtlwqcWP8ctfb+4MMSB4G4t1THCUNpT0)
+        region:
+          static: ENC(uNUz/YWyDxH9jOUx69uetp3DwCQyKESp)
+        credentials:
+          access-key: ENC(jDLGE7NjYfXqdrYrRUDxHlPL7Gtlop8tsUbrJBwuX90=)
+          secret-key: ENC(zxcCkAjJABQViY4GZk5KtUA1IOem8M805smRek34/9wu8TrQfQMOkxPCllZtwenwAEFPpMYVyt8=)
 
 payments:
   toss-payments:
@@ -19,3 +21,10 @@ payments:
       api:
         client-key: ENC(lae4cUts3QWv84R6Rzll/jH78kjLzgUzZPTxcqz1BEQP2dlBv6aLok+A/K02dDvy)
         secret-key: ENC(zKrSfMHccnKJw+1PiOeZoTyG988ZO23+4/4RtUXjGQoe2tqoDYMWnzMm+AzdF7GF)
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error

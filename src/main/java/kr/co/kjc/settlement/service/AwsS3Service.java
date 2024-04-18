@@ -1,10 +1,10 @@
 package kr.co.kjc.settlement.service;
 
-import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 public interface AwsS3Service {
 
-  List<String> uploadFile(MultipartFile multipartFile);
+  PutObjectResponse uploadFile(MultipartFile multipartFile);
 
 }
