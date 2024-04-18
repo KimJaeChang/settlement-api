@@ -35,7 +35,7 @@ class JasyptConfigTest {
     }
 
     StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
-    encryptor.setPassword("kjc_secret!@#$%");
+    encryptor.setPassword("");
 
     System.out.println(
         "widgetClientKey : " + encryptor.encrypt("test_ck_d26DlbXAaV0eaqLkoDbrqY50Q9RB"));
