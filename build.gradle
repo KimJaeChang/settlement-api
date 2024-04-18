@@ -16,7 +16,7 @@ ext {
     jasypt_version = "3.0.5"
     p6spy_version = "1.9.1"
     apache_poi_xlsx_version = "5.2.5"
-    aws_cloud_version = "2.2.6.RELEASE"
+    aws_cloud_version = "3.1.1"
 }
 
 configurations {
@@ -64,7 +64,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
 
     // Amazon - S3
-    implementation "org.springframework.cloud:spring-cloud-starter-aws:".concat(aws_cloud_version)
+    implementation "io.awspring.cloud:spring-cloud-aws-starter-s3:".concat(aws_cloud_version)
 
     // 테스트일 때만 구동
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
