@@ -1,13 +1,25 @@
 package kr.co.kjc.settlement.global.config.gson;
 
+import static kr.co.kjc.settlement.global.constants.CommonConstants.FIELD_BODY;
+import static kr.co.kjc.settlement.global.constants.CommonConstants.FIELD_ORDERS;
+
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import java.util.List;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 
-public class GsonPageConfig implements JsonSerializer<Page<?>> {
+public class GsonPageConfig implements JsonSerializer<Page<?>>, JsonDeserializer<Page<?>> {
 
   private static final String FIELD_TOTAL_PAGES = "totalPages";
   private static final String FIELD_TOTAL_ELEMENTS = "totalElements";
@@ -59,5 +71,27 @@ public class GsonPageConfig implements JsonSerializer<Page<?>> {
 //    jsonPage.add("pageable", context.serialize(page.getPageable()));
 
     return jsonPage;
+  }
+
+  @Override
+  public Page<?> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    JsonElement jsonElement = json.getAsJsonObject().get(FIELD_BODY);
+    JsonElement content = jsonElement.getAsJsonObject().get(FIELD_CONTENT);
+
+    List<?> contentList = context.deserialize(content, new TypeToken<List<?>>() {
+    }.getType());
+
+    int pageSize = jsonElement.getAsJsonObject().get(FIELD_PAGE_SIZE).getAsInt();
+    int pageNo = jsonElement.getAsJsonObject().get(FIELD_PAGE_NO).getAsInt();
+    long totalElements = jsonElement.getAsJsonObject().get(FIELD_TOTAL_ELEMENTS).getAsLong();
+    JsonElement sort = jsonElement.getAsJsonObject().get(FIELD_SORT);
+    JsonElement orders = sort.getAsJsonObject().get(FIELD_ORDERS);
+
+    List<Order> orderList = context.deserialize(orders, new TypeToken<List<Order>>() {
+    }.getType());
+
+    return new PageImpl<>(contentList, PageRequest.of(pageSize, pageNo, Sort.by(orderList)),
+        totalElements);
   }
 }

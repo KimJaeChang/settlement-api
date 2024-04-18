@@ -18,7 +18,10 @@ public enum EnumErrorCode {
    */
   NOT_FOUND(HttpStatus.NOT_FOUND, "Resource not exists"),
   NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."),
+  NOT_FOUND_UPLOAD_FILE(HttpStatus.NOT_FOUND, "업로드한 파일을 찾을 수 없습니다."),
   NOT_FOUND_ENUM(HttpStatus.NOT_FOUND, "Enum을 찾을 수 없습니다."),
+  NOT_FOUND_ENUM_VALUE(HttpStatus.NOT_FOUND, "해당 Enum의 Value가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
+  NOT_FOUND_ENUM_CODE(HttpStatus.NOT_FOUND, "해당 Enum의 Code가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
 
   /**
    * 500 - Internal_server_error

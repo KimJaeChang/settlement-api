@@ -1,8 +1,9 @@
-package kr.co.kjc.settlement.service;
+package kr.co.kjc.settlement.service.factory;
 
 import java.util.Map;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.enums.EnumPaymentBroker;
+import kr.co.kjc.settlement.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

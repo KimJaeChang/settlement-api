@@ -35,46 +35,42 @@ public class CommonLogAspect {
   /**
    * printRestControllerStart : Request에 매핑된 컨트롤러 위치 출력
    */
-  @Before("execution(* kr.co.kjc.settlement..*(..)) && @within(org.springframework.web.bind.annotation.RestController)")
-  public void printRestControllerStart(JoinPoint joinPoint) {
-    MethodSignature ms = (MethodSignature) joinPoint.getSignature();
-    Method calledMethod = ms.getMethod();
-    String className = calledMethod.getDeclaringClass().getSimpleName();
-    String calledMethodName = calledMethod.getName();
-    String url = requestMappingList.stream()
-        .filter(calledMethod::isAnnotationPresent)
-        .map(mappingClass -> {
-          try {
-            // 메소드 단위 매핑 어노테이션 주소를 가져온다.
-            return ((String[]) mappingClass.getMethod("value").invoke(calledMethod.getAnnotation(mappingClass)))[0];
-          } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            return "";
-          }
-        })
-        .findFirst()
-        .orElse(null);
-
-    log.info(TextConstants.LOGGING_PREFIX_START, url, className, calledMethodName);
-    // Request body logging
-    // log.info(TextConstants.LOGGING_PREFIX_REQUEST, gson.toJson(joinPoint.getArgs()));
-  }
+//  @Before("execution(* kr.co.kjc.settlement..*(..)) && @within(org.springframework.web.bind.annotation.RestController)")
+//  public void printRestControllerStart(JoinPoint joinPoint) {
+//    MethodSignature ms = (MethodSignature) joinPoint.getSignature();
+//    Method calledMethod = ms.getMethod();
+//    String className = calledMethod.getDeclaringClass().getSimpleName();
+//    String calledMethodName = calledMethod.getName();
+//    String url = requestMappingList.stream()
+//        .filter(calledMethod::isAnnotationPresent)
+//        .map(mappingClass -> {
+//          try {
+//            // 메소드 단위 매핑 어노테이션 주소를 가져온다.
+//            return ((String[]) mappingClass.getMethod("value").invoke(calledMethod.getAnnotation(mappingClass)))[0];
+//          } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+//            return "";
+//          }
+//        })
+//        .findFirst()
+//        .orElse(null);
+//
+//    log.info(TextConstants.LOGGING_PREFIX_START, url, className, calledMethodName);
+//  }
 
   /**
    * printRestControllerEnd
    */
-  @AfterReturning(pointcut = """
-        (execution(* kr.co.kjc.settlement..*(..)) && @within(org.springframework.web.bind.annotation.RestController)) ||
-         execution(* kr.co.kjc.settlement..BaseAPIControllerAdvice.*(..))
-      """, returning = "returnValue")
-  public void printRestControllerEnd(JoinPoint joinPoint, Object returnValue) {
-    MethodSignature ms = (MethodSignature) joinPoint.getSignature();
-    Method calledMethod = ms.getMethod();
-    String className = calledMethod.getDeclaringClass().getSimpleName();
-    String calledMethodName = calledMethod.getName();
-    log.info(TextConstants.LOGGING_PREFIX_END, className, calledMethodName);
-    // Response body logging
-    // log.info(TextConstants.LOGGING_PREFIX_RESPONSE, gson.toJson(returnValue));
-  }
+//  @AfterReturning(pointcut = """
+//        (execution(* kr.co.kjc.settlement..*(..)) && @within(org.springframework.web.bind.annotation.RestController)) ||
+//         execution(* kr.co.kjc.settlement..BaseAPIControllerAdvice.*(..))
+//      """, returning = "returnValue")
+//  public void printRestControllerEnd(JoinPoint joinPoint, Object returnValue) {
+//    MethodSignature ms = (MethodSignature) joinPoint.getSignature();
+//    Method calledMethod = ms.getMethod();
+//    String className = calledMethod.getDeclaringClass().getSimpleName();
+//    String calledMethodName = calledMethod.getName();
+//    log.info(TextConstants.LOGGING_PREFIX_END, className, calledMethodName);
+//  }
 
 }
 

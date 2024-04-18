@@ -90,3 +90,8 @@ server:
     session:
       cookie:
         same-site: lax
+
+# Jasypt
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
