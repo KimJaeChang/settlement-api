@@ -14,4 +14,6 @@ public interface AwsS3Service {
 
   void download(String name);
 
+  void delete(String name);
+
 }

@@ -24,6 +24,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.AbortMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
@@ -46,11 +47,11 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   @Override
   public List<S3ObjectDTO> getBuckits() {
 
-    ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder()
+    ListObjectsV2Request request = ListObjectsV2Request.builder()
         .bucket(bucket)
         .build();
 
-    return s3Client.listObjectsV2(listObjectsV2Request).contents().stream()
+    return s3Client.listObjectsV2(request).contents().stream()
         .map(S3ObjectDTO::createByS3Object)
         .collect(Collectors.toList());
   }
@@ -161,5 +162,15 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     } catch (AwsServiceException | SdkClientException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Override
+  public void delete(String name) {
+    DeleteObjectRequest request = DeleteObjectRequest.builder()
+        .bucket(bucket)
+        .key(path + name)
+        .build();
+
+    s3Client.deleteObject(request);
   }
 }
