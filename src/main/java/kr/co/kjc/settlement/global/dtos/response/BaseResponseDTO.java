@@ -1,5 +1,7 @@
 package kr.co.kjc.settlement.global.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -22,6 +24,7 @@ public class BaseResponseDTO<T> {
   // private String result;
   private int code = HttpStatus.OK.value();
   private String message = "";
+  @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")
   private LocalDateTime timestamp;
 
   // 표준 응답 Body (DTO가 유동적이므로 제네릭을 사용한다.)

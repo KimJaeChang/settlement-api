@@ -1,12 +1,6 @@
 package kr.co.kjc.settlement.global.config;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
-import org.springframework.security.crypto.password.MessageDigestPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -50,19 +44,4 @@ public class CommonWebConfig implements WebMvcConfigurer {
 //    return filterBean;
 //  }
 
-  /**
-   * A안 : DelegatingPasswordEncoder 활용, B안 : StandardPasswordEncoder 활용
-   *
-   * @return
-   */
-  @Bean
-  public PasswordEncoder passwordEncoder(@Value("${spring.application.name}") String secret) {
-    //  bcrypt 암호화 + SHA-256을 사용할 경우는 아래 로직 활성화
-    DelegatingPasswordEncoder delegatingPasswordEncoder = (DelegatingPasswordEncoder) PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(
-        new MessageDigestPasswordEncoder("SHA-256"));
-    return delegatingPasswordEncoder;
-    // 현재는 SHA-256만 진행
-    // return new StandardPasswordEncoder(secret);
-  }
 }

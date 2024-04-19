@@ -42,6 +42,8 @@ dependencies {
     implementation 'org.springframework.security:spring-security-crypto'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
     // https://mvnrepository.com/artifact/com.github.ulisesbocchio/jasypt-spring-boot-starter
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:'.concat(jasypt_version)
 

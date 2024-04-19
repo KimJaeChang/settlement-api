@@ -1,10 +1,13 @@
 package kr.co.kjc.settlement.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import kr.co.kjc.settlement.global.dtos.S3ObjectDTO;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import kr.co.kjc.settlement.global.utils.CommonUtils;
@@ -14,13 +17,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.awscore.exception.AwsServiceException;
+import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.AbortMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.model.UploadPartResponse;
 
@@ -35,7 +43,25 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   @Value("${spring.cloud.aws.s3.path}")
   private String path;
 
+  private final ObjectMapper obj;
   private final S3Client s3Client;
+
+  @Override
+  public S3ObjectDTO getBuckits() {
+
+    ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder()
+        .bucket(bucket)
+        .build();
+
+    ListObjectsV2Response listObjectsV2Response = s3Client.listObjectsV2(listObjectsV2Request);
+    List<S3Object> result = listObjectsV2Response.contents().reversed();
+
+    System.out.println("\t");
+    System.out.println("result : " + result);
+    System.out.println("\t");
+
+    return obj.convertValue(result.getFirst(), S3ObjectDTO.class);
+  }
 
   @Override
   public List<String> uploadFile(MultipartFile multipartFile) {
@@ -122,5 +148,26 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     file.delete();
 
     return putObjectResponse.eTag();
+  }
+
+  @Override
+  public void download(String name) {
+    try {
+      byte[] data = s3Client.getObjectAsBytes(builder -> {
+        builder
+            .bucket(bucket)
+            .key(path + name)
+            .build();
+      }).asByteArray();
+
+      File file = new File(System.getProperty("user.dir") + name);
+      try (FileOutputStream os = new FileOutputStream(file);) {
+        os.write(data);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    } catch (AwsServiceException | SdkClientException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

@@ -5,7 +5,7 @@ spring:
   #    import: kjc-secret.yml
   devtools:
     livereload:
-      enabled: true
+      enabled: false
     restart:
       enabled: false
   thymeleaf:

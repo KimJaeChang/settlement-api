@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.stream.Collectors;
-import org.springframework.http.ResponseEntity;
+import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,9 +19,8 @@ public class BaseController {
 
   @ResponseBody
   @GetMapping("/health-check")
-  public ResponseEntity<String> healthCheck() {
-    return ResponseEntity.ok()
-        .body("success");
+  public BaseResponseDTO<?> healthCheck() {
+    return new BaseResponseDTO<>("success");
   }
 
   @GetMapping("/v1/toss-payments")

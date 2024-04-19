@@ -5,12 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.Getter;
 
 @Entity
 @Getter
 @Table(name = "MEMBER")
-public class Member {
+public class Member extends BaseEntity {
 
   @Id
   @GeneratedValue
@@ -18,6 +19,9 @@ public class Member {
 //  @SequenceGenerator(name = "PAYMENT_SEQ", schema = "CHASYGO", sequenceName = "PAYMENT_SEQ", allocationSize = 1, initialValue = 100)
 //  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PAYMENT_SEQ")
   private Long id;
+
+  @Column(name = "uuid")
+  private String uuid;
 
   @Column(name = "username")
   private String userName;
@@ -28,6 +32,7 @@ public class Member {
   public static Member of(Long id, String userName, String handPhone) {
     Member result = new Member();
     result.id = id;
+    result.uuid = UUID.randomUUID().toString();
     result.userName = userName;
     result.handPhone = handPhone;
     return result;
