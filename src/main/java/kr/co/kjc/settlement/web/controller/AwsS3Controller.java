@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import kr.co.kjc.settlement.service.AwsS3Service;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +32,8 @@ public class AwsS3Controller {
       }
   )
   @PostMapping(value = "/excels/uploads", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-  public BaseResponseDTO<List<String>> upload(@RequestPart MultipartFile multipartFile) {
-    return new BaseResponseDTO<>(awsS3Service.uploadFile(multipartFile));
+  public BaseResponseDTO<String> upload(@RequestPart MultipartFile multipartFile) {
+    return new BaseResponseDTO<>(awsS3Service.uploadObject(multipartFile));
   }
 
 }

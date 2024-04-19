@@ -19,6 +19,8 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.AbortMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.model.UploadPartResponse;
 
@@ -92,34 +94,33 @@ public class AwsS3ServiceImpl implements AwsS3Service {
         .key(path)
         .build();
 
-    return s3Client.createMultipartUpload(
-        createMultipartUploadRequest);
+    return s3Client.createMultipartUpload(createMultipartUploadRequest);
   }
 
-//  @Override
-//  public PutObjectResponse uploadFile(MultipartFile multipartFile) {
-//    if (multipartFile.isEmpty()) {
-//      throw new BaseAPIException(EnumErrorCode.NOT_FOUND_UPLOAD_FILE);
-//    }
-//
-//    File file = null;
-//    try {
-//      file = CommonUtils.convertFile(multipartFile);
-//    } catch (IOException e) {
-//      throw new RuntimeException(e);
-//    }
-//
-//    PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-//        .bucket(bucket)
-//        .key(multipartFile.getOriginalFilename())
-//        .contentType(multipartFile.getContentType())
-//        .build();
-//
-//    PutObjectResponse putObjectResponse = s3Client.putObject(putObjectRequest,
-//        RequestBody.fromFile(file));
-//
-//    file.delete();
-//
-//    return putObjectResponse;
-//  }
+  @Override
+  public String uploadObject(MultipartFile multipartFile) {
+    if (multipartFile.isEmpty()) {
+      throw new BaseAPIException(EnumErrorCode.NOT_FOUND_UPLOAD_FILE);
+    }
+
+    File file = null;
+    try {
+      file = CommonUtils.convertFile(multipartFile);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+        .bucket(bucket)
+        .key(path + multipartFile.getOriginalFilename())  // 경로 + 파일명
+        .contentType(multipartFile.getContentType())
+        .build();
+
+    PutObjectResponse putObjectResponse = s3Client.putObject(putObjectRequest,
+        RequestBody.fromFile(file));
+
+    file.delete();
+
+    return putObjectResponse.eTag();
+  }
 }

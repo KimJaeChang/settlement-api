@@ -7,4 +7,6 @@ public interface AwsS3Service {
 
   List<String> uploadFile(MultipartFile multipartFile);
 
+  String uploadObject(MultipartFile multipartFile);
+
 }

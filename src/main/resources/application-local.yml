@@ -5,7 +5,7 @@ spring:
         bucket: ENC(zaf5L5ffbcCT39F2EFimCbo4/e0LYObd)
         stack:
           auto: false
-        path: ENC(YaHBjwgB1PyeBsqXpOp7tywbFtxU94dw)
+        path: ENC(F3PzvR20Qyr2CO8KSsJ1I+cA7+HMMJeM)
         region:
           static: ENC(uNUz/YWyDxH9jOUx69uetp3DwCQyKESp)
         credentials:
