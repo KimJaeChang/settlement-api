@@ -1,12 +1,12 @@
 package kr.co.kjc.settlement.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 import kr.co.kjc.settlement.global.dtos.S3ObjectDTO;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
@@ -25,10 +25,8 @@ import software.amazon.awssdk.services.s3.model.AbortMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
-import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
-import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.model.UploadPartRequest;
 import software.amazon.awssdk.services.s3.model.UploadPartResponse;
 
@@ -43,24 +41,18 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   @Value("${spring.cloud.aws.s3.path}")
   private String path;
 
-  private final ObjectMapper obj;
   private final S3Client s3Client;
 
   @Override
-  public S3ObjectDTO getBuckits() {
+  public List<S3ObjectDTO> getBuckits() {
 
     ListObjectsV2Request listObjectsV2Request = ListObjectsV2Request.builder()
         .bucket(bucket)
         .build();
 
-    ListObjectsV2Response listObjectsV2Response = s3Client.listObjectsV2(listObjectsV2Request);
-    List<S3Object> result = listObjectsV2Response.contents().reversed();
-
-    System.out.println("\t");
-    System.out.println("result : " + result);
-    System.out.println("\t");
-
-    return obj.convertValue(result.getFirst(), S3ObjectDTO.class);
+    return s3Client.listObjectsV2(listObjectsV2Request).contents().stream()
+        .map(S3ObjectDTO::createByS3Object)
+        .collect(Collectors.toList());
   }
 
   @Override

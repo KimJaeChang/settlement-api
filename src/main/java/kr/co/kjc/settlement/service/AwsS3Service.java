@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface AwsS3Service {
 
-  S3ObjectDTO getBuckits();
+  List<S3ObjectDTO> getBuckits();
 
   List<String> uploadFile(MultipartFile multipartFile);
 

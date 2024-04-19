@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import kr.co.kjc.settlement.global.dtos.S3ObjectDTO;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import kr.co.kjc.settlement.service.AwsS3Service;
@@ -39,7 +40,7 @@ public class AwsS3ApiController {
       }
   )
   @GetMapping(value = "/s3/buckets")
-  public BaseResponseDTO<S3ObjectDTO> findAllByS3Buckets() {
+  public BaseResponseDTO<List<S3ObjectDTO>> findAllByS3Buckets() {
     return new BaseResponseDTO<>(awsS3Service.getBuckits());
   }
 
