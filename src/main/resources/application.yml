@@ -3,6 +3,10 @@ spring:
     name: settlement
   #  config:
   #    import: kjc-secret.yml
+  data:
+    redis:
+      repositories:
+        enabled: false
   devtools:
     livereload:
       enabled: false
@@ -12,6 +16,8 @@ spring:
     cache: false
     suffix: .html
     check-template-location: true
+  main:
+    allow-bean-definition-overriding: true
   mvc:
     view:
       prefix: /WEB-INF/

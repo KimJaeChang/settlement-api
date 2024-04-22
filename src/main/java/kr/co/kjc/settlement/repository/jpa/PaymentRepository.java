@@ -1,10 +1,8 @@
-package kr.co.kjc.settlement.repository;
+package kr.co.kjc.settlement.repository.jpa;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.kjc.settlement.domain.Payment;
+import kr.co.kjc.settlement.domain.jpa.Payment;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

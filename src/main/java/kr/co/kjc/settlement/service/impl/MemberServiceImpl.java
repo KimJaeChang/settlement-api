@@ -1,12 +1,10 @@
 package kr.co.kjc.settlement.service.impl;
 
-import java.util.List;
-import kr.co.kjc.settlement.domain.Member;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.dtos.request.BaseSearchDTO;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
-import kr.co.kjc.settlement.repository.MemberRepository;
+import kr.co.kjc.settlement.repository.jpa.MemberRepository;
 import kr.co.kjc.settlement.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
