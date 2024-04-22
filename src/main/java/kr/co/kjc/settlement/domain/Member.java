@@ -20,6 +20,9 @@ public class Member extends BaseEntity {
 //  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PAYMENT_SEQ")
   private Long id;
 
+  @Column(name = "userid")
+  private String userId;
+
   @Column(name = "uuid")
   private String uuid;
 
@@ -29,9 +32,10 @@ public class Member extends BaseEntity {
   @Column(name = "handphone")
   private String handPhone;
 
-  public static Member of(Long id, String userName, String handPhone) {
+  public static Member of(Long id, String userId, String userName, String handPhone) {
     Member result = new Member();
     result.id = id;
+    result.userId = userId;
     result.uuid = UUID.randomUUID().toString();
     result.userName = userName;
     result.handPhone = handPhone;

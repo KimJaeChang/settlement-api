@@ -2,6 +2,7 @@ package kr.co.kjc.settlement.service.impl;
 
 import io.jsonwebtoken.Jwts;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
@@ -22,9 +23,11 @@ public class JwtServiceImpl implements JwtService {
   public String createAccessToken(MemberDTO memberDTO, EnumJwtCategory jwtCategory,
       EnumJwtRole jwtRole, Long expiredMs) {
     return Jwts.builder()
-        .claim("category", jwtCategory)
-        .claim("role", jwtRole)
-        .claim("user", memberDTO)
+        .claims(Map.of(
+            "category", jwtCategory,
+            "role", jwtRole,
+            "user", memberDTO
+        ))
         .issuedAt(new Date(System.currentTimeMillis()))
         .expiration(new Date(System.currentTimeMillis() + expiredMs))
         .signWith(secretKey)
