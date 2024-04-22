@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+import kr.co.kjc.settlement.global.dtos.S3BucketDTO;
 import kr.co.kjc.settlement.global.dtos.S3ObjectDTO;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import kr.co.kjc.settlement.service.AwsS3Service;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,8 +42,23 @@ public class AwsS3ApiController {
       }
   )
   @GetMapping(value = "/s3/buckets")
-  public BaseResponseDTO<List<S3ObjectDTO>> findAllByS3Buckets() {
+  public BaseResponseDTO<List<S3BucketDTO>> findAllByS3Buckets() {
     return new BaseResponseDTO<>(awsS3Service.getBuckits());
+  }
+
+  @Operation(summary = "S3 버킷 파일 조회", description = "S3 버킷 내의 파일을 조회 합니다. ",
+      responses = {
+          @ApiResponse(responseCode = "200", description = "성공 응답(success)", useReturnTypeSchema = true),
+          @ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "403", description = "권한없음", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "404", description = "데이터 없음", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "500", description = "서버오류", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+      }
+  )
+  @GetMapping(value = "/s3/buckets/objects")
+  public BaseResponseDTO<List<S3ObjectDTO>> findAllByS3Buckets(
+      @RequestParam("bucket") String bucketName) {
+    return new BaseResponseDTO<>(awsS3Service.getObjects(bucketName));
   }
 
   @Operation(summary = "S3 파일 업로드", description = "S3 파일을 업로드 합니다. ",
@@ -68,8 +85,25 @@ public class AwsS3ApiController {
       }
   )
   @GetMapping(value = "/s3/downloads")
-  public ResponseEntity<Void> download(@RequestParam("name") String name) {
-    awsS3Service.download(name);
+  public ResponseEntity<Void> download(@RequestParam("bucket") String bucketName,
+      @RequestParam("path") String path, @RequestParam("fileName") String fileName) {
+    awsS3Service.download(bucketName, path, fileName);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
+  @Operation(summary = "S3 파일 삭제", description = "S3 파일을 삭제 합니다. ",
+      responses = {
+          @ApiResponse(responseCode = "200", description = "성공 응답(success)", useReturnTypeSchema = true),
+          @ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "403", description = "권한없음", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "404", description = "데이터 없음", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "500", description = "서버오류", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+      }
+  )
+  @DeleteMapping(value = "/s3/buckets/objects")
+  public ResponseEntity<Void> delete(@RequestParam("bucket") String bucketName,
+      @RequestParam("path") String path, @RequestParam("fileName") String fileName) {
+    awsS3Service.download(bucketName, path, fileName);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }

@@ -8,6 +8,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
@@ -26,7 +27,13 @@ public class GlobalLoggingInterceptor implements HandlerInterceptor {
 
     StringBuilder sb = new StringBuilder();
     sb.append("[REQUEST][").append(uuid).append("][").append(request.getMethod()).append("][")
-        .append(requestURI).append("]");
+        .append(requestURI);
+
+    if (StringUtils.hasText(request.getQueryString())) {
+      sb.append("?").append(request.getQueryString()).append("]");
+    } else {
+      sb.append("]");
+    }
 
     try {
       ContentCachingRequestWrapper cachingRequest = new ContentCachingRequestWrapper(request);

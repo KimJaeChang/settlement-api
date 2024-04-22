@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import kr.co.kjc.settlement.global.dtos.S3BucketDTO;
 import kr.co.kjc.settlement.global.dtos.S3ObjectDTO;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
@@ -24,7 +25,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.AbortMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.DeleteObjectTaggingRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
@@ -45,7 +46,14 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   private final S3Client s3Client;
 
   @Override
-  public List<S3ObjectDTO> getBuckits() {
+  public List<S3BucketDTO> getBuckits() {
+    return s3Client.listBuckets().buckets().stream()
+        .map(S3BucketDTO::of)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<S3ObjectDTO> getObjects(String bucketName) {
 
     ListObjectsV2Request request = ListObjectsV2Request.builder()
         .bucket(bucket)
@@ -144,16 +152,16 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   }
 
   @Override
-  public void download(String name) {
+  public void download(String bucketName, String path, String fileName) {
     try {
       byte[] data = s3Client.getObjectAsBytes(builder -> {
         builder
-            .bucket(bucket)
-            .key(path + name)
+            .bucket(bucketName)
+            .key(path + fileName)
             .build();
       }).asByteArray();
 
-      File file = new File(System.getProperty("user.dir") + name);
+      File file = new File(System.getProperty("user.dir") + "/downloads/" + fileName);
       try (FileOutputStream os = new FileOutputStream(file);) {
         os.write(data);
       } catch (IOException e) {
@@ -165,12 +173,12 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   }
 
   @Override
-  public void delete(String name) {
-    DeleteObjectRequest request = DeleteObjectRequest.builder()
-        .bucket(bucket)
-        .key(path + name)
+  public void delete(String bucketName, String path, String fileName) {
+    DeleteObjectTaggingRequest request = DeleteObjectTaggingRequest.builder()
+        .bucket(bucketName)
+        .key(path + fileName)
         .build();
 
-    s3Client.deleteObject(request);
+    s3Client.deleteObjectTagging(request);
   }
 }
