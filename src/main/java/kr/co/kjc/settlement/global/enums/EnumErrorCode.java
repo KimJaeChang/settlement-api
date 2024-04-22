@@ -12,6 +12,13 @@ public enum EnumErrorCode {
    * 400 - Bad Request
    */
   INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter included"),
+  INVALID_JWT_TOKEN(HttpStatus.BAD_REQUEST, "올바르지 않은 JWT 토큰입니다."),
+
+  /**
+   * 401 - Unauthorized
+   */
+  UNAUTHORIZED_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "JWT 토근 인증이 필요합니다."),
+  EXPIRED_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "만료된 JWT 토큰 입니다. Refresh 토큰을 발급해주세요."),
 
   /**
    * 404 - Not Found

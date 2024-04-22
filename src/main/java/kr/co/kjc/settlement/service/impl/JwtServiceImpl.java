@@ -46,6 +46,7 @@ public class JwtServiceImpl implements JwtService {
   }
 
   // token 유효확인
+  // 예외처리 필요
   @Override
   public boolean isExpired(String token) {
     return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload()
