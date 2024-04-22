@@ -1,5 +1,10 @@
 package kr.co.kjc.settlement.global.config;
 
+import kr.co.kjc.settlement.global.argumentResolver.JwtArgumentResolver;
+import kr.co.kjc.settlement.global.interceptor.GlobalLoggingInterceptor;
+import kr.co.kjc.settlement.global.interceptor.JwtInterceptor;
+import kr.co.kjc.settlement.service.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -8,7 +13,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
+@RequiredArgsConstructor
 public class CommonWebConfig implements WebMvcConfigurer {
+
+  private final JwtService jwtService;
+
+  private final JwtArgumentResolver jwtArgumentResolver;
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) { // 기본 resourceHandler 유지하면서 추가
@@ -26,7 +36,15 @@ public class CommonWebConfig implements WebMvcConfigurer {
             "/css/**", "/*.ico"
             , "/error", "/error-page/**" //오류 페이지 경로
         );
+    registry.addInterceptor(new JwtInterceptor(jwtService))
+        .excludePathPatterns("/api-docs/**", "/swagger-ui/**", "/health-check")
+        .addPathPatterns("/**");
   }
+
+//  @Override
+//  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+//    resolvers.add(jwtArgumentResolver);
+//  }
 
   // NOTE : CORS Filter
 //  @Bean

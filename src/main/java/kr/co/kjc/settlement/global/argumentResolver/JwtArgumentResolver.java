@@ -1,5 +1,9 @@
 package kr.co.kjc.settlement.global.argumentResolver;
 
+import jakarta.servlet.http.HttpServletRequest;
+import kr.co.kjc.settlement.global.annotation.JwtAuthorization;
+import kr.co.kjc.settlement.service.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -8,16 +12,23 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 @Component
+@RequiredArgsConstructor
 public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
+
+  private static final long EXPIRED_MS = 1000 * 60 * 60 * 24L;
+
+  private final JwtService jwtService;
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
-    return false;
+    return parameter.hasParameterAnnotation(JwtAuthorization.class);
   }
 
   @Override
   public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
       NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+
     return null;
   }
 }

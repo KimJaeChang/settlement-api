@@ -23,7 +23,7 @@ public class S3ObjectDTO {
   private String storageClass;
   private Long size;
 
-  public static S3ObjectDTO createByS3Object(S3Object s3Object) {
+  public static S3ObjectDTO of(S3Object s3Object) {
     S3ObjectDTO result = new S3ObjectDTO();
     result.key = s3Object.key();
     result.lastModified = LocalDateTime.ofInstant(s3Object.lastModified(), ZoneId.of("Asia/Seoul"));

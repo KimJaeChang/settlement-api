@@ -17,6 +17,7 @@ ext {
     p6spy_version = "1.9.1"
     apache_poi_xlsx_version = "5.2.5"
     aws_cloud_version = "3.1.1"
+    jwt_verson = "0.12.5"
 }
 
 configurations {
@@ -56,6 +57,11 @@ dependencies {
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+    // JWT Token
+    implementation "io.jsonwebtoken:jjwt-api:".concat(jwt_verson)
+    implementation "io.jsonwebtoken:jjwt-impl:".concat(jwt_verson)
+    implementation "io.jsonwebtoken:jjwt-jackson:".concat(jwt_verson)
 
     // Apache - POI
     implementation 'org.apache.poi:poi-ooxml:'.concat(apache_poi_xlsx_version)

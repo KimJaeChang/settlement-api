@@ -52,7 +52,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
         .build();
 
     return s3Client.listObjectsV2(request).contents().stream()
-        .map(S3ObjectDTO::createByS3Object)
+        .map(S3ObjectDTO::of)
         .collect(Collectors.toList());
   }
 
