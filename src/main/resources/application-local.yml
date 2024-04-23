@@ -3,6 +3,7 @@ spring:
     redis:
       host: redis.everon.co.kr
       port: 6379
+      password: ENC(O+EC4vrJkho0m2C4bHgjIkbpVWUtiMxEe8iPD+8x9jA=)
   cloud:
     aws:
       s3:

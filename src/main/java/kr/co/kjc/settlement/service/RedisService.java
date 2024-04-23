@@ -2,6 +2,6 @@ package kr.co.kjc.settlement.service;
 
 public interface RedisService {
 
-  void save(String key, Object value);
+  Boolean save(String table, String key, Object value);
 
 }

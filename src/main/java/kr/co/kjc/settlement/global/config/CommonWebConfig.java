@@ -37,7 +37,8 @@ public class CommonWebConfig implements WebMvcConfigurer {
             , "/error", "/error-page/**" //오류 페이지 경로
         );
     registry.addInterceptor(new JwtInterceptor(jwtService))
-        .excludePathPatterns("/api-docs/**", "/swagger-ui/**", "/health-check", "/api/v1/s3/**")
+        .excludePathPatterns("/api-docs/**", "/swagger-ui/**", "/health-check", "/api/v1/s3/**",
+            "/api/v1/authorization/**")
         .addPathPatterns("/**");
   }
 

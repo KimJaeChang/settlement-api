@@ -14,8 +14,7 @@ public class RedisServiceImpl implements RedisService {
   private final ObjectMapper mapper;
 
   @Override
-  public void save(String key, Object value) {
-    redisTemplate.opsForValue()
-        .set(key, value);
+  public Boolean save(String table, String key, Object value) {
+    return redisTemplate.opsForHash().putIfAbsent(table, key, value);
   }
 }
