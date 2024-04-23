@@ -3,10 +3,6 @@ spring:
     name: settlement
   #  config:
   #    import: kjc-secret.yml
-  data:
-    redis:
-      repositories:
-        enabled: false
   devtools:
     livereload:
       enabled: false

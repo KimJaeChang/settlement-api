@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import kr.co.kjc.settlement.global.dtos.response.JwtTokenDTO;
 import kr.co.kjc.settlement.service.JwtService;
-import kr.co.kjc.settlement.service.RedisService;
+import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class JwtApiController {
 
   private final JwtService jwtService;
-  private final RedisService redisService;
+  private final JwtTokenService jwtTokenService;
 
   @Operation(summary = "JWT AccessToken 발급", description = "JWT AccessToken을 발급 합니다. ",
       responses = {
@@ -35,11 +35,8 @@ public class JwtApiController {
       }
   )
   @PostMapping(value = "/authorization")
-  public BaseResponseDTO<JwtTokenDTO> createAccessToken(@RequestParam("table") String table,
-      @RequestParam("key") String key,
-      @RequestParam("value") String value) {
-    Boolean result = redisService.save(table, key, value);
-    return new BaseResponseDTO<>();
+  public BaseResponseDTO<JwtTokenDTO> createAccessToken(@RequestParam("uuid") String uuid) {
+    return new BaseResponseDTO<>(jwtTokenService.saveRefreshToken(uuid));
   }
 
   @Operation(summary = "JWT AccessToken 발급", description = "JWT AccessToken을 발급 합니다. ",

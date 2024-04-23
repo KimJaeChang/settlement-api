@@ -1,24 +1,24 @@
-package kr.co.kjc.settlement.repository;
+package kr.co.kjc.settlement.repository.jpa;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.kjc.settlement.domain.Member;
+import kr.co.kjc.settlement.domain.jpa.Payment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-public interface MemberRepository extends JpaRepository<Member, Long>,
-    JpaSpecificationExecutor<Member>, CustomMemberRepository {
+public interface PaymentJpaRepository extends JpaRepository<Payment, Long>,
+    JpaSpecificationExecutor<Payment>, CustomPaymentJpaRepository {
 
 }
 
-interface CustomMemberRepository {
+interface CustomPaymentJpaRepository {
 
 }
 
 @Repository
 @RequiredArgsConstructor
-class CustomCustomMemberRepositoryImpl implements CustomMemberRepository {
+class CustomPaymentJpaRepositoryImpl implements CustomPaymentJpaRepository {
 
   private final JPAQueryFactory queryFactory;
 

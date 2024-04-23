@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.enums.EnumJwtCategory;
 import kr.co.kjc.settlement.global.enums.EnumJwtRole;
+import kr.co.kjc.settlement.repository.redis.TokenRedisRepository;
 import kr.co.kjc.settlement.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,16 @@ import org.springframework.stereotype.Service;
 public class JwtServiceImpl implements JwtService {
 
   private final SecretKey secretKey;
+  private final TokenRedisRepository tokenRedisRepository;
 
   // JWT 발급
   @Override
   public String createAccessToken(MemberDTO memberDTO, EnumJwtCategory jwtCategory,
       EnumJwtRole jwtRole, Long expiredMs) {
+
+//    Token token = Token.of(memberDTO.getUuid(), refreshToken, LocalDateTime.now(ZoneId.of("Asia/Seoul")), 60);
+//    Token saveToken = tokenRedisRepository.save(token);
+
     return Jwts.builder()
         .claims(Map.of(
             "category", jwtCategory,
