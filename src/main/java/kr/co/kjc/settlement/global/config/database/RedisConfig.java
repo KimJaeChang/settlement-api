@@ -20,12 +20,12 @@ public class RedisConfig {
   @Bean
   public RedisConnectionFactory redisConnectionFactory() {
 
-    RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-    redisStandaloneConfiguration.setHostName(redisProperties.getHost());
-    redisStandaloneConfiguration.setPort(redisProperties.getPort());
-    redisStandaloneConfiguration.setPassword(redisProperties.getPassword());
+    RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration();
+    configuration.setHostName(redisProperties.getHost());
+    configuration.setPort(redisProperties.getPort());
+    configuration.setPassword(redisProperties.getPassword());
 
-    return new LettuceConnectionFactory(redisStandaloneConfiguration);
+    return new LettuceConnectionFactory(configuration);
 
   }
 

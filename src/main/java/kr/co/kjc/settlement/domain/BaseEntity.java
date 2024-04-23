@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.domain.jpa;
+package kr.co.kjc.settlement.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

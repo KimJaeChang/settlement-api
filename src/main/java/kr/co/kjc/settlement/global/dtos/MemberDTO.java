@@ -1,6 +1,6 @@
 package kr.co.kjc.settlement.global.dtos;
 
-import kr.co.kjc.settlement.domain.jpa.Member;
+import kr.co.kjc.settlement.domain.Member;
 import lombok.Data;
 
 @Data

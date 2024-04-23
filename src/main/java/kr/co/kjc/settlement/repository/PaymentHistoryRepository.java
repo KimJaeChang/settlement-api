@@ -1,7 +1,7 @@
-package kr.co.kjc.settlement.repository.jpa;
+package kr.co.kjc.settlement.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.kjc.settlement.domain.jpa.PaymentHistory;
+import kr.co.kjc.settlement.domain.PaymentHistory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
