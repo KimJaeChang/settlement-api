@@ -102,8 +102,8 @@ public class AwsS3ApiController {
   )
   @DeleteMapping(value = "/s3/buckets/objects")
   public ResponseEntity<Void> delete(@RequestParam("bucket") String bucketName,
-      @RequestParam("path") String path, @RequestParam("fileName") String fileName) {
-    awsS3Service.download(bucketName, path, fileName);
+      @RequestParam("key") String key) {
+    awsS3Service.delete(bucketName, key);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }

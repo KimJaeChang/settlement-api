@@ -25,7 +25,8 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.AbortMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadRequest;
 import software.amazon.awssdk.services.s3.model.CreateMultipartUploadResponse;
-import software.amazon.awssdk.services.s3.model.DeleteObjectTaggingRequest;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
+import software.amazon.awssdk.services.s3.model.ListBucketsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectResponse;
@@ -44,10 +45,11 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   private String path;
 
   private final S3Client s3Client;
+  private final ListBucketsRequest listBucketsRequest;
 
   @Override
   public List<S3BucketDTO> getBuckits() {
-    return s3Client.listBuckets().buckets().stream()
+    return s3Client.listBuckets(listBucketsRequest).buckets().stream()
         .map(S3BucketDTO::of)
         .collect(Collectors.toList());
   }
@@ -172,13 +174,17 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     }
   }
 
+  /**
+   * @param bucketName
+   * @param key        : ex) v1/uploads/파일명.txt
+   */
   @Override
-  public void delete(String bucketName, String path, String fileName) {
-    DeleteObjectTaggingRequest request = DeleteObjectTaggingRequest.builder()
+  public void delete(String bucketName, String key) {
+    DeleteObjectRequest request = DeleteObjectRequest.builder()
         .bucket(bucketName)
-        .key(path + fileName)
+        .key(key)
         .build();
 
-    s3Client.deleteObjectTagging(request);
+    s3Client.deleteObject(request);
   }
 }

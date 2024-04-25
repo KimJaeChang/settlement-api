@@ -7,8 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.awscore.AwsRequestOverrideConfiguration;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.ListBucketsRequest;
 
 @Configuration
 public class S3Config {
@@ -33,6 +35,16 @@ public class S3Config {
   @Bean
   public StaticRegionProvider regionProvider() {
     return new StaticRegionProvider(Region.of(region).id());
+  }
+
+  @Bean
+  public ListBucketsRequest listBucketsRequest() {
+    return ListBucketsRequest.builder()
+        .overrideConfiguration(AwsRequestOverrideConfiguration.builder()
+            .credentialsProvider(
+                StaticCredentialsProvider.create(AwsBasicCredentials.create(accessKey, secretKey)))
+            .build())
+        .build();
   }
 
   private AwsCredentialsProvider awsCredentialsProvider() {
