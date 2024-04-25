@@ -25,9 +25,6 @@ public class JwtServiceImpl implements JwtService {
   public String createAccessToken(MemberDTO memberDTO, EnumJwtCategory jwtCategory,
       EnumJwtRole jwtRole, Long expiredMs) {
 
-//    Token token = Token.of(memberDTO.getUuid(), refreshToken, LocalDateTime.now(ZoneId.of("Asia/Seoul")), 60);
-//    Token saveToken = tokenRedisRepository.save(token);
-
     return Jwts.builder()
         .claims(Map.of(
             "category", jwtCategory,

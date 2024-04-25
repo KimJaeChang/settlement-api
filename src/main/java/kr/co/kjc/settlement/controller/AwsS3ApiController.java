@@ -101,9 +101,8 @@ public class AwsS3ApiController {
       }
   )
   @DeleteMapping(value = "/s3/buckets/objects")
-  public ResponseEntity<Void> delete(@RequestParam("bucket") String bucketName,
+  public ResponseEntity<Boolean> delete(@RequestParam("bucket") String bucketName,
       @RequestParam("key") String key) {
-    awsS3Service.delete(bucketName, key);
-    return new ResponseEntity<>(HttpStatus.OK);
+    return new ResponseEntity<>(awsS3Service.delete(bucketName, key), HttpStatus.OK);
   }
 }

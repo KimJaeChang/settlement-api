@@ -1,8 +1,11 @@
 package kr.co.kjc.settlement.global.utils;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -68,5 +71,14 @@ public class DateTimeUtils {
 
   public static String convertToISO8601(LocalDateTime dateTime) {
     return DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss+09:00").format(dateTime);
+  }
+
+  public static Date nowDate() {
+    return Timestamp.valueOf(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
+  }
+
+  public static Date afterDateMs(long afterMs) {
+    return Timestamp.valueOf(
+        LocalDateTime.now(ZoneId.of("Asia/Seoul")).plusSeconds((afterMs / 1000) % 60));
   }
 }

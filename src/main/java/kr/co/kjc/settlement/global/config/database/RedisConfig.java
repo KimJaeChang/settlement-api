@@ -7,13 +7,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisKeyValueAdapter;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
 @Configuration
 @RequiredArgsConstructor
-@EnableRedisRepositories(basePackages = "kr.co.kjc.settlement.repository.redis")
+@EnableRedisRepositories(basePackages = "kr.co.kjc.settlement.repository.redis", enableKeyspaceEvents = RedisKeyValueAdapter.EnableKeyspaceEvents.ON_STARTUP)
+// https://dkswnkk.tistory.com/709 참고
 public class RedisConfig {
 
   private final RedisProperties redisProperties;

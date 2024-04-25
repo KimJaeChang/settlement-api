@@ -32,13 +32,18 @@ public class Member extends BaseEntity {
   @Column(name = "handphone")
   private String handPhone;
 
-  public static Member of(Long id, String userId, String userName, String handPhone) {
+  public static Member of(String userId, String userName, String handPhone) {
     Member result = new Member();
-    result.id = id;
     result.userId = userId;
     result.uuid = UUID.randomUUID().toString();
     result.userName = userName;
     result.handPhone = handPhone;
+    return result;
+  }
+
+  public static Member createExampleByUuid(String uuid) {
+    Member result = new Member();
+    result.uuid = uuid;
     return result;
   }
 }

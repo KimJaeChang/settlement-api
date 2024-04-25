@@ -33,10 +33,10 @@ public class JwtTokenDTO {
     JwtTokenDTO result = new JwtTokenDTO();
     result.uuid = token.getUuid();
     result.accessToken = accessToken;
-    result.refreshToken = token.getRefreshToken();
-    result.createdAt = token.getCreatedAt();
+    result.refreshToken = token.getTokenBody().getRefreshToken();
+    result.createdAt = token.getTokenBody().getCreatedAt();
     result.expiredAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"))
-        .plusSeconds(token.getExpiredTime());
+        .plusSeconds(token.getTokenBody().getExpiredTime());
     return result;
   }
 }

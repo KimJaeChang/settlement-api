@@ -1,11 +1,16 @@
 package kr.co.kjc.settlement.service.impl;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.domain.redis.Token;
+import kr.co.kjc.settlement.domain.redis.TokenBody;
+import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.dtos.response.JwtTokenDTO;
+import kr.co.kjc.settlement.global.enums.EnumJwtCategory;
+import kr.co.kjc.settlement.global.enums.EnumJwtRole;
+import kr.co.kjc.settlement.global.utils.JwtUtils;
 import kr.co.kjc.settlement.repository.redis.TokenRedisRepository;
 import kr.co.kjc.settlement.service.JwtTokenService;
+import kr.co.kjc.settlement.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,22 +19,24 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtTokenServiceImpl implements JwtTokenService {
 
+  private static final long EXPIRED_MS = 60000;
+  private final SecretKey secretKey;
+  private final MemberService memberService;
   private final RedisTemplate<String, Object> redisTemplate;
   private final TokenRedisRepository tokenRedisRepository;
 
   @Override
-  public JwtTokenDTO save(String uuid) {
-    return null;
-  }
-
-  @Override
-  public JwtTokenDTO saveRefreshToken(String uuid) {
+  public JwtTokenDTO create(String uuid, EnumJwtCategory jwtCategory,
+      EnumJwtRole jwtRole) {
 //    return redisTemplate.opsForHash().putIfAbsent(table, key, value);
 
-    String accessToken = "";
-    String refreshToken = "";
+    MemberDTO memberDTO = memberService.findByUuid(uuid);
 
-    Token token = Token.of(uuid, refreshToken, LocalDateTime.now(ZoneId.of("Asia/Seoul")), 60);
+    String accessToken = JwtUtils.createAccessToken(secretKey, memberDTO, jwtCategory, jwtRole,
+        EXPIRED_MS);
+    String refreshToken = JwtUtils.createRefreshToken(secretKey, EXPIRED_MS);
+
+    Token token = Token.of(uuid, TokenBody.of(refreshToken, EXPIRED_MS));
     Token saveToken = tokenRedisRepository.save(token);
 
     return JwtTokenDTO.createByToken(saveToken, accessToken);
@@ -38,5 +45,10 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   @Override
   public void update(String uuid) {
 
+  }
+
+  @Override
+  public boolean isExpired(String accessToken) {
+    return JwtUtils.isExpired(secretKey, accessToken);
   }
 }

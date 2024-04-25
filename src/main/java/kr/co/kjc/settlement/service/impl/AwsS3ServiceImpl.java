@@ -179,12 +179,17 @@ public class AwsS3ServiceImpl implements AwsS3Service {
    * @param key        : ex) v1/uploads/파일명.txt
    */
   @Override
-  public void delete(String bucketName, String key) {
+  public boolean delete(String bucketName, String key) {
     DeleteObjectRequest request = DeleteObjectRequest.builder()
         .bucket(bucketName)
         .key(key)
         .build();
 
-    s3Client.deleteObject(request);
+    try {
+      s3Client.deleteObject(request);
+      return true;
+    } catch (AwsServiceException | SdkClientException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

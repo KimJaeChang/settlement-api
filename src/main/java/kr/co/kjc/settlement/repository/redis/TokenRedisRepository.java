@@ -16,6 +16,6 @@ interface CustomTokenRedisRepository {
 @Repository
 @RequiredArgsConstructor
 class CustomTokenRedisRepositoryImpl implements CustomTokenRedisRepository {
-  
+
 }
 

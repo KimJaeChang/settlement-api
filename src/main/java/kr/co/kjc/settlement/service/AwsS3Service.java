@@ -17,6 +17,6 @@ public interface AwsS3Service {
 
   void download(String bucketName, String path, String fileName);
 
-  void delete(String bucketName, String key);
+  boolean delete(String bucketName, String key);
 
 }
