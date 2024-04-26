@@ -16,7 +16,6 @@ public class Token {
   @Embedded
   private TokenBody tokenBody;
 
-
   public static Token of(String uuid, TokenBody tokenBody) {
     Token result = new Token();
     result.uuid = uuid;

@@ -8,7 +8,7 @@ import kr.co.kjc.settlement.domain.redis.Token;
 import lombok.Getter;
 
 @Getter
-public class JwtTokenDTO {
+public class JwtTokenResDTO {
 
   private String uuid;
   private String accessToken;
@@ -18,9 +18,9 @@ public class JwtTokenDTO {
   @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")
   private LocalDateTime expiredAt;
 
-  public static JwtTokenDTO of(String uuid, String accessToken, String refreshToken,
+  public static JwtTokenResDTO of(String uuid, String accessToken, String refreshToken,
       Long expiredMs) {
-    JwtTokenDTO result = new JwtTokenDTO();
+    JwtTokenResDTO result = new JwtTokenResDTO();
     result.uuid = uuid;
     result.accessToken = accessToken;
     result.refreshToken = refreshToken;
@@ -29,8 +29,8 @@ public class JwtTokenDTO {
     return result;
   }
 
-  public static JwtTokenDTO createByToken(Token token, String accessToken) {
-    JwtTokenDTO result = new JwtTokenDTO();
+  public static JwtTokenResDTO createByToken(Token token, String accessToken) {
+    JwtTokenResDTO result = new JwtTokenResDTO();
     result.uuid = token.getUuid();
     result.accessToken = accessToken;
     result.refreshToken = token.getTokenBody().getRefreshToken();

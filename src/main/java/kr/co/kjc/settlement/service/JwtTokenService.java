@@ -1,14 +1,14 @@
 package kr.co.kjc.settlement.service;
 
-import kr.co.kjc.settlement.global.dtos.response.JwtTokenDTO;
-import kr.co.kjc.settlement.global.enums.EnumJwtCategory;
-import kr.co.kjc.settlement.global.enums.EnumJwtRole;
+import kr.co.kjc.settlement.global.dtos.request.JwtTokenRefreshReqDTO;
+import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
+import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
 
 public interface JwtTokenService {
 
-  JwtTokenDTO create(String uuid, EnumJwtCategory jwtCategory, EnumJwtRole jwtRole);
+  JwtTokenResDTO create(JwtTokenReqDTO dto);
 
-  void update(String uuid);
+  void update(JwtTokenRefreshReqDTO dto);
 
   boolean isExpired(String accessToken);
 
