@@ -57,7 +57,7 @@ public class JwtServiceImpl implements JwtService {
   }
 
   @Override
-  public MemberDTO getUser(String token) {
+  public MemberDTO findMemberByToken(String token) {
     return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload()
         .get("user", MemberDTO.class);
   }

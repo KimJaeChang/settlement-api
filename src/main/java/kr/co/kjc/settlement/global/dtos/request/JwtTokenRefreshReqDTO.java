@@ -20,9 +20,9 @@ public class JwtTokenRefreshReqDTO {
 
   public static JwtTokenRefreshReqDTO createByToken(Token token, String accessToken) {
     JwtTokenRefreshReqDTO result = new JwtTokenRefreshReqDTO();
-    result.uuid = token.getUuid();
+    result.uuid = token.getTokenBody().getUuid();
     result.accessToken = accessToken;
-    result.refreshToken = token.getTokenBody().getRefreshToken();
+    result.refreshToken = token.getRefreshToken();
     return result;
   }
 }

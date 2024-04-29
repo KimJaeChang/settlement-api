@@ -15,8 +15,6 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 @RequiredArgsConstructor
 public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
 
-  private static final long EXPIRED_MS = (long) 1000 * 60 * 60; // 1시간
-
   private final JwtService jwtService;
 
   @Override

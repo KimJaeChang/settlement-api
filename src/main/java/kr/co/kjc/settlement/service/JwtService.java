@@ -14,7 +14,7 @@ public interface JwtService {
 
   boolean isExpired(String token);
 
-  MemberDTO getUser(String token);
+  MemberDTO findMemberByToken(String token);
 
   EnumJwtCategory getCategory(String token);
 

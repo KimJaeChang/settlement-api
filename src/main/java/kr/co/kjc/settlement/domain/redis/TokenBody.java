@@ -25,15 +25,15 @@ import org.springframework.data.redis.core.index.Indexed;
 public class TokenBody implements Serializable {
 
   @Indexed
-  private String refreshToken;
+  private String uuid;
   private LocalDateTime createdAt;
   private LocalDateTime expiredAt;
   @TimeToLive(unit = TimeUnit.MILLISECONDS)
   private Long expiredTime;
 
-  public static TokenBody of(String refreshToken, long expiredTime) {
+  public static TokenBody of(String uuid, long expiredTime) {
     TokenBody result = new TokenBody();
-    result.refreshToken = refreshToken;
+    result.uuid = uuid;
     result.createdAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"));
     result.expiredAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"))
         .plus(expiredTime, ChronoUnit.MILLIS);

@@ -36,7 +36,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         throw new BaseAPIException(EnumErrorCode.EXPIRED_JWT_TOKEN);
       }
 
-      MemberDTO memberDTO = jwtService.getUser(accessToken);
+      MemberDTO memberDTO = jwtService.findMemberByToken(accessToken);
       if (!StringUtils.hasText(memberDTO.getUuid())) {
         throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN);
       }

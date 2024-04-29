@@ -1,6 +1,8 @@
 package kr.co.kjc.settlement.global.utils;
 
 import io.jsonwebtoken.Jwts;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
@@ -42,6 +44,19 @@ public class JwtUtils {
         .expiration(DateTimeUtils.afterDateMs(expiredMs))
         .signWith(secretKey)
         .compact();
+  }
+
+  /**
+   * 토큰의 만료기간을 지정하는 함수
+   *
+   * @return Calendar
+   */
+  private static Date createExpiredDate(long expiredMs) {
+    // 토큰 만료시간은 30일으로 설정
+    Calendar c = Calendar.getInstance();
+    c.add(Calendar.MILLISECOND, (int) expiredMs);
+    // c.add(Calendar.DATE, 1);         // 1일
+    return c.getTime();
   }
 
   public static boolean isExpired(SecretKey secretKey, String accessToken) {

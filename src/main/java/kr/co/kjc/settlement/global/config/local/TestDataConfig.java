@@ -5,6 +5,7 @@ import java.util.List;
 import kr.co.kjc.settlement.domain.jpa.Member;
 import kr.co.kjc.settlement.repository.jpa.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TestDataConfig {
 
+  @Value("${spring.jpa.hibernate.ddl-auto}")
+  private String ddlAuto;
+
   private final MemberJpaRepository memberJpaRepository;
 
   @PostConstruct
   void init() {
-    createMembers();  // 테스트 유저 생성
+    if (!ddlAuto.equals("none")) {
+      createMembers();  // 테스트 유저 생성
+    }
   }
 
   @Transactional

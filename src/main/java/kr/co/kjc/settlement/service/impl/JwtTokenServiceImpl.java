@@ -12,7 +12,6 @@ import kr.co.kjc.settlement.repository.redis.TokenRedisRepository;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import kr.co.kjc.settlement.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,7 +21,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   private static final long EXPIRED_MS = 60000;
   private final SecretKey secretKey;
   private final MemberService memberService;
-  private final RedisTemplate<String, Object> redisTemplate;
   private final TokenRedisRepository tokenRedisRepository;
 
   @Override
@@ -36,7 +34,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         dto.getJwtRole(), EXPIRED_MS);
     String refreshToken = JwtUtils.createRefreshToken(secretKey, EXPIRED_MS);
 
-    Token token = Token.of(uuid, TokenBody.of(refreshToken, EXPIRED_MS));
+    Token token = Token.of(refreshToken, TokenBody.of(uuid, EXPIRED_MS));
     Token saveToken = tokenRedisRepository.save(token);
 
     return JwtTokenResDTO.createByToken(saveToken, accessToken);
@@ -49,6 +47,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
   @Override
   public boolean isExpired(String accessToken) {
-    return JwtUtils.isExpired(secretKey, accessToken);
+//    return JwtUtils.isExpired(secretKey, accessToken);
+    return tokenRedisRepository.existsById(accessToken);
   }
 }

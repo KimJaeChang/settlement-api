@@ -31,9 +31,9 @@ public class JwtTokenResDTO {
 
   public static JwtTokenResDTO createByToken(Token token, String accessToken) {
     JwtTokenResDTO result = new JwtTokenResDTO();
-    result.uuid = token.getUuid();
+    result.uuid = token.getTokenBody().getUuid();
     result.accessToken = accessToken;
-    result.refreshToken = token.getTokenBody().getRefreshToken();
+    result.refreshToken = token.getRefreshToken();
     result.createdAt = token.getTokenBody().getCreatedAt();
     result.expiredAt = LocalDateTime.now(ZoneId.of("Asia/Seoul"))
         .plusSeconds(token.getTokenBody().getExpiredTime());
