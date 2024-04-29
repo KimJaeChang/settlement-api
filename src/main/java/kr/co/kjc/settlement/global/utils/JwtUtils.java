@@ -5,10 +5,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import javax.crypto.SecretKey;
+import kr.co.kjc.settlement.global.constants.CommonConstants;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
+import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.enums.EnumJwtCategory;
 import kr.co.kjc.settlement.global.enums.EnumJwtRole;
+import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import lombok.experimental.UtilityClass;
+import org.springframework.util.StringUtils;
 
 @UtilityClass
 public class JwtUtils {
@@ -78,5 +82,15 @@ public class JwtUtils {
 //      return e.getClaims();
 //    }
 //  }
+
+  public static boolean isAuthorization(String authorization) {
+    if (StringUtils.hasText(authorization)) {
+      if (authorization.startsWith(CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE)) {
+        return true;
+      }
+      throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_BODY);
+    }
+    throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_HEADER);
+  }
 
 }

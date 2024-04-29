@@ -6,7 +6,8 @@ import kr.co.kjc.settlement.global.constants.CommonConstants;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
-import kr.co.kjc.settlement.service.JwtService;
+import kr.co.kjc.settlement.global.utils.JwtUtils;
+import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -17,7 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 public class JwtInterceptor implements HandlerInterceptor {
 
-  private final JwtService jwtService;
+  //  private final JwtService jwtService;
+  private final JwtTokenService jwtTokenService;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -26,17 +28,16 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     String authorization = request.getHeader(CommonConstants.REQ_HEADER_KEY_AUTH);
 
-    if (StringUtils.hasText(authorization) && authorization.startsWith(
-        CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE)) {
+    if (JwtUtils.isAuthorization(authorization)) {
 
       String accessToken = authorization.substring(
           CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE.length());
 
-      if (jwtService.isExpired(accessToken)) {
+      if (jwtTokenService.isExpired(accessToken)) {
         throw new BaseAPIException(EnumErrorCode.EXPIRED_JWT_TOKEN);
       }
 
-      MemberDTO memberDTO = jwtService.findMemberByToken(accessToken);
+      MemberDTO memberDTO = jwtTokenService.findMemberByToken(accessToken);
       if (!StringUtils.hasText(memberDTO.getUuid())) {
         throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN);
       }
@@ -44,7 +45,7 @@ public class JwtInterceptor implements HandlerInterceptor {
       return true;
     }
 
-    throw new BaseAPIException(EnumErrorCode.UNAUTHORIZED_JWT_TOKEN);
+    return false;
   }
 
   @Override

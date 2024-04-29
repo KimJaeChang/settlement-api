@@ -8,6 +8,7 @@ import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.enums.EnumJwtCategory;
 import kr.co.kjc.settlement.global.enums.EnumJwtRole;
+import kr.co.kjc.settlement.global.utils.JwtUtils;
 import kr.co.kjc.settlement.repository.redis.TokenRedisRepository;
 import kr.co.kjc.settlement.service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -52,8 +53,7 @@ public class JwtServiceImpl implements JwtService {
   // 예외처리 필요
   @Override
   public boolean isExpired(String token) {
-    return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload()
-        .getExpiration().before(new Date());
+    return JwtUtils.isExpired(secretKey, token);
   }
 
   @Override

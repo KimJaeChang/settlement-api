@@ -4,7 +4,7 @@ import java.util.List;
 import kr.co.kjc.settlement.global.argumentResolver.JwtArgumentResolver;
 import kr.co.kjc.settlement.global.interceptor.GlobalLoggingInterceptor;
 import kr.co.kjc.settlement.global.interceptor.JwtInterceptor;
-import kr.co.kjc.settlement.service.JwtService;
+import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -18,8 +18,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class CommonWebConfig implements WebMvcConfigurer {
 
-  private final JwtService jwtService;
-
+  //  private final JwtService jwtService;
+  private final JwtTokenService jwtTokenService;
   private final JwtArgumentResolver jwtArgumentResolver;
 
   @Override
@@ -38,7 +38,7 @@ public class CommonWebConfig implements WebMvcConfigurer {
             "/css/**", "/*.ico"
             , "/error", "/error-page/**" //오류 페이지 경로
         );
-    registry.addInterceptor(new JwtInterceptor(jwtService))
+    registry.addInterceptor(new JwtInterceptor(jwtTokenService))
         .excludePathPatterns("/api-docs/**", "/swagger-ui/**", "/health-check",
             "/api/v1/authorization/**", "/api/v1/s3/**")
         .addPathPatterns("/**");

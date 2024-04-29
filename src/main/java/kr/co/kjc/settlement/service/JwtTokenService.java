@@ -1,5 +1,6 @@
 package kr.co.kjc.settlement.service;
 
+import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.dtos.request.JwtTokenRefreshReqDTO;
 import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
 import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
@@ -12,4 +13,5 @@ public interface JwtTokenService {
 
   boolean isExpired(String accessToken);
 
+  public MemberDTO findMemberByToken(String token);
 }

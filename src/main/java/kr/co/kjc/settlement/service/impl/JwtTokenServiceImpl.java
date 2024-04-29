@@ -1,5 +1,6 @@
 package kr.co.kjc.settlement.service.impl;
 
+import io.jsonwebtoken.Jwts;
 import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.domain.redis.Token;
 import kr.co.kjc.settlement.domain.redis.TokenBody;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtTokenServiceImpl implements JwtTokenService {
 
-  private static final long EXPIRED_MS = 60000;
+  private static final long EXPIRED_MS = 600000;
   private final SecretKey secretKey;
   private final MemberService memberService;
   private final TokenRedisRepository tokenRedisRepository;
@@ -49,5 +50,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   public boolean isExpired(String accessToken) {
 //    return JwtUtils.isExpired(secretKey, accessToken);
     return tokenRedisRepository.existsById(accessToken);
+  }
+
+  @Override
+  public MemberDTO findMemberByToken(String token) {
+    return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload()
+        .get("user", MemberDTO.class);
   }
 }

@@ -3,13 +3,11 @@ package kr.co.kjc.settlement.global.argumentResolver;
 import jakarta.servlet.http.HttpServletRequest;
 import kr.co.kjc.settlement.global.annotation.JwtAuthorization;
 import kr.co.kjc.settlement.global.constants.CommonConstants;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
-import kr.co.kjc.settlement.global.exception.BaseAPIException;
-import kr.co.kjc.settlement.service.JwtService;
+import kr.co.kjc.settlement.global.utils.JwtUtils;
+import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -19,7 +17,8 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 @RequiredArgsConstructor
 public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
 
-  private final JwtService jwtService;
+  //  private final JwtService jwtService;
+  private final JwtTokenService jwtTokenService;
 
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
@@ -32,16 +31,13 @@ public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
     HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
     String authorization = request.getHeader(CommonConstants.REQ_HEADER_KEY_AUTH);
 
-    if (StringUtils.hasText(authorization)) {
-      if (authorization.startsWith(CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE)) {
-        String accessToken = authorization.substring(
-            CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE.length());
+    if (JwtUtils.isAuthorization(authorization)) {
+      String accessToken = authorization.substring(
+          CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE.length());
 
-        return jwtService.findMemberByToken(accessToken);
-      }
-      throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_BODY);
+      return jwtTokenService.findMemberByToken(accessToken);
     }
 
-    throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_HEADER);
+    return null;
   }
 }
