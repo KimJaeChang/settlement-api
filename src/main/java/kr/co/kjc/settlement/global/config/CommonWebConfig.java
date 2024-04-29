@@ -1,11 +1,13 @@
 package kr.co.kjc.settlement.global.config;
 
+import java.util.List;
 import kr.co.kjc.settlement.global.argumentResolver.JwtArgumentResolver;
 import kr.co.kjc.settlement.global.interceptor.GlobalLoggingInterceptor;
 import kr.co.kjc.settlement.global.interceptor.JwtInterceptor;
 import kr.co.kjc.settlement.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -42,10 +44,10 @@ public class CommonWebConfig implements WebMvcConfigurer {
         .addPathPatterns("/**");
   }
 
-//  @Override
-//  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-//    resolvers.add(jwtArgumentResolver);
-//  }
+  @Override
+  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+    resolvers.add(jwtArgumentResolver);
+  }
 
   // NOTE : CORS Filter
 //  @Bean

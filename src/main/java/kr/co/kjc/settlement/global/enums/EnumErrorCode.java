@@ -25,6 +25,7 @@ public enum EnumErrorCode {
    */
   NOT_FOUND(HttpStatus.NOT_FOUND, "Resource not exists"),
   NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."),
+  NOT_FOUND_MEMBER_BY_JWT_ACCESS_TOKEN(HttpStatus.NOT_FOUND, "JWT 토큰 정보에 대한 회원 정보를 찾을 수 없습니다."),
   NOT_FOUND_JWT_ACCESS_TOKEN(HttpStatus.NOT_FOUND, "JWT 토큰 정보를 찾을 수 없습니다."),
   NOT_FOUND_UPLOAD_FILE(HttpStatus.NOT_FOUND, "업로드한 파일을 찾을 수 없습니다."),
   NOT_FOUND_ENUM(HttpStatus.NOT_FOUND, "Enum을 찾을 수 없습니다."),

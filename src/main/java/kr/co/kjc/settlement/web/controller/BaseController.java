@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.stream.Collectors;
+import kr.co.kjc.settlement.global.annotation.JwtAuthorization;
+import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,10 @@ public class BaseController {
 
   @ResponseBody
   @GetMapping("/health-check")
-  public BaseResponseDTO<?> healthCheck() {
+  public BaseResponseDTO<?> healthCheck(@JwtAuthorization MemberDTO memberDTO) {
+    System.out.println("\t");
+    System.out.println("memberDTO : " + memberDTO);
+    System.out.println("\t");
     return new BaseResponseDTO<>("success");
   }
 
