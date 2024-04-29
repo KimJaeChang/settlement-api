@@ -38,7 +38,7 @@ public class JwtUtils {
    */
   public static String createAccessToken(SecretKey secretKey, Map<String, ?> claims,
       long expiredMs) {
-    return Jwts.builder()
+    return CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE + Jwts.builder()
         .claims(claims)
         .issuedAt(DateTimeUtils.nowDate())
         .expiration(DateTimeUtils.afterDateMs(expiredMs))
