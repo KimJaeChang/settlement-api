@@ -13,5 +13,5 @@ public interface JwtTokenService {
 
   boolean isExpired(String accessToken);
 
-  public MemberDTO findMemberByToken(String token);
+  MemberDTO findMemberByToken(String token);
 }

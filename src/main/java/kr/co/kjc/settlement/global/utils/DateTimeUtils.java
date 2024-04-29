@@ -79,6 +79,6 @@ public class DateTimeUtils {
 
   public static Date afterDateMs(long afterMs) {
     return Timestamp.valueOf(
-        LocalDateTime.now(ZoneId.of("Asia/Seoul")).plusSeconds((afterMs / 1000) % 60));
+        LocalDateTime.now(ZoneId.of("Asia/Seoul")).plusSeconds(afterMs / 1000));
   }
 }

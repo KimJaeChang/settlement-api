@@ -1,6 +1,8 @@
 package kr.co.kjc.settlement.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
+import java.util.Map;
 import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.domain.redis.Token;
 import kr.co.kjc.settlement.domain.redis.TokenBody;
@@ -19,8 +21,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtTokenServiceImpl implements JwtTokenService {
 
-  private static final long EXPIRED_MS = 600000;
+  private static final long EXPIRED_MS = 60000;
   private final SecretKey secretKey;
+  private final ObjectMapper om;
   private final MemberService memberService;
   private final TokenRedisRepository tokenRedisRepository;
 
@@ -30,9 +33,9 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     String uuid = dto.getUuid();
     MemberDTO memberDTO = memberService.findByUuid(uuid);
+    Map<String, ?> claims = JwtUtils.createClaims(dto, memberDTO);
 
-    String accessToken = JwtUtils.createAccessToken(secretKey, memberDTO, dto.getJwtCategory(),
-        dto.getJwtRole(), EXPIRED_MS);
+    String accessToken = JwtUtils.createAccessToken(secretKey, claims, EXPIRED_MS);
     String refreshToken = JwtUtils.createRefreshToken(secretKey, EXPIRED_MS);
 
     Token token = Token.of(refreshToken, TokenBody.of(uuid, EXPIRED_MS));
@@ -54,7 +57,9 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
   @Override
   public MemberDTO findMemberByToken(String token) {
-    return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload()
-        .get("user", MemberDTO.class);
+    Map<String, ?> payloads = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token)
+        .getPayload()
+        .get("user", Map.class);
+    return om.convertValue(payloads, MemberDTO.class);
   }
 }

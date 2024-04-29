@@ -22,9 +22,6 @@ public class BaseController {
   @ResponseBody
   @GetMapping("/health-check")
   public BaseResponseDTO<?> healthCheck(@JwtAuthorization MemberDTO memberDTO) {
-    System.out.println("\t");
-    System.out.println("memberDTO : " + memberDTO);
-    System.out.println("\t");
     return new BaseResponseDTO<>("success");
   }
 
