@@ -13,6 +13,9 @@ public enum EnumErrorCode {
    */
   INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "Invalid parameter included"),
   INVALID_JWT_TOKEN(HttpStatus.BAD_REQUEST, "올바르지 않은 JWT 토큰입니다."),
+  INVALID_JWT_TOKEN_HEADER(HttpStatus.BAD_REQUEST,
+      "올바르지 않은 JWT 토큰입니다. Authorization로 헤더를 설정해 주세요."),
+  INVALID_JWT_TOKEN_BODY(HttpStatus.BAD_REQUEST, "올바르지 않은 JWT 토큰입니다. Bearer 토큰으로 인증해 주세요."),
 
   /**
    * 401 - Unauthorized

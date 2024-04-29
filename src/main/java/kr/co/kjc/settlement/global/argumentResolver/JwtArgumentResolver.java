@@ -32,15 +32,16 @@ public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
     HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
     String authorization = request.getHeader(CommonConstants.REQ_HEADER_KEY_AUTH);
 
-    if (StringUtils.hasText(authorization) && authorization.startsWith(
-        CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE)) {
+    if (StringUtils.hasText(authorization)) {
+      if (authorization.startsWith(CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE)) {
+        String accessToken = authorization.substring(
+            CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE.length());
 
-      String accessToken = authorization.substring(
-          CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE.length());
-
-      return jwtService.findMemberByToken(accessToken);
+        return jwtService.findMemberByToken(accessToken);
+      }
+      throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_BODY);
     }
 
-    throw new BaseAPIException(EnumErrorCode.NOT_FOUND_MEMBER_BY_JWT_ACCESS_TOKEN);
+    throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_HEADER);
   }
 }
