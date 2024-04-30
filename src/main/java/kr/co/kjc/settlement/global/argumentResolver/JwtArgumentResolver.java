@@ -1,6 +1,7 @@
 package kr.co.kjc.settlement.global.argumentResolver;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Objects;
 import kr.co.kjc.settlement.global.annotation.JwtAuthorization;
 import kr.co.kjc.settlement.global.constants.CommonConstants;
 import kr.co.kjc.settlement.global.utils.JwtUtils;
@@ -29,7 +30,8 @@ public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
   public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
       NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
     HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
-    String authorization = request.getHeader(CommonConstants.REQ_HEADER_KEY_AUTH);
+    String authorization = Objects.requireNonNull(request)
+        .getHeader(CommonConstants.REQ_HEADER_KEY_AUTH);
 
     if (JwtUtils.isAuthorization(authorization)) {
       String accessToken = authorization.substring(

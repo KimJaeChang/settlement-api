@@ -14,6 +14,7 @@ import kr.co.kjc.settlement.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@Deprecated
 @Service
 @RequiredArgsConstructor
 public class JwtServiceImpl implements JwtService {

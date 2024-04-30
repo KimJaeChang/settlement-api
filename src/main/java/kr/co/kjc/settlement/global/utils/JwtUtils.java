@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.Map;
 import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.global.constants.CommonConstants;
-import kr.co.kjc.settlement.global.dtos.MemberDTO;
-import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import lombok.experimental.UtilityClass;
@@ -15,20 +13,6 @@ import org.springframework.util.StringUtils;
 
 @UtilityClass
 public class JwtUtils {
-
-  /**
-   * @author : jcKim
-   * @version : 0.0.1
-   * @date : 2024-04-29T17:28:59.471
-   * @description :
-   */
-  public static Map<String, ?> createClaims(JwtTokenReqDTO dto, MemberDTO memberDTO) {
-    return Map.of(
-        "category", dto.getJwtCategory(),
-        "role", dto.getJwtRole(),
-        "user", memberDTO
-    );
-  }
 
   /**
    * @author : jcKim

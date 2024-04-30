@@ -21,7 +21,7 @@ public enum EnumErrorCode {
    * 401 - Unauthorized
    */
   UNAUTHORIZED_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "JWT 토근 인증이 필요합니다."),
-  EXPIRED_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "만료된 JWT 토큰 입니다. Refresh 토큰을 발급해주세요."),
+  EXPIRED_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "만료된 JWT 토큰 입니다. "),
 
   /**
    * 404 - Not Found

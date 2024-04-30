@@ -18,6 +18,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class CommonWebConfig implements WebMvcConfigurer {
 
+  private final static List<String> LOG_EXCLUDES = List.of("/css/**", "/*.ico", "/error",
+      "/error-page/**");
+  private final static List<String> JWT_EXCLUDES = List.of("/api-docs/**", "/swagger-ui/**",
+      "/health-check", "/api/v1/authorization/**");
+
   //  private final JwtService jwtService;
   private final JwtTokenService jwtTokenService;
   private final JwtArgumentResolver jwtArgumentResolver;
@@ -34,13 +39,9 @@ public class CommonWebConfig implements WebMvcConfigurer {
     registry.addInterceptor(new GlobalLoggingInterceptor())
         .order(1)
         .addPathPatterns("/**")
-        .excludePathPatterns(
-            "/css/**", "/*.ico"
-            , "/error", "/error-page/**" //오류 페이지 경로
-        );
+        .excludePathPatterns(LOG_EXCLUDES);
     registry.addInterceptor(new JwtInterceptor(jwtTokenService))
-        .excludePathPatterns("/api-docs/**", "/swagger-ui/**", "/health-check",
-            "/api/v1/authorization/**", "/api/v1/s3/**")
+        .excludePathPatterns(JWT_EXCLUDES)
         .addPathPatterns("/**");
   }
 

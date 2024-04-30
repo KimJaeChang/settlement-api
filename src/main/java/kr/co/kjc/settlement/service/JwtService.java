@@ -4,6 +4,7 @@ import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.enums.EnumJwtCategory;
 import kr.co.kjc.settlement.global.enums.EnumJwtRole;
 
+@Deprecated
 public interface JwtService {
 
   String createAccessToken(MemberDTO memberDTO, EnumJwtCategory jwtCategory, EnumJwtRole jwtRole,
