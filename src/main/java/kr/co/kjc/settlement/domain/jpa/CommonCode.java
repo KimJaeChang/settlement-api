@@ -30,4 +30,15 @@ public class CommonCode extends BaseEntity {
     return result;
   }
 
+  public static CommonCode createExampleByParentCode(String parentCode) {
+    CommonCode result = new CommonCode();
+    result.parentCode = parentCode;
+    return result;
+  }
+
+  public static CommonCode createExampleByChildCode(String childCode) {
+    CommonCode result = new CommonCode();
+    result.childCode = childCode;
+    return result;
+  }
 }

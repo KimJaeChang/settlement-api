@@ -34,6 +34,7 @@ public enum EnumErrorCode {
   NOT_FOUND_ENUM(HttpStatus.NOT_FOUND, "Enum을 찾을 수 없습니다."),
   NOT_FOUND_ENUM_VALUE(HttpStatus.NOT_FOUND, "해당 Enum의 Value가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
   NOT_FOUND_ENUM_CODE(HttpStatus.NOT_FOUND, "해당 Enum의 Code가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
+  NOT_FOUND_COMMON_CODE(HttpStatus.NOT_FOUND, "해당 공통 코드가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
 
   /**
    * 500 - Internal_server_error
