@@ -14,6 +14,7 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,6 +38,20 @@ public class CommonCodeApiController {
   @GetMapping(value = "/common-codes")
   public BaseResponseDTO<Page<Items>> findAll(@ParameterObject BaseSearchDTO dto) {
     return new BaseResponseDTO<>(commonCodeService.findAll(dto));
+  }
+
+  @Operation(summary = "공통 코드 부모코드 기준 전체 조회", description = "공통 코드를 부모코드 기준으로 전체 조회 합니다. ",
+      responses = {
+          @ApiResponse(responseCode = "200", description = "성공 응답(success)", useReturnTypeSchema = true),
+          @ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "403", description = "권한없음", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "404", description = "데이터 없음", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+          @ApiResponse(responseCode = "500", description = "서버오류", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
+      }
+  )
+  @GetMapping(value = "/common-codes/parent-codes/{parentCode}")
+  public BaseResponseDTO<Page<Items>> findAllByParentCode(@PathVariable String parentCode) {
+    return new BaseResponseDTO<>(commonCodeService.findAllByParentCode(parentCode));
   }
 
 }

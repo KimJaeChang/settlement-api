@@ -31,7 +31,8 @@ public class CommonCodeServiceImpl implements CommonCodeService {
 
   // .findBy(example, FetchableFluentQuery::all)
   @Override
-  public Page<Items> findByParentCode(String parentCode) {
+  public Page<Items> findAllByParentCode(String parentCode) {
+
     Example<CommonCode> example = Example.of(
         CommonCode.createExampleByParentCode(parentCode));
 

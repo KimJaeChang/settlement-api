@@ -8,7 +8,7 @@ public interface CommonCodeService {
 
   Page<CommonCodeDTO.Items> findAll(BaseSearchDTO dto);
 
-  Page<CommonCodeDTO.Items> findByParentCode(String parentCode);
+  Page<CommonCodeDTO.Items> findAllByParentCode(String parentCode);
 
   CommonCodeDTO.Item findById(Long id);
 

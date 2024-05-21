@@ -1,6 +1,7 @@
 package kr.co.kjc.settlement.global.config;
 
 import java.util.List;
+import kr.co.kjc.settlement.global.argumentResolver.BaseSearchDTOArgumentResolver;
 import kr.co.kjc.settlement.global.argumentResolver.JwtArgumentResolver;
 import kr.co.kjc.settlement.global.interceptor.GlobalLoggingInterceptor;
 import kr.co.kjc.settlement.global.interceptor.JwtInterceptor;
@@ -21,11 +22,12 @@ public class CommonWebConfig implements WebMvcConfigurer {
   private final static List<String> LOG_EXCLUDES = List.of("/css/**", "/*.ico", "/error",
       "/error-page/**");
   private final static List<String> JWT_EXCLUDES = List.of("/api-docs/**", "/swagger-ui/**",
-      "/health-check", "/api/v1/authorization/**");
+      "/health-check", "/api/v1/authorization/**", "/api/v1/common-codes/**");
 
   //  private final JwtService jwtService;
   private final JwtTokenService jwtTokenService;
   private final JwtArgumentResolver jwtArgumentResolver;
+  private final BaseSearchDTOArgumentResolver baseSearchDTOArgumentResolver;
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) { // 기본 resourceHandler 유지하면서 추가
@@ -48,6 +50,7 @@ public class CommonWebConfig implements WebMvcConfigurer {
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
     resolvers.add(jwtArgumentResolver);
+    resolvers.add(baseSearchDTOArgumentResolver);
   }
 
   // NOTE : CORS Filter

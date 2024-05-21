@@ -38,4 +38,8 @@ public class BaseSearchDTO {
   @DateTimeFormat(iso = ISO.DATE, pattern = "yyyy-MM-dd")
   private LocalDate searchDateTo;
 
+  public BaseSearchDTO(Integer pageNo, Integer pageSize) {
+    this.pageNo = (pageNo < 1) ? 0 : (pageNo - 1);
+    this.pageSize = (pageSize < 1) ? 10 : pageSize;
+  }
 }

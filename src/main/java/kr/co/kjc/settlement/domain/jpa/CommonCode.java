@@ -6,10 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Table(name = "COMMON_CODE")
+@ToString
 public class CommonCode extends BaseEntity {
 
   @Id
