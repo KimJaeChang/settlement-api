@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.bean;
+package kr.co.kjc.settlement.service.custom;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;

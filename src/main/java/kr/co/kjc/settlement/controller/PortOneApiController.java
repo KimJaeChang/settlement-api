@@ -2,7 +2,7 @@ package kr.co.kjc.settlement.controller;
 
 import kr.co.kjc.settlement.global.enums.EnumPaymentBroker;
 import kr.co.kjc.settlement.service.PaymentService;
-import kr.co.kjc.settlement.service.factory.PaymentServiceFactory;
+import kr.co.kjc.settlement.service.custom.PaymentServiceFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
