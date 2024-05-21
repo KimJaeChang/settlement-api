@@ -37,6 +37,7 @@ public class BaseResponseDTO<T> {
   }
 
   public BaseResponseDTO(T dataBody) {
+    this.message = "success";
     this.body = dataBody;
     this.timestamp = LocalDateTime.now();
   }

@@ -21,6 +21,8 @@ spring:
       prefix: /WEB-INF/
       suffix: .jsp
     static-path-pattern: "/static/**"
+    problemdetails:
+      enabled: true
   # H2 Setting Info (H2 Console에 접속하기 위한 설정정보 입력)
   ############# local mode #############
   #  h2:
@@ -64,8 +66,8 @@ logging:
     # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
   charset:
     console: UTF-8
-  file:
-    path: /logs
+#  file:
+#    path: /logs
 #    org.hibernate.SQL: debug
 #    org.hibernate.type: trace # 실제 들어가는 파라미터값 찍어주는 설정
 

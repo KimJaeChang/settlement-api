@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+  <logger name="kr.co.everon.ocpp" level="DEBUG"/>
+
+  <!-- 3rd party Loggers -->
+  <logger name="org.springframework" level="INFO"/>
+  <logger name="org.springframework.core" level="INFO"/>
+  <logger name="org.springframework.beans" level="INFO"/>
+  <logger name="org.springframework.context" level="INFO"/>
+  <logger name="org.springframework.web" level="INFO"/>
+  <!-- request logging filter -->
+  <logger name="org.springframework.web.filter" level="DEBUG"/>
+  <logger name="kr.co.kjc" level="DEBUG"/>
+
+  <logger name="org.hibernate.SQL" level="DEBUG"/>
+  <logger name="org.hibernate.tool.hbm2ddl" level="DEBUG"/>
+  <logger name="org.hibernate.type.descriptor.sql" level="TRACE"/> <!-- Hibernate 4,5 -->
+  <logger name="org.hibernate.orm.jdbc.bind" level="TRACE"/> <!-- Hibernate 6 -->
+  <logger name="org.hibernate.stat" level="DEBUG"/>
+  <logger name="org.hibernate.SQL_SLOW" level="INFO"/>
+
+  <logger name="p6spy" level="INFO"/>
+
+  <property name="FILE_LOG_PATTERN"
+    value="${FILE_LOG_PATTERN:-%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+  <property name="FILE_LOG_CHARSET" value="UTF-8"/>
+
+  <!-- definition of appender STDOUT -->
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- By default, encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+    <encoder>
+      <pattern>${FILE_LOG_PATTERN}</pattern>
+      <charset>${FILE_LOG_CHARSET}</charset>
+    </encoder>
+  </appender>
+
+  <!-- 에러로그는 별도로 기록한다. -->
+  <property name="ERROR_LOG_FILE"
+    value="${ERROR_LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/settlement-api-error.log}"/>
+  <appender name="ERROR-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <!-- 에러로그를 설정하고 로그의 레벨이 맞으면 onMatch, 아니라면 onMismatch  -->
+      <level>error</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+    <encoder>
+      <pattern>${FILE_LOG_PATTERN}</pattern>
+      <charset>${FILE_LOG_CHARSET}</charset>
+    </encoder>
+    <file>${ERROR_LOG_FILE
+    }
+    </file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <fileNamePattern>
+        ${LOGBACK_ROLLINGPOLICY_FILE_NAME_PATTERN:-${ERROR_LOG_FILE}.%d{yyyy-MM-dd}.%i.gz}
+      </fileNamePattern>
+      <cleanHistoryOnStart>${LOGBACK_ROLLINGPOLICY_CLEAN_HISTORY_ON_START:-false}
+      </cleanHistoryOnStart>
+      <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>
+      <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>
+      <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-7}</maxHistory>
+    </rollingPolicy>
+  </appender>
+
+  <springProfile name="prod">
+    <logger name="org.springframework.web" level="INFO"/>
+  </springProfile>
+
+  <!--  <springProfile name="dev">-->
+  <!--    <root>-->
+  <!--      <appender-ref ref="FILE"/>-->
+  <!--    </root>-->
+  <!--    <property name="OCPP_LOG_FILE_NAME" value="${LOG_PATH:-${user.home}/service/csms/logs}/listener/call.log"/>-->
+  <!--    <appender name="OCPP_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+  <!--      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">-->
+  <!--        <level>${FILE_LOG_THRESHOLD}</level>-->
+  <!--      </filter>-->
+  <!--      <encoder>-->
+  <!--        <pattern>${FILE_LOG_PATTERN}</pattern>-->
+  <!--        <charset>${FILE_LOG_CHARSET}</charset>-->
+  <!--      </encoder>-->
+  <!--      <file>${OCPP_LOG_FILE_NAME}</file>-->
+  <!--      <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">-->
+  <!--        <fileNamePattern>${LOGBACK_ROLLINGPOLICY_FILE_NAME_PATTERN:-${OCPP_LOG_FILE_NAME}.%d{yyyy-MM-dd}.%i.gz}</fileNamePattern>-->
+  <!--        <cleanHistoryOnStart>${LOGBACK_ROLLINGPOLICY_CLEAN_HISTORY_ON_START:-false}</cleanHistoryOnStart>-->
+  <!--        <maxFileSize>${LOGBACK_ROLLINGPOLICY_MAX_FILE_SIZE:-10MB}</maxFileSize>-->
+  <!--        <totalSizeCap>${LOGBACK_ROLLINGPOLICY_TOTAL_SIZE_CAP:-0}</totalSizeCap>-->
+  <!--        <maxHistory>${LOGBACK_ROLLINGPOLICY_MAX_HISTORY:-7}</maxHistory>-->
+  <!--      </rollingPolicy>-->
+  <!--    </appender>-->
+
+  <!--    &lt;!&ndash; kr.co.everon.ocpp.listener 일 경우에는 별도 파일로 저장 &ndash;&gt;-->
+  <!--    <logger name="kr.co.everon.ocpp.listener" level="debug" additivity="false">-->
+  <!--      <appender-ref ref="OCPP_LOG_FILE"/>-->
+  <!--    </logger>-->
+  <!--  </springProfile>-->
+  <springProfile name="prod">
+    <root>
+      <appender-ref ref="FILE"/>
+    </root>
+  </springProfile>
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="ERROR_LOG_FILE"/>
+  </root>
+</configuration>

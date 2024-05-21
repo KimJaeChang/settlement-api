@@ -16,14 +16,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JacksonConfig {
 
-  private static final String DATE_FORMATTER = "yyyy-MM-dd";
-  private static final String DATE_TIME_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss";
-
   @Bean
   public ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
     objectMapper.registerModule(javaTimeModule());
+//    objectMapper.registerModule(problemDetailModule());
     return objectMapper;
   }
 
@@ -39,5 +37,12 @@ public class JacksonConfig {
         new LocalDateTimeDeserializer(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
     return javaTimeModule;
   }
+
+//  private SimpleModule problemDetailModule() {
+//    SimpleModule simpleModule = new SimpleModule();
+//    simpleModule.addSerializer(ProblemDetail.class, new JacksonProblemDetailSerializer());
+//    simpleModule.addDeserializer(ProblemDetail.class, new JacksonProblemDetailDeserializer(helper));
+//    return simpleModule;
+//  }
 
 }
