@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import kr.co.kjc.settlement.domain.jpa.CommonCode;
 import kr.co.kjc.settlement.global.dtos.CommonCodeDTO.Item;
-import kr.co.kjc.settlement.global.dtos.CommonCodeDTO.Items;
 import kr.co.kjc.settlement.global.dtos.request.BaseSearchDTO;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
@@ -24,27 +23,27 @@ public class CommonCodeServiceImpl implements CommonCodeService {
   private final CommonCodeJpaRepository commonCodeJpaRepository;
 
   @Override
-  public Page<Items> findAll(BaseSearchDTO dto) {
+  public Page<Item> findAll(BaseSearchDTO dto) {
     return commonCodeJpaRepository.findAll(PageRequest.of(dto.getPageNo(), dto.getPageSize()))
-        .map(Items::toDto);
+        .map(Item::toDto);
   }
 
   // .findBy(example, FetchableFluentQuery::all)
   @Override
-  public Page<Items> findAllByParentCode(String parentCode) {
+  public Page<Item> findAllByParentCode(String parentCode) {
 
     Example<CommonCode> example = Example.of(
         CommonCode.createExampleByParentCode(parentCode));
 
-    List<Items> result = commonCodeJpaRepository.findAll(example).stream()
-        .map(Items::toDto)
+    List<Item> result = commonCodeJpaRepository.findAll(example).stream()
+        .map(Item::toDto)
         .collect(Collectors.toList());
 
     return new PageImpl<>(result);
   }
 
   @Override
-  public Item findById(Long id) {
+  public Item findOneById(Long id) {
 
     CommonCode commonCode = commonCodeJpaRepository.findById(id)
         .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_COMMON_CODE));
@@ -53,7 +52,7 @@ public class CommonCodeServiceImpl implements CommonCodeService {
   }
 
   @Override
-  public Item findByChildCode(String childCode) {
+  public Item findOneByChildCode(String childCode) {
 
     Example<CommonCode> example = Example.of(
         CommonCode.createExampleByChildCode(childCode));

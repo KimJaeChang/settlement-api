@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import kr.co.kjc.settlement.global.constants.TextConstants;
 import kr.co.kjc.settlement.global.dtos.S3BucketDTO;
 import kr.co.kjc.settlement.global.dtos.S3ObjectDTO;
 import kr.co.kjc.settlement.global.enums.EnumErrorCode;
@@ -79,6 +80,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     try {
       file = CommonUtils.convertFile(multipartFile);
     } catch (IOException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
       throw new RuntimeException(e);
     }
 
@@ -108,6 +110,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
             .key(path)
             .uploadId(response.uploadId())
             .build());
+        log.error(TextConstants.EXCEPTION_PREFIX, e);
         throw new RuntimeException("Failed to upload part: " + i, e);
       }
     }
@@ -136,6 +139,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
     try {
       file = CommonUtils.convertFile(multipartFile);
     } catch (IOException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
       throw new RuntimeException(e);
     }
 
@@ -167,9 +171,11 @@ public class AwsS3ServiceImpl implements AwsS3Service {
       try (FileOutputStream os = new FileOutputStream(file);) {
         os.write(data);
       } catch (IOException e) {
+        log.error(TextConstants.EXCEPTION_PREFIX, e);
         throw new RuntimeException(e);
       }
     } catch (AwsServiceException | SdkClientException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
       throw new RuntimeException(e);
     }
   }
@@ -189,6 +195,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
       s3Client.deleteObject(request);
       return true;
     } catch (AwsServiceException | SdkClientException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
       throw new RuntimeException(e);
     }
   }

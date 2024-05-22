@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.argumentResolver;
+package kr.co.kjc.settlement.global.config.argumentResolver;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -34,8 +34,7 @@ public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
         .getHeader(CommonConstants.REQ_HEADER_KEY_AUTH);
 
     if (JwtUtils.isAuthorization(authorization)) {
-      String accessToken = authorization.substring(
-          CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE.length());
+      String accessToken = JwtUtils.convertAccessToken(authorization);
 
       return jwtTokenService.findMemberByToken(accessToken);
     }

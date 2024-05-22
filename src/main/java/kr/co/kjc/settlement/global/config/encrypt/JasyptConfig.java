@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config;
+package kr.co.kjc.settlement.global.config.encrypt;
 
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.jasypt.encryption.StringEncryptor;

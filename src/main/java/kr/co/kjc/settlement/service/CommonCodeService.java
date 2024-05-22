@@ -6,11 +6,11 @@ import org.springframework.data.domain.Page;
 
 public interface CommonCodeService {
 
-  Page<CommonCodeDTO.Items> findAll(BaseSearchDTO dto);
+  Page<CommonCodeDTO.Item> findAll(BaseSearchDTO dto);
 
-  Page<CommonCodeDTO.Items> findAllByParentCode(String parentCode);
+  Page<CommonCodeDTO.Item> findAllByParentCode(String parentCode);
 
-  CommonCodeDTO.Item findById(Long id);
+  CommonCodeDTO.Item findOneById(Long id);
 
-  CommonCodeDTO.Item findByChildCode(String childCode);
+  CommonCodeDTO.Item findOneByChildCode(String childCode);
 }

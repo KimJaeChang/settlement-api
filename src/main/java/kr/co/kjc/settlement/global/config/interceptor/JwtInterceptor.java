@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.interceptor;
+package kr.co.kjc.settlement.global.config.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,8 +26,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     if (JwtUtils.isAuthorization(authorization)) {
 
-      String accessToken = authorization.substring(
-          CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE.length());
+      String accessToken = JwtUtils.convertAccessToken(authorization);
 
       // 만료 여부 체크
       jwtTokenService.isExpired(accessToken);

@@ -86,4 +86,8 @@ public class JwtUtils {
     throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_HEADER);
   }
 
+  public static String convertAccessToken(String authorization) {
+    return authorization.substring(CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE.length());
+  }
+
 }

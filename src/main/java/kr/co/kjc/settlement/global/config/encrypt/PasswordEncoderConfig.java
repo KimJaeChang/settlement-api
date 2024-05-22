@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config;
+package kr.co.kjc.settlement.global.config.encrypt;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

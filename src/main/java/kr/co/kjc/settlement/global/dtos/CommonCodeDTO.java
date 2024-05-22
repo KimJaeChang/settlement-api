@@ -9,42 +9,42 @@ import lombok.Setter;
 
 public class CommonCodeDTO {
 
-  @Schema(description = "공통 코드 목록 DTO",
-      name = "CommonCodeDTO.Items"
-  )
-  @Getter
-  @Setter
-  @AllArgsConstructor
-  @NoArgsConstructor
-  public static class Items {
+//  @Schema(description = "공통 코드 목록 DTO",
+//      name = "CommonCodeDTO.Items"
+//  )
+//  @Getter
+//  @Setter
+//  @AllArgsConstructor
+//  @NoArgsConstructor
+//  public static class Items {
+//
+//    @Schema(description = "공통코드 SEQ")
+//    private Long id;
+//
+//    @Schema(description = "공통코드 부모코드")
+//    private String parentCode;
+//
+//    @Schema(description = "공통코드 자식코드")
+//    private String childCode;
+//
+//    public static Items of(Long id, String parentCode, String childCode) {
+//      Items result = new Items();
+//      result.id = id;
+//      result.parentCode = parentCode;
+//      result.childCode = childCode;
+//      return result;
+//    }
+//
+//    public static Items toDto(CommonCode commonCode) {
+//      Items result = new Items();
+//      result.id = commonCode.getId();
+//      result.parentCode = commonCode.getParentCode();
+//      result.childCode = commonCode.getChildCode();
+//      return result;
+//    }
+//  }
 
-    @Schema(description = "공통코드 SEQ")
-    private Long id;
-
-    @Schema(description = "공통코드 부모코드")
-    private String parentCode;
-
-    @Schema(description = "공통코드 자식코드")
-    private String childCode;
-
-    public static Items of(Long id, String parentCode, String childCode) {
-      Items result = new Items();
-      result.id = id;
-      result.parentCode = parentCode;
-      result.childCode = childCode;
-      return result;
-    }
-
-    public static Items toDto(CommonCode commonCode) {
-      Items result = new Items();
-      result.id = commonCode.getId();
-      result.parentCode = commonCode.getParentCode();
-      result.childCode = commonCode.getChildCode();
-      return result;
-    }
-  }
-
-  @Schema(description = "공통 코드 단건 DTO",
+  @Schema(description = "공통 코드 DTO",
       name = "CommonCodeDTO.Item"
   )
   @Getter

@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config;
+package kr.co.kjc.settlement.global.config.network;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

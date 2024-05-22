@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.argumentResolver;
+package kr.co.kjc.settlement.global.config.argumentResolver;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;

@@ -1,10 +1,10 @@
-package kr.co.kjc.settlement.global.config;
+package kr.co.kjc.settlement.global.config.common;
 
 import java.util.List;
-import kr.co.kjc.settlement.global.argumentResolver.BaseSearchDTOArgumentResolver;
-import kr.co.kjc.settlement.global.argumentResolver.JwtArgumentResolver;
-import kr.co.kjc.settlement.global.interceptor.GlobalLoggingInterceptor;
-import kr.co.kjc.settlement.global.interceptor.JwtInterceptor;
+import kr.co.kjc.settlement.global.config.argumentResolver.BaseSearchDTOArgumentResolver;
+import kr.co.kjc.settlement.global.config.argumentResolver.JwtArgumentResolver;
+import kr.co.kjc.settlement.global.config.interceptor.GlobalLoggingInterceptor;
+import kr.co.kjc.settlement.global.config.interceptor.JwtInterceptor;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config;
+package kr.co.kjc.settlement.global.config.common;
 
 
 import io.swagger.v3.oas.models.Components;

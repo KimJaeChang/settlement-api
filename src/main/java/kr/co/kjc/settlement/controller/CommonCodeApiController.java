@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.co.kjc.settlement.global.dtos.CommonCodeDTO.Items;
+import kr.co.kjc.settlement.global.dtos.CommonCodeDTO.Item;
 import kr.co.kjc.settlement.global.dtos.request.BaseSearchDTO;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import kr.co.kjc.settlement.service.CommonCodeService;
@@ -14,8 +14,8 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "98. 공통 코드 관리 API", description = "공통 코드 관리 API 입니다.")
@@ -36,7 +36,7 @@ public class CommonCodeApiController {
       }
   )
   @GetMapping(value = "/common-codes")
-  public BaseResponseDTO<Page<Items>> findAll(@ParameterObject BaseSearchDTO dto) {
+  public BaseResponseDTO<Page<Item>> findAll(@ParameterObject BaseSearchDTO dto) {
     return new BaseResponseDTO<>(commonCodeService.findAll(dto));
   }
 
@@ -49,9 +49,9 @@ public class CommonCodeApiController {
           @ApiResponse(responseCode = "500", description = "서버오류", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
       }
   )
-  @GetMapping(value = "/common-codes/parent-codes")
-  public BaseResponseDTO<Page<Items>> findAllByParentCode(
-      @RequestParam("parentCode") String parentCode) {
+  @GetMapping(value = "/common-codes/parent-codes/{parentCode}")
+  public BaseResponseDTO<Page<Item>> findAllByParentCode(
+      @PathVariable("parentCode") String parentCode) {
     return new BaseResponseDTO<>(commonCodeService.findAllByParentCode(parentCode));
   }
 
