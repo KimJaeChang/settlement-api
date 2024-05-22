@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Profile("local")
 @Component
 @RequiredArgsConstructor
-public class TestDataConfig {
+public class LocalDataConfig {
 
   @Value("${spring.jpa.hibernate.ddl-auto}")
   private String ddlAuto;

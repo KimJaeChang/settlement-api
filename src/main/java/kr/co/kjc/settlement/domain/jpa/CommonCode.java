@@ -25,6 +25,12 @@ public class CommonCode extends BaseEntity {
   @Column(name = "child_code")
   private String childCode;
 
+  @Column(name = "code_name")
+  private String codeName;
+
+  @Column(name = "description")
+  private String description;
+
   public static CommonCode of(String parentCode, String childCode) {
     CommonCode result = new CommonCode();
     result.parentCode = parentCode;

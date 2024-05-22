@@ -53,4 +53,6 @@ public class CommonConstants {
 
   public static final LocalTime endOfLocalTime = LocalTime.of(23, 59, 59, 999999000);
 
+  public static final String ADMIN_UUID = "bc5e4e1f-56fc-4113-a5db-c692683a68ec";
+
 }

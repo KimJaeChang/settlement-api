@@ -26,7 +26,7 @@ public class Member extends BaseEntity {
   @Column(name = "uuid")
   private String uuid;
 
-  @Column(name = "username")
+  @Column(name = "user_name")
   private String userName;
 
   @Column(name = "handphone")
