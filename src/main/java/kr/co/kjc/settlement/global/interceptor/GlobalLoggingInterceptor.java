@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config.interceptor;
+package kr.co.kjc.settlement.global.interceptor;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 

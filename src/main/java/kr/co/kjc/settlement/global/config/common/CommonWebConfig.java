@@ -1,10 +1,10 @@
 package kr.co.kjc.settlement.global.config.common;
 
 import java.util.List;
-import kr.co.kjc.settlement.global.config.argumentResolver.BaseSearchDTOArgumentResolver;
-import kr.co.kjc.settlement.global.config.argumentResolver.JwtArgumentResolver;
-import kr.co.kjc.settlement.global.config.interceptor.GlobalLoggingInterceptor;
-import kr.co.kjc.settlement.global.config.interceptor.JwtInterceptor;
+import kr.co.kjc.settlement.global.argumentResolver.BaseSearchDTOArgumentResolver;
+import kr.co.kjc.settlement.global.argumentResolver.JwtArgumentResolver;
+import kr.co.kjc.settlement.global.interceptor.GlobalLoggingInterceptor;
+import kr.co.kjc.settlement.global.interceptor.JwtInterceptor;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,7 @@ public class CommonWebConfig implements WebMvcConfigurer {
   private final static List<String> LOG_EXCLUDES = List.of("/css/**", "/*.ico", "/error",
       "/error-page/**");
   private final static List<String> JWT_EXCLUDES = List.of("/api-docs/**", "/swagger-ui/**",
-      "/health-check", "/api/v1/authorization/**", "/api/v1/common-codes/**");
+      "/health-check", "/api/v1/authorization/**");
 
   //  private final JwtService jwtService;
   private final JwtTokenService jwtTokenService;

@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config.filter;
+package kr.co.kjc.settlement.global.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

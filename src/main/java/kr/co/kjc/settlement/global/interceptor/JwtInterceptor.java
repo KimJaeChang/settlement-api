@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config.interceptor;
+package kr.co.kjc.settlement.global.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
