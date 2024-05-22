@@ -16,17 +16,18 @@ import org.springframework.util.StringUtils;
 @RequiredArgsConstructor
 public class JpaAuditAwareProvider implements AuditorAware<String> {
 
-  private static ThreadLocal<String> currentToken = new ThreadLocal<>();
+  private static ThreadLocal<String> CURRENT_TOKEN = new ThreadLocal<>();
 
   private final JwtTokenService jwtTokenService;
 
   public void create(String accessToken) {
-    currentToken.set(accessToken);
+    CURRENT_TOKEN.set(accessToken);
   }
 
   @Override
   public Optional<String> getCurrentAuditor() {
-    String accessToken = currentToken.get();
+    
+    String accessToken = CURRENT_TOKEN.get();
 
     if (!StringUtils.hasText(accessToken)) {
       MemberDTO memberDTO = jwtTokenService.findMemberByToken(accessToken);

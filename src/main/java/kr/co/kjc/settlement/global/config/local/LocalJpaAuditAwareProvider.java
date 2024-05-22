@@ -16,18 +16,18 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LocalJpaAuditAwareProvider implements AuditorAware<String> {
 
-  private static ThreadLocal<String> currentToken = new ThreadLocal<>();
+  private static ThreadLocal<String> CURRENT_TOKEN = new ThreadLocal<>();
 
   private final JwtTokenService jwtTokenService;
 
   @PostConstruct
   void init() {
-    currentToken.set(CommonConstants.ADMIN_UUID);
+    CURRENT_TOKEN.set(CommonConstants.ADMIN_UUID);
   }
 
   @Override
   public Optional<String> getCurrentAuditor() {
-    String adminUuid = currentToken.get();
+    String adminUuid = CURRENT_TOKEN.get();
     return Optional.ofNullable(adminUuid);
   }
 }
