@@ -83,10 +83,15 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
   @Override
   public MemberDTO findMemberByToken(String token) {
-    Map<String, ?> payloads = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token)
-        .getPayload()
-        .get("member", Map.class);
-    return om.convertValue(payloads, MemberDTO.class);
+    try {
+      Map<String, ?> payloads = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token)
+          .getPayload()
+          .get("member", Map.class);
+      return om.convertValue(payloads, MemberDTO.class);
+    } catch (IllegalArgumentException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
+      throw new BaseAPIException(EnumErrorCode.NOT_FOUND_MEMBER_BY_JWT_ACCESS_TOKEN);
+    }
   }
 
   private Map<String, ?> createClaims(JwtTokenReqDTO dto, MemberDTO memberDTO) {

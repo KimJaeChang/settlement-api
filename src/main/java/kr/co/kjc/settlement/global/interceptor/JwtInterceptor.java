@@ -32,6 +32,9 @@ public class JwtInterceptor implements HandlerInterceptor {
       // 만료 여부 체크
       jwtTokenService.isExpired(accessToken);
 
+      // JWT claims 체크
+      jwtTokenService.findMemberByToken(accessToken);
+
       return true;
     }
 
