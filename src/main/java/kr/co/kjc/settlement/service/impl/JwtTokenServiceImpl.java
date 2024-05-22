@@ -2,21 +2,29 @@ package kr.co.kjc.settlement.service.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.SignatureException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Map;
 import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.domain.redis.Token;
 import kr.co.kjc.settlement.domain.redis.TokenBody;
+import kr.co.kjc.settlement.global.constants.TextConstants;
 import kr.co.kjc.settlement.global.dtos.JwtClaimsDTO;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
-import kr.co.kjc.settlement.global.dtos.request.JwtTokenRefreshReqDTO;
 import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
 import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
+import kr.co.kjc.settlement.global.enums.EnumErrorCode;
+import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import kr.co.kjc.settlement.global.utils.JwtUtils;
 import kr.co.kjc.settlement.repository.redis.TokenRedisRepository;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import kr.co.kjc.settlement.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,8 +32,10 @@ import org.springframework.stereotype.Service;
 public class JwtTokenServiceImpl implements JwtTokenService {
 
   private static final long EXPIRED_MS = 1000 * 60; // 60초
-  private final SecretKey secretKey;
+  private static final Logger log = LoggerFactory.getLogger(JwtTokenServiceImpl.class);
+
   private final ObjectMapper om;
+  private final SecretKey secretKey;
   private final MemberService memberService;
   private final TokenRedisRepository tokenRedisRepository;
 
@@ -47,21 +57,35 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   }
 
   @Override
-  public void update(JwtTokenRefreshReqDTO dto) {
+  public Token update(String refreshToken) {
+    Token token = tokenRedisRepository.findById(refreshToken)
+        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_REFRESH_TOKEN));
 
+    if (token.getTokenBody().getExpiredAt().isAfter(LocalDateTime.now(ZoneId.of("Asia/Seoul")))) {
+      throw new BaseAPIException(EnumErrorCode.CONFLICT_JWT_REFRESH_TOKEN);
+    }
+
+    return tokenRedisRepository.save(Token.createTokenByRefreshToken(refreshToken));
   }
 
   @Override
   public boolean isExpired(String accessToken) {
-//    return JwtUtils.isExpired(secretKey, accessToken);
-    return tokenRedisRepository.existsById(accessToken);
+    try {
+      return JwtUtils.isExpired(secretKey, accessToken);
+    } catch (ExpiredJwtException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
+      throw new BaseAPIException(EnumErrorCode.EXPIRED_JWT_TOKEN);
+    } catch (SignatureException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
+      throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN);
+    }
   }
 
   @Override
   public MemberDTO findMemberByToken(String token) {
     Map<String, ?> payloads = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token)
         .getPayload()
-        .get("user", Map.class);
+        .get("member", Map.class);
     return om.convertValue(payloads, MemberDTO.class);
   }
 

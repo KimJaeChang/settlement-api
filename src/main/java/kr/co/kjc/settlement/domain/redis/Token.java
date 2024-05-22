@@ -17,6 +17,7 @@ public class Token {
 
   @Id
   private String refreshToken;
+
   @Embedded
   private TokenBody tokenBody;
 
@@ -24,6 +25,12 @@ public class Token {
     Token result = new Token();
     result.refreshToken = refreshToken;
     result.tokenBody = tokenBody;
+    return result;
+  }
+
+  public static Token createTokenByRefreshToken(String refreshToken) {
+    Token result = new Token();
+    result.refreshToken = refreshToken;
     return result;
   }
 }
