@@ -16,7 +16,7 @@ import kr.co.kjc.settlement.global.dtos.JwtClaimsDTO;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
 import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import kr.co.kjc.settlement.global.utils.JwtUtils;
 import kr.co.kjc.settlement.repository.redis.TokenRedisRepository;
@@ -58,10 +58,10 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   @Override
   public Token update(String refreshToken) {
     Token token = tokenRedisRepository.findById(refreshToken)
-        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_REFRESH_TOKEN));
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_REFRESH_TOKEN));
 
     if (token.getTokenBody().getExpiredAt().isAfter(LocalDateTime.now(ZoneId.of("Asia/Seoul")))) {
-      throw new BaseAPIException(EnumErrorCode.CONFLICT_JWT_REFRESH_TOKEN);
+      throw new BaseAPIException(EnumResponseCode.CONFLICT_JWT_REFRESH_TOKEN);
     }
 
     return tokenRedisRepository.save(Token.createTokenByRefreshToken(refreshToken));
@@ -73,10 +73,10 @@ public class JwtTokenServiceImpl implements JwtTokenService {
       return JwtUtils.isExpired(secretKey, accessToken);
     } catch (ExpiredJwtException e) {
       log.error(TextConstants.EXCEPTION_PREFIX, e);
-      throw new BaseAPIException(EnumErrorCode.EXPIRED_JWT_TOKEN);
+      throw new BaseAPIException(EnumResponseCode.EXPIRED_JWT_TOKEN);
     } catch (SignatureException e) {
       log.error(TextConstants.EXCEPTION_PREFIX, e);
-      throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN);
+      throw new BaseAPIException(EnumResponseCode.INVALID_JWT_TOKEN);
     }
   }
 
@@ -89,7 +89,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
       return om.convertValue(payloads, MemberDTO.class);
     } catch (IllegalArgumentException e) {
       log.error(TextConstants.EXCEPTION_PREFIX, e);
-      throw new BaseAPIException(EnumErrorCode.NOT_FOUND_MEMBER_BY_JWT_ACCESS_TOKEN);
+      throw new BaseAPIException(EnumResponseCode.NOT_FOUND_MEMBER_BY_JWT_ACCESS_TOKEN);
     }
   }
 

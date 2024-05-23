@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public enum EnumErrorCode {
+public enum EnumResponseCode {
 
   /**
    * 400 - Bad Request

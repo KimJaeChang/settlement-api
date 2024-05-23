@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Map;
 import javax.crypto.SecretKey;
 import kr.co.kjc.settlement.global.constants.CommonConstants;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.StringUtils;
@@ -81,9 +81,9 @@ public class JwtUtils {
       if (authorization.startsWith(CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE)) {
         return true;
       }
-      throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_BODY);
+      throw new BaseAPIException(EnumResponseCode.INVALID_JWT_TOKEN_BODY);
     }
-    throw new BaseAPIException(EnumErrorCode.INVALID_JWT_TOKEN_HEADER);
+    throw new BaseAPIException(EnumResponseCode.INVALID_JWT_TOKEN_HEADER);
   }
 
   public static String convertAccessToken(String authorization) {

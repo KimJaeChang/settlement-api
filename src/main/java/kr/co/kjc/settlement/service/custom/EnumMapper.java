@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import kr.co.kjc.settlement.global.dtos.CodeDTO.Item;
 import kr.co.kjc.settlement.global.dtos.CodeDTO.Items;
 import kr.co.kjc.settlement.global.enums.BaseEnum;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.enums.EnumPaymentBroker;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -52,7 +52,7 @@ public class EnumMapper {
   public Items findOne(String enumClass) {
 
     Class<? extends BaseEnum> enumType = Optional.ofNullable(enumMap.get(enumClass))
-        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM));
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM));
 
     return Items.toEnumItems(enumType, getDescription(enumType), Item.toEnumItem(enumType));
   }
@@ -77,7 +77,7 @@ public class EnumMapper {
       }
     }
 
-    throw new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM);
+    throw new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM);
   }
 
   public Item findOneByCode(String code) {
@@ -95,18 +95,18 @@ public class EnumMapper {
       }
     }
 
-    throw new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM);
+    throw new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM);
   }
 
   public Item findOneByEnumValue(String enumClass, String value) {
 
     Class<? extends BaseEnum> enumType = Optional.ofNullable(enumMap.get(enumClass))
-        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM));
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM));
 
     BaseEnum e = Arrays.stream(enumType.getEnumConstants())
         .filter(f -> f.getValue(value).name().equals(value))
         .findFirst()
-        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM));
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM));
 
     return Item.createItem(e);
   }
@@ -114,12 +114,12 @@ public class EnumMapper {
   public Item findOneByEnumCode(String enumClass, String code) {
 
     Class<? extends BaseEnum> enumType = Optional.ofNullable(enumMap.get(enumClass))
-        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM));
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM));
 
     BaseEnum e = Arrays.stream(enumType.getEnumConstants())
         .filter(f -> f.getCode().equals(code))
         .findFirst()
-        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM_CODE));
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM_CODE));
 
     return Item.createItem(e);
   }
@@ -128,10 +128,10 @@ public class EnumMapper {
     try {
       return (String) Arrays.stream(e.getInterfaces())
           .findFirst()
-          .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM))
+          .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM))
           .getDeclaredMethod("getDescription")
           .invoke(Arrays.stream(e.getEnumConstants()).findFirst()
-              .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM)));
+              .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM)));
     } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException ex) {
       log.error("EnumMapper_getDescription_error:: " + ex.getMessage());
       return null;

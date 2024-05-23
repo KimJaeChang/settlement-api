@@ -5,12 +5,12 @@ import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 
-@Target({ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.TYPE_USE, ElementType.METHOD, ElementType.TYPE, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Repeatable(CustomApiResponses.class)
-public @interface CustomApiResponse {
+@Repeatable(CustomApiResponseCodes.class)
+public @interface CustomApiResponseCode {
 
-  EnumErrorCode errorCode();
+  EnumResponseCode value();
 }

@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import kr.co.kjc.settlement.global.constants.TextConstants;
 import kr.co.kjc.settlement.global.dtos.S3BucketDTO;
 import kr.co.kjc.settlement.global.dtos.S3ObjectDTO;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import kr.co.kjc.settlement.global.utils.CommonUtils;
 import kr.co.kjc.settlement.service.AwsS3Service;
@@ -71,7 +71,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   public List<String> uploadFile(MultipartFile multipartFile) {
 
     if (multipartFile.isEmpty()) {
-      throw new BaseAPIException(EnumErrorCode.NOT_FOUND_UPLOAD_FILE);
+      throw new BaseAPIException(EnumResponseCode.NOT_FOUND_UPLOAD_FILE);
     }
 
     File file = null;
@@ -132,7 +132,7 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   @Override
   public String uploadObject(MultipartFile multipartFile) {
     if (multipartFile.isEmpty()) {
-      throw new BaseAPIException(EnumErrorCode.NOT_FOUND_UPLOAD_FILE);
+      throw new BaseAPIException(EnumResponseCode.NOT_FOUND_UPLOAD_FILE);
     }
 
     File file = null;

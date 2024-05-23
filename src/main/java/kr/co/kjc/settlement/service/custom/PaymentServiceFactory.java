@@ -1,8 +1,8 @@
 package kr.co.kjc.settlement.service.custom;
 
 import java.util.Map;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.enums.EnumPaymentBroker;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import kr.co.kjc.settlement.service.PaymentService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class PaymentServiceFactory {
   public PaymentService get(EnumPaymentBroker enumPaymentBroker) {
     return serviceMap.computeIfAbsent(enumPaymentBroker
         , (paymentBroker) -> {
-          throw new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM);
+          throw new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM);
         });
   }
 

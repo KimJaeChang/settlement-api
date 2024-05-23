@@ -1,7 +1,7 @@
 package kr.co.kjc.settlement.global.exception;
 
 import java.util.Objects;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,17 +12,17 @@ import org.springframework.web.server.ResponseStatusException;
 @Getter
 public class BaseAPIException extends ResponseStatusException {
 
-  private EnumErrorCode enumErrorCode;
+  private EnumResponseCode enumResponseCode;
 
   // 표준 에러코드를 가지는지 확인
   public boolean isBaseErrorCodeType() {
-    return !Objects.isNull(enumErrorCode);
+    return !Objects.isNull(enumResponseCode);
   }
 
   // EnumErrorCode 형태 Exception
-  public BaseAPIException(EnumErrorCode enumErrorCode) {
-    super(enumErrorCode.getHttpStatus(), enumErrorCode.getDetail());
-    this.enumErrorCode = enumErrorCode;
+  public BaseAPIException(EnumResponseCode enumResponseCode) {
+    super(enumResponseCode.getHttpStatus(), enumResponseCode.getDetail());
+    this.enumResponseCode = enumResponseCode;
   }
 
   public BaseAPIException(HttpStatusCode status) {

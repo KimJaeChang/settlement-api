@@ -41,7 +41,7 @@ public class BaseAPIControllerAdvice extends ResponseEntityExceptionHandler {
 
     if (e.isBaseErrorCodeType()) {
       // 고정된 메시지일 경우
-      return helper.build(e.getEnumErrorCode());
+      return helper.build(e.getEnumResponseCode());
     } else {
       // 메시지가 동적으로 만들어질 필요가 있을 경우
       return helper.build(HttpStatus.resolve(e.getStatusCode().value()), e.getLocalizedMessage());
@@ -100,11 +100,14 @@ public class BaseAPIControllerAdvice extends ResponseEntityExceptionHandler {
    * handleMethodArgumentNotValid 인 경우에는 AOP 작동이 되지 않아 REQUEST 로깅 시 아래 로직이 필요
    */
   private void printRequestLogging() {
-    HttpServletRequest servletRequest = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+    HttpServletRequest servletRequest = ((ServletRequestAttributes) Objects.requireNonNull(
+        RequestContextHolder.getRequestAttributes())).getRequest();
     final ContentCachingRequestWrapper cachingRequest = (ContentCachingRequestWrapper) servletRequest;
 
-    String queryString = (cachingRequest.getQueryString() != null ? cachingRequest.getQueryString() + System.lineSeparator() : StringUtils.EMPTY);
-    log.info(TextConstants.LOGGING_PREFIX_REQUEST, queryString + cachingRequest.getContentAsString());
+    String queryString = (cachingRequest.getQueryString() != null ? cachingRequest.getQueryString()
+        + System.lineSeparator() : StringUtils.EMPTY);
+    log.info(TextConstants.LOGGING_PREFIX_REQUEST,
+        queryString + cachingRequest.getContentAsString());
 
 
   }

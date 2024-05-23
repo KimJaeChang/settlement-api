@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import kr.co.kjc.settlement.domain.jpa.CommonCode;
 import kr.co.kjc.settlement.global.dtos.CommonCodeDTO.Item;
 import kr.co.kjc.settlement.global.dtos.request.BaseSearchDTO;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import kr.co.kjc.settlement.repository.jpa.CommonCodeJpaRepository;
 import kr.co.kjc.settlement.service.CommonCodeService;
@@ -46,7 +46,7 @@ public class CommonCodeServiceImpl implements CommonCodeService {
   public Item findOneById(Long id) {
 
     CommonCode commonCode = commonCodeJpaRepository.findById(id)
-        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_COMMON_CODE));
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_COMMON_CODE));
 
     return Item.toDto(commonCode);
   }
@@ -58,7 +58,7 @@ public class CommonCodeServiceImpl implements CommonCodeService {
         CommonCode.createExampleByChildCode(childCode));
 
     CommonCode commonCode = commonCodeJpaRepository.findOne(example)
-        .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_COMMON_CODE));
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_COMMON_CODE));
 
     return Item.toDto(commonCode);
   }

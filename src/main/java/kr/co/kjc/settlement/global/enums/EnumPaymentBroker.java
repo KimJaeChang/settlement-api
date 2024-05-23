@@ -18,7 +18,7 @@ public enum EnumPaymentBroker implements BaseEnum {
     return Arrays.stream(EnumPaymentBroker.values())
         .filter(f -> f.getValue(key).equals(key))
         .findFirst()
-        .orElseThrow(() -> new RuntimeException(EnumErrorCode.NOT_FOUND_ENUM.getDetail()));
+        .orElseThrow(() -> new RuntimeException(EnumResponseCode.NOT_FOUND_ENUM.getDetail()));
   }
 
   @Override

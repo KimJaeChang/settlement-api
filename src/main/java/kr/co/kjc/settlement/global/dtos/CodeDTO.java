@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import kr.co.kjc.settlement.global.enums.BaseEnum;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -80,7 +80,7 @@ public class CodeDTO {
       return Arrays.stream(e.getClass().getEnumConstants())
           .map(m -> m.getValue(String.valueOf(e)))
           .findFirst()
-          .orElseThrow(() -> new BaseAPIException(EnumErrorCode.NOT_FOUND_ENUM));
+          .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM));
     }
 
     public static Item createItem(BaseEnum e) {

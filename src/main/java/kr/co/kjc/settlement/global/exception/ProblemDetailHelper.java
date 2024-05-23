@@ -3,8 +3,8 @@ package kr.co.kjc.settlement.global.exception;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
-import kr.co.kjc.settlement.global.enums.EnumErrorCode;
 import kr.co.kjc.settlement.global.enums.EnumMessageActionType;
+import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -28,7 +28,7 @@ public class ProblemDetailHelper {
    * @param enumErrorCode
    * @return ProblemDetail
    */
-  public ProblemDetail build(final EnumErrorCode enumErrorCode) {
+  public ProblemDetail build(final EnumResponseCode enumErrorCode) {
     return build(enumErrorCode.getHttpStatus(), enumErrorCode.getDetail());
   }
 
@@ -55,7 +55,8 @@ public class ProblemDetailHelper {
    * @param errors
    * @return ProblemDetail
    */
-  public ProblemDetail build(final HttpStatus status, final String detail, final List<Map<String, String>> errors) {
+  public ProblemDetail build(final HttpStatus status, final String detail,
+      final List<Map<String, String>> errors) {
 
     final ProblemDetail problemDetail =
         ProblemDetail.forStatusAndDetail(status, StringUtils.normalizeSpace(detail));
@@ -78,7 +79,8 @@ public class ProblemDetailHelper {
    * @param request
    * @return ProblemDetail
    */
-  public ProblemDetail build(final HttpStatus status, final String detail, final WebRequest request) {
+  public ProblemDetail build(final HttpStatus status, final String detail,
+      final WebRequest request) {
     final ProblemDetail problemDetail =
         ProblemDetail.forStatusAndDetail(status, StringUtils.normalizeSpace(detail));
 
