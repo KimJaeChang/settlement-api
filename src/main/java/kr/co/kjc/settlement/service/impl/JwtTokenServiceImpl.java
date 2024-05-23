@@ -23,16 +23,15 @@ import kr.co.kjc.settlement.repository.redis.TokenRedisRepository;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import kr.co.kjc.settlement.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class JwtTokenServiceImpl implements JwtTokenService {
 
   private static final long EXPIRED_MS = 1000 * 60; // 60초
-  private static final Logger log = LoggerFactory.getLogger(JwtTokenServiceImpl.class);
 
   private final ObjectMapper om;
   private final SecretKey secretKey;
