@@ -9,6 +9,11 @@ import org.springframework.http.HttpStatus;
 public enum EnumResponseCode {
 
   /**
+   * 200 - Success
+   */
+  SUCCESS(HttpStatus.OK, "성공"),
+
+  /**
    * 400 - Bad Request
    */
   INVALID_SCHEMA(HttpStatus.BAD_REQUEST, "올바르지 않은 Schema 접근입니다."),

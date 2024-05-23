@@ -6,6 +6,11 @@ import kr.co.kjc.settlement.global.annotation.CustomApiResponseCodes;
 public enum EnumCustomApiResponseCodeGroup {
 
   @CustomApiResponseCodes(value = {
+      @CustomApiResponseCode(EnumResponseCode.SUCCESS),
+  })
+  SUCCESS,
+
+  @CustomApiResponseCodes(value = {
       @CustomApiResponseCode(EnumResponseCode.INVALID_SCHEMA),
       @CustomApiResponseCode(EnumResponseCode.INVALID_PARAMETER),
       @CustomApiResponseCode(EnumResponseCode.INVALID_JWT_TOKEN),
