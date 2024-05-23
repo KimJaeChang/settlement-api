@@ -18,8 +18,11 @@ public class OpenApiConfig {
   @Value("${spring.application.name}")
   private String appName;
 
+  @Value("${springdoc.version}")
+  private String springdocVersion;
+
   @Bean
-  public OpenAPI openAPI(@Value("${springdoc.version}") String springdocVersion) {
+  public OpenAPI openAPI() {
     Info info = new Info()
         .title(appName)
         .version(springdocVersion)
@@ -33,7 +36,6 @@ public class OpenApiConfig {
                 .bearerFormat("JWT"));
 
     return new OpenAPI()
-        .components(new Components())
         .info(info)
         .addSecurityItem(securityRequirement)
         .components(components);
