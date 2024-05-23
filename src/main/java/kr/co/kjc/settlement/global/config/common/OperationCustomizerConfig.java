@@ -102,7 +102,8 @@ public class OperationCustomizerConfig implements OperationCustomizer {
     Integer code = responseCode.getHttpStatus().value();
     String message = responseCode.getDetail();
 
-    properties.get("success").setDefault(success);
+    properties.get("success")
+        .setDefault(status >= 200 && status < 300 ? Boolean.TRUE : Boolean.FALSE);
     properties.get("status").setDefault(status);
     properties.get("code").setDefault(code);
     properties.get("message").setDefault(message);
