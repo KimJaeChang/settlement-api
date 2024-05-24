@@ -24,7 +24,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -47,11 +46,11 @@ class CommonCodeServiceImplTest {
   @Autowired
   ObjectMapper om;
 
-  private <T> T getResult(MvcResult mvcResult, Class<T> cl)
+  private <T> T getResult(ResultActions resultActions, Class<T> cl)
       throws UnsupportedEncodingException, JsonProcessingException {
 
     BaseResponseDTO<?> baseResponseDTO = om.convertValue(
-        mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8),
+        resultActions.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8),
         BaseResponseDTO.class);
 
     String body = om.writeValueAsString(baseResponseDTO.getBody());
@@ -65,7 +64,6 @@ class CommonCodeServiceImplTest {
 
   @Test
   @DisplayName("공통코드 전체조회 Test")
-    //@Rollback(value = false)
   void findAllTest() throws Exception {
     // given
 
@@ -85,6 +83,32 @@ class CommonCodeServiceImplTest {
         resultActions.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8),
         Page.class);
 
+    Assertions.assertThat(result.getContent().size()).isGreaterThan(0);
+  }
+
+  @Test
+  @DisplayName("공통코드 부모코드 기준 조회 Test")
+  void findAllByParentCodeTest() throws Exception {
+    // given
+    String parentCode = "AAA000";
+
+    // when
+    ResultActions perform = mockMvc.perform(
+        MockMvcRequestBuilders.get("/api/v1/common-codes/parent-codes/{parentCode}",
+                parentCode) // uri 주소
+            .header("Authorization", "")
+            .contentType(MediaType.APPLICATION_JSON)
+            .characterEncoding(StandardCharsets.UTF_8)
+    );
+
+    // then
+    ResultActions resultActions = perform.andExpect(status().isOk());
+
+    Page<?> result = om.convertValue(
+        resultActions.andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8),
+        Page.class);
+
+    // then
     Assertions.assertThat(result.getContent().size()).isGreaterThan(0);
   }
 
