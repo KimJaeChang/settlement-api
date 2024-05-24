@@ -42,6 +42,7 @@ public enum EnumResponseCode {
   NOT_FOUND_ENUM_VALUE(HttpStatus.NOT_FOUND, "해당 Enum의 Value가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
   NOT_FOUND_ENUM_CODE(HttpStatus.NOT_FOUND, "해당 Enum의 Code가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
   NOT_FOUND_COMMON_CODE(HttpStatus.NOT_FOUND, "해당 공통 코드가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
+  NOT_FOUND_S3_BUCKET(HttpStatus.NOT_FOUND, "해당 S3 Bucket이 존재하지 않습니다. 올바른 값으로 조회해주세요."),
 
   /**
    * 409 - Conflict

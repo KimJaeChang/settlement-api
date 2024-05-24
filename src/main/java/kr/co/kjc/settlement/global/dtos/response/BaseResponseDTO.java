@@ -20,8 +20,6 @@ import org.springframework.http.HttpStatus;
 @Schema(description = "API 표준 응답 DTO")
 public class BaseResponseDTO<T> {
 
-  // 추후 필요할 때 정의하자.
-  // private String result;
   private int code = HttpStatus.OK.value();
   private String message = "";
   @JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timezone = "Asia/Seoul")

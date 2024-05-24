@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 public class CommonCodeDTO {
 
@@ -51,6 +52,7 @@ public class CommonCodeDTO {
   @Setter
   @AllArgsConstructor
   @NoArgsConstructor
+  @ToString
   public static class Item {
 
     @Schema(description = "공통코드 SEQ")

@@ -59,12 +59,17 @@ public class AwsS3ServiceImpl implements AwsS3Service {
   public List<S3ObjectDTO> getObjects(String bucketName) {
 
     ListObjectsV2Request request = ListObjectsV2Request.builder()
-        .bucket(bucket)
+        .bucket(bucketName)
         .build();
 
-    return s3Client.listObjectsV2(request).contents().stream()
-        .map(S3ObjectDTO::of)
-        .collect(Collectors.toList());
+    try {
+      return s3Client.listObjectsV2(request).contents().stream()
+          .map(S3ObjectDTO::of)
+          .collect(Collectors.toList());
+    } catch (AwsServiceException | SdkClientException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
+      throw new BaseAPIException(EnumResponseCode.NOT_FOUND_S3_BUCKET);
+    }
   }
 
   @Override

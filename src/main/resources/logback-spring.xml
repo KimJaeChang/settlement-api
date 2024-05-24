@@ -51,8 +51,7 @@
       <pattern>${FILE_LOG_PATTERN}</pattern>
       <charset>${FILE_LOG_CHARSET}</charset>
     </encoder>
-    <file>${ERROR_LOG_FILE
-    }
+    <file>${ERROR_LOG_FILE}
     </file>
     <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
       <fileNamePattern>
@@ -98,6 +97,14 @@
   <!--      <appender-ref ref="OCPP_LOG_FILE"/>-->
   <!--    </logger>-->
   <!--  </springProfile>-->
+
+  <springProfile name="local">
+    <property name="LOG_PATH" value="logs"/>
+    <root>
+      <appender-ref ref="FILE"/>
+    </root>
+  </springProfile>
+
   <springProfile name="prod">
     <root>
       <appender-ref ref="FILE"/>

@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
-import org.springframework.data.redis.core.index.Indexed;
 
 @Getter
 @Setter
@@ -24,7 +23,6 @@ import org.springframework.data.redis.core.index.Indexed;
 @RedisHash(value = "TokenBody")
 public class TokenBody implements Serializable {
 
-  @Indexed
   private String uuid;
   private LocalDateTime createdAt;
   private LocalDateTime expiredAt;
