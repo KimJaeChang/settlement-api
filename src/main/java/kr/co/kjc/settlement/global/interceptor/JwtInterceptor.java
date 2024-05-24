@@ -7,6 +7,7 @@ import kr.co.kjc.settlement.global.utils.JwtUtils;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,6 +23,14 @@ public class JwtInterceptor implements HandlerInterceptor {
       throws Exception {
     //전처리 로직
 
+    String refreshToken = request.getHeader(CommonConstants.REQ_HEADER_REFRESH_KEY_AUTH);
+
+    if (StringUtils.hasText(refreshToken)) {
+      if (jwtTokenService.isRefreshTokenExpired(refreshToken)) {
+        return true;
+      }
+    }
+
     String authorization = request.getHeader(CommonConstants.REQ_HEADER_KEY_AUTH);
 
     // 기본 인증 체크
@@ -35,12 +44,6 @@ public class JwtInterceptor implements HandlerInterceptor {
       // JWT claims 체크
       jwtTokenService.findMemberByToken(accessToken);
 
-      return true;
-    }
-
-    String refreshToken = request.getHeader(CommonConstants.REQ_HEADER_REFRESH_KEY_AUTH);
-
-    if (jwtTokenService.isRefreshTokenExpired(refreshToken)) {
       return true;
     }
 
