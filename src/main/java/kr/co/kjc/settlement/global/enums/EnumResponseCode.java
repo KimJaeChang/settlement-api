@@ -26,17 +26,18 @@ public enum EnumResponseCode {
   /**
    * 401 - Unauthorized
    */
-  UNAUTHORIZED_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "JWT 토근 인증이 필요합니다."),
-  EXPIRED_JWT_TOKEN(HttpStatus.UNAUTHORIZED, "만료된 JWT 토큰 입니다. RefreshToken으로 JWT 토큰을 재발급 해주세요."),
+  UNAUTHORIZED_JWT_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED, "JWT 토근 인증이 필요합니다."),
+  EXPIRED_JWT_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED,
+      "만료된 JWT 토큰 입니다. RefreshToken으로 JWT 토큰을 재발급 해주세요."),
 
   /**
    * 404 - Not Found
    */
   NOT_FOUND(HttpStatus.NOT_FOUND, "Resource not exists"),
-  NOT_FOUND_REFRESH_TOKEN(HttpStatus.NOT_FOUND, "RefreshToken을 찾을 수 없습니다."),
   NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다."),
   NOT_FOUND_MEMBER_BY_JWT_ACCESS_TOKEN(HttpStatus.NOT_FOUND, "JWT 토큰 정보에 대한 회원 정보를 찾을 수 없습니다."),
   NOT_FOUND_JWT_ACCESS_TOKEN(HttpStatus.NOT_FOUND, "JWT 토큰 정보를 찾을 수 없습니다."),
+  NOT_FOUND_JWT_REFRESH_TOKEN(HttpStatus.NOT_FOUND, "RefreshToken을 찾을 수 없습니다."),
   NOT_FOUND_UPLOAD_FILE(HttpStatus.NOT_FOUND, "업로드한 파일을 찾을 수 없습니다."),
   NOT_FOUND_ENUM(HttpStatus.NOT_FOUND, "Enum을 찾을 수 없습니다."),
   NOT_FOUND_ENUM_VALUE(HttpStatus.NOT_FOUND, "해당 Enum의 Value가 존재하지 않습니다. 올바른 값으로 조회해주세요."),

@@ -20,21 +20,23 @@ public enum EnumCustomApiResponseCodeGroup {
   INVALID,
 
   @CustomApiResponseCodes(value = {
-      @CustomApiResponseCode(EnumResponseCode.UNAUTHORIZED_JWT_TOKEN),
+      @CustomApiResponseCode(EnumResponseCode.UNAUTHORIZED_JWT_ACCESS_TOKEN),
   })
   UNAUTHORIZED,
 
   @CustomApiResponseCodes(value = {
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND),
-      @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_REFRESH_TOKEN),
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_MEMBER),
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_MEMBER_BY_JWT_ACCESS_TOKEN),
+      @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_JWT_ACCESS_TOKEN),
+      @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_JWT_REFRESH_TOKEN),
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_JWT_ACCESS_TOKEN),
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_UPLOAD_FILE),
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_ENUM),
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_ENUM_VALUE),
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_ENUM_CODE),
       @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_COMMON_CODE),
+      @CustomApiResponseCode(EnumResponseCode.NOT_FOUND_S3_BUCKET),
   })
   NOT_FOUND,
 

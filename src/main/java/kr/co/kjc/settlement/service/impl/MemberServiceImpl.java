@@ -32,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
   }
 
   @Override
-  public MemberDTO findByUuid(String uuid) {
+  public MemberDTO findOneByUuid(String uuid) {
     Example<Member> example = Example.of(Member.createExampleByUuid(uuid));
 
     return MemberDTO.toDto(memberJpaRepository.findOne(example)

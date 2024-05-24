@@ -10,6 +10,6 @@ public interface MemberService {
 
   MemberDTO findById(Long id);
 
-  MemberDTO findByUuid(String uuid);
+  MemberDTO findOneByUuid(String uuid);
 
 }

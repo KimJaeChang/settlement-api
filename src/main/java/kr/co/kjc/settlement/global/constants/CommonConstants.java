@@ -36,6 +36,8 @@ public class CommonConstants {
 
   public static final String REQ_HEADER_KEY_AUTH = "Authorization";
 
+  public static final String REQ_HEADER_REFRESH_KEY_AUTH = "RefreshToken";
+
   public static final String REQ_HEADER_KEY_AUTH_TOKEN_TYPE = "Bearer ";
 
 

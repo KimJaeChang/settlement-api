@@ -14,6 +14,7 @@ import kr.co.kjc.settlement.domain.redis.TokenBody;
 import kr.co.kjc.settlement.global.constants.TextConstants;
 import kr.co.kjc.settlement.global.dtos.JwtClaimsDTO;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
+import kr.co.kjc.settlement.global.dtos.request.JwtTokenRefreshReqDTO;
 import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
 import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
 import kr.co.kjc.settlement.global.enums.EnumResponseCode;
@@ -43,7 +44,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 //    return redisTemplate.opsForHash().putIfAbsent(table, key, value);
 
     String uuid = dto.getUuid();
-    MemberDTO memberDTO = memberService.findByUuid(uuid);
+    MemberDTO memberDTO = memberService.findOneByUuid(uuid);
     Map<String, ?> claims = createClaims(dto, memberDTO);
 
     String accessToken = JwtUtils.createAccessToken(secretKey, claims, EXPIRED_MS);
@@ -56,24 +57,22 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   }
 
   @Override
-  public Token update(String refreshToken) {
-    Token token = tokenRedisRepository.findById(refreshToken)
-        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_REFRESH_TOKEN));
+  public Token update(JwtTokenRefreshReqDTO dto) {
 
-    if (token.getTokenBody().getExpiredAt().isAfter(LocalDateTime.now(ZoneId.of("Asia/Seoul")))) {
-      throw new BaseAPIException(EnumResponseCode.CONFLICT_JWT_REFRESH_TOKEN);
-    }
+    String refreshToken = dto.getRefreshToken();
+    isRefreshTokenExpired(refreshToken);
 
-    return tokenRedisRepository.save(Token.createTokenByRefreshToken(refreshToken));
+    Token token = Token.createTokenByRefreshToken(refreshToken);
+    return tokenRedisRepository.save(token);
   }
 
   @Override
-  public boolean isExpired(String accessToken) {
+  public boolean isAccessTokenExpired(String accessToken) {
     try {
       return JwtUtils.isExpired(secretKey, accessToken);
     } catch (ExpiredJwtException e) {
       log.error(TextConstants.EXCEPTION_PREFIX, e);
-      throw new BaseAPIException(EnumResponseCode.EXPIRED_JWT_TOKEN);
+      throw new BaseAPIException(EnumResponseCode.EXPIRED_JWT_ACCESS_TOKEN);
     } catch (SignatureException e) {
       log.error(TextConstants.EXCEPTION_PREFIX, e);
       throw new BaseAPIException(EnumResponseCode.INVALID_JWT_TOKEN);
@@ -81,9 +80,24 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   }
 
   @Override
-  public MemberDTO findMemberByToken(String token) {
+  public boolean isRefreshTokenExpired(String refreshToken) {
+
+    Token findToken = tokenRedisRepository.findById(refreshToken)
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_JWT_REFRESH_TOKEN));
+
+    if (findToken.getTokenBody().getExpiredAt()
+        .isBefore(LocalDateTime.now(ZoneId.of("Asia/Seoul")))) {
+      return true;
+    }
+
+    throw new BaseAPIException(EnumResponseCode.CONFLICT_JWT_REFRESH_TOKEN);
+  }
+
+  @Override
+  public MemberDTO findMemberByToken(String accessToken) {
     try {
-      Map<String, ?> payloads = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token)
+      Map<String, ?> payloads = Jwts.parser().verifyWith(secretKey).build()
+          .parseSignedClaims(accessToken)
           .getPayload()
           .get("member", Map.class);
       return om.convertValue(payloads, MemberDTO.class);

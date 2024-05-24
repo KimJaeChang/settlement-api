@@ -24,16 +24,23 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     String authorization = request.getHeader(CommonConstants.REQ_HEADER_KEY_AUTH);
 
+    // 기본 인증 체크
     if (JwtUtils.isAuthorization(authorization)) {
 
       String accessToken = JwtUtils.convertAccessToken(authorization);
 
       // 만료 여부 체크
-      jwtTokenService.isExpired(accessToken);
+      jwtTokenService.isAccessTokenExpired(accessToken);
 
       // JWT claims 체크
       jwtTokenService.findMemberByToken(accessToken);
 
+      return true;
+    }
+
+    String refreshToken = request.getHeader(CommonConstants.REQ_HEADER_REFRESH_KEY_AUTH);
+
+    if (jwtTokenService.isRefreshTokenExpired(refreshToken)) {
       return true;
     }
 
