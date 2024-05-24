@@ -7,6 +7,8 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.security.SecurityScheme.Type;
+import io.swagger.v3.oas.models.servers.Server;
+import java.util.List;
 import kr.co.kjc.settlement.global.constants.CommonConstants;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,13 +30,13 @@ public class OpenApiConfig {
         .version(springdocVersion)
         .description(appName + " API Description");
 
-//    Server server1 = new Server()
-//        .url("https://settlement-api-1.co.kr");
-//
-//    Server server2 = new Server()
-//        .url("https://settlement-api-2.co.kr");
-//
-//    List<Server> servers = List.of(server1, server2);
+    Server server1 = new Server()
+        .url("/");
+
+    Server server2 = new Server()
+        .url("https://settlement-api.co.kr");
+
+    List<Server> servers = List.of(server1, server2);
 
     String schemeName = CommonConstants.REQ_HEADER_KEY_AUTH;
     SecurityRequirement securityRequirement = new SecurityRequirement().addList(schemeName);
@@ -45,7 +47,7 @@ public class OpenApiConfig {
 
     return new OpenAPI()
         .info(info)
-//        .servers(servers)
+        .servers(servers)
         .addSecurityItem(securityRequirement)
         .components(components);
   }
