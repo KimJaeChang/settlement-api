@@ -12,7 +12,7 @@ import org.springframework.data.redis.core.RedisHash;
  */
 @Getter
 @NoArgsConstructor
-@RedisHash(value = "Token", timeToLive = 60L)
+@RedisHash(value = "Token", timeToLive = 60L * 60L)
 public class Token {
 
   @Id

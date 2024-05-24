@@ -31,7 +31,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JwtTokenServiceImpl implements JwtTokenService {
 
-  private static final long EXPIRED_MS = 1000 * 60; // 60초
+  private static final long EXPIRED_MS = 1000 * 60 * 60; // 60분
 
   private final ObjectMapper om;
   private final SecretKey secretKey;
