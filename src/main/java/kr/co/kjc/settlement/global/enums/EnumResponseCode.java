@@ -53,7 +53,9 @@ public enum EnumResponseCode {
   /**
    * 500 - Internal_server_error
    */
-  INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에러가 발생했습니다.");
+  INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에러가 발생했습니다."),
+  SECRET_KEY_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,
+      "서버의 SecretKey 부분에서 에러가 발생했습니다.\n관리자에게 문의해주세요.");
 
   private final HttpStatus httpStatus;
   private final String detail;

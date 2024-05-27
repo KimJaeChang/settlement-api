@@ -1,6 +1,9 @@
 package kr.co.kjc.settlement.global.utils;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.InvalidKeyException;
+import io.jsonwebtoken.security.SignatureException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
@@ -21,8 +24,8 @@ public class JwtUtils {
    * @description : JWT AccessToken 생성
    */
   public static String createAccessToken(SecretKey secretKey, Map<String, ?> claims,
-      long expiredMs) {
-    return CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE + Jwts.builder()
+      long expiredMs) throws InvalidKeyException {
+    return Jwts.builder()
         .claims(claims)
         .issuedAt(DateTimeUtils.nowDate())
         .expiration(DateTimeUtils.afterDateMs(expiredMs))
@@ -36,7 +39,8 @@ public class JwtUtils {
    * @date : 2024-04-25T15:58:50.707
    * @description : JWT RefreshToken 생성
    */
-  public static String createRefreshToken(SecretKey secretKey, long expiredMs) {
+  public static String createRefreshToken(SecretKey secretKey, long expiredMs)
+      throws InvalidKeyException {
     return Jwts.builder()
         .expiration(DateTimeUtils.afterDateMs(expiredMs))
         .signWith(secretKey)
@@ -56,7 +60,8 @@ public class JwtUtils {
     return c.getTime();
   }
 
-  public static boolean isExpired(SecretKey secretKey, String accessToken) {
+  public static boolean isExpired(SecretKey secretKey, String accessToken)
+      throws ExpiredJwtException, SignatureException, IllegalArgumentException {
     return Jwts.parser()
         .verifyWith(secretKey)
         .build()

@@ -12,6 +12,7 @@ import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,8 +37,10 @@ public class JwtApiController {
       }
   )
   @PostMapping(value = "/authorization")
-  public BaseResponseDTO<JwtTokenResDTO> createAccessToken(@RequestBody JwtTokenReqDTO dto) {
-    return new BaseResponseDTO<>(jwtTokenService.create(dto));
+  public ResponseEntity<BaseResponseDTO<JwtTokenResDTO>> createAccessToken(
+      @RequestBody JwtTokenReqDTO dto) {
+    return ResponseEntity.ok()
+        .body(new BaseResponseDTO<>(jwtTokenService.create(dto)));
   }
 
   @Operation(summary = "JWT AccessToken 재발급", description = "JWT AccessToken을 재발급 합니다. ",
@@ -50,8 +53,9 @@ public class JwtApiController {
       }
   )
   @PutMapping(value = "/authorization")
-  public BaseResponseDTO<JwtTokenResDTO> createRefreshToken(
+  public ResponseEntity<BaseResponseDTO<JwtTokenResDTO>> createRefreshToken(
       @RequestBody JwtTokenRefreshReqDTO dto) {
-    return new BaseResponseDTO<>();
+    return ResponseEntity.ok()
+        .body(new BaseResponseDTO<>());
   }
 }
