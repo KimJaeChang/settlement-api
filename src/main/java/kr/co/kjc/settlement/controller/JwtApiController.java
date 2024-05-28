@@ -45,6 +45,15 @@ public class JwtApiController {
   }
 
   @Operation(summary = "JWT AccessToken 재발급", description = "JWT AccessToken을 재발급 합니다. ",
+      requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+          content = @Content(
+              schema = @Schema(
+                  allOf = JwtTokenReqDTO.class
+              )
+          ),
+          required = true,
+          useParameterTypeSchema = true
+      ),
       responses = {
           @ApiResponse(responseCode = "200", description = "성공 응답(success)", useReturnTypeSchema = true),
           @ApiResponse(responseCode = "400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ProblemDetail.class))),
