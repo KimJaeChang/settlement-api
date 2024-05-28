@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import kr.co.kjc.settlement.controller.CommonCodeApiController;
+import kr.co.kjc.settlement.api.controller.CommonCodeApiController;
 import kr.co.kjc.settlement.global.dtos.request.BaseSearchDTO;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import kr.co.kjc.settlement.service.CommonCodeService;

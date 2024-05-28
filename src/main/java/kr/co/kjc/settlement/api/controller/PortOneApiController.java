@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.controller;
+package kr.co.kjc.settlement.api.controller;
 
 import kr.co.kjc.settlement.global.enums.EnumPaymentBroker;
 import kr.co.kjc.settlement.service.PaymentService;

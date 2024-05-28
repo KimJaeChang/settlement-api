@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.controller;
+package kr.co.kjc.settlement.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
