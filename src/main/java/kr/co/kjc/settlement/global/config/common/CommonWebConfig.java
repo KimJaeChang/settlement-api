@@ -3,6 +3,7 @@ package kr.co.kjc.settlement.global.config.common;
 import java.util.List;
 import kr.co.kjc.settlement.global.argumentResolver.BaseSearchDTOArgumentResolver;
 import kr.co.kjc.settlement.global.argumentResolver.JwtArgumentResolver;
+import kr.co.kjc.settlement.global.argumentResolver.JwtRefreshArgumentResolver;
 import kr.co.kjc.settlement.global.interceptor.GlobalLoggingInterceptor;
 import kr.co.kjc.settlement.global.interceptor.JwtInterceptor;
 import kr.co.kjc.settlement.service.JwtTokenService;
@@ -27,6 +28,7 @@ public class CommonWebConfig implements WebMvcConfigurer {
   //  private final JwtService jwtService;
   private final JwtTokenService jwtTokenService;
   private final JwtArgumentResolver jwtArgumentResolver;
+  private final JwtRefreshArgumentResolver jwtRefreshArgumentResolver;
   private final BaseSearchDTOArgumentResolver baseSearchDTOArgumentResolver;
 
   @Override
@@ -50,6 +52,7 @@ public class CommonWebConfig implements WebMvcConfigurer {
   @Override
   public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
     resolvers.add(jwtArgumentResolver);
+    resolvers.add(jwtRefreshArgumentResolver);
     resolvers.add(baseSearchDTOArgumentResolver);
   }
 
