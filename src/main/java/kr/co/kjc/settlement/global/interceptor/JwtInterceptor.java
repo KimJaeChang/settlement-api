@@ -42,7 +42,7 @@ public class JwtInterceptor implements HandlerInterceptor {
       jwtTokenService.isAccessTokenExpired(accessToken);
 
       // JWT claims 체크
-      jwtTokenService.findMemberByToken(accessToken);
+      jwtTokenService.findMemberByAccessToken(accessToken);
 
       return true;
     }

@@ -5,7 +5,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import kr.co.kjc.settlement.global.dtos.request.JwtTokenRefreshReqDTO;
+import kr.co.kjc.settlement.global.annotation.JwtAuthorization;
+import kr.co.kjc.settlement.global.dtos.MemberDTO;
 import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
 import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
 import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "97. JWT", description = "JWT API 입니다.")
@@ -54,8 +56,8 @@ public class JwtApiController {
   )
   @PutMapping(value = "/authorization")
   public ResponseEntity<BaseResponseDTO<JwtTokenResDTO>> createRefreshToken(
-      @RequestBody JwtTokenRefreshReqDTO dto) {
+      @JwtAuthorization MemberDTO memberDTO, @ResponseBody JwtTokenReqDTO dto) {
     return ResponseEntity.ok()
-        .body(new BaseResponseDTO<>());
+        .body(jwtTokenService.update(memberDTO, dto));
   }
 }

@@ -17,7 +17,6 @@ import kr.co.kjc.settlement.global.constants.CommonConstants;
 import kr.co.kjc.settlement.global.constants.TextConstants;
 import kr.co.kjc.settlement.global.dtos.JwtClaimsDTO;
 import kr.co.kjc.settlement.global.dtos.MemberDTO;
-import kr.co.kjc.settlement.global.dtos.request.JwtTokenRefreshReqDTO;
 import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
 import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
 import kr.co.kjc.settlement.global.enums.EnumResponseCode;
@@ -48,7 +47,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 //    return redisTemplate.opsForHash().putIfAbsent(table, key, value);
     String uuid = dto.getUuid();
     MemberDTO memberDTO = memberService.findOneByUuid(uuid);
-    Map<String, ?> claims = createClaims(dto, memberDTO);
+    Map<String, ?> claims = createClaims(memberDTO, dto);
 
     String accessToken = null;
     String refreshToken = null;
@@ -73,13 +72,29 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   }
 
   @Override
-  public Token update(JwtTokenRefreshReqDTO dto) {
+  public JwtTokenResDTO update(MemberDTO memberDTO, JwtTokenReqDTO dto) {
 
-    String refreshToken = dto.getRefreshToken();
-    isRefreshTokenExpired(refreshToken);
+    Map<String, ?> claims = createClaims(memberDTO, dto);
+    String accessToken = null;
+    String refreshToken = null;
 
-    Token token = Token.createTokenByRefreshToken(refreshToken);
-    return tokenRedisRepository.save(token);
+    try {
+      accessToken =
+          CommonConstants.REQ_HEADER_KEY_AUTH_TOKEN_TYPE + JwtUtils.createAccessToken(secretKey,
+              claims, EXPIRED_MS);
+      refreshToken = JwtUtils.createRefreshToken(secretKey, EXPIRED_MS);
+    } catch (InvalidKeyException e) {
+      log.error(TextConstants.EXCEPTION_PREFIX, e);
+      throw new BaseAPIException(EnumResponseCode.SECRET_KEY_SERVER_ERROR);
+    }
+
+    if (StringUtils.hasText(refreshToken) && StringUtils.hasText(accessToken)) {
+      Token token = Token.of(refreshToken, TokenBody.of(memberDTO.getUuid(), EXPIRED_MS));
+      Token saveToken = tokenRedisRepository.save(token);
+      return JwtTokenResDTO.createByToken(saveToken, accessToken);
+    }
+
+    return null;
   }
 
   @Override
@@ -110,7 +125,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   }
 
   @Override
-  public MemberDTO findMemberByToken(String accessToken) {
+  public MemberDTO findMemberByAccessToken(String accessToken) {
     try {
       Map<String, ?> payloads = Jwts.parser().verifyWith(secretKey).build()
           .parseSignedClaims(accessToken)
@@ -123,7 +138,16 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
   }
 
-  private Map<String, ?> createClaims(JwtTokenReqDTO dto, MemberDTO memberDTO) {
+  @Override
+  public MemberDTO findMemberByRefreshToken(String refreshToken) {
+
+    Token token = tokenRedisRepository.findById(refreshToken)
+        .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_JWT_REFRESH_TOKEN));
+
+    return memberService.findOneByUuid(token.getTokenBody().getUuid());
+  }
+
+  private Map<String, ?> createClaims(MemberDTO memberDTO, JwtTokenReqDTO dto) {
     JwtClaimsDTO jwtClaimsDTO = JwtClaimsDTO.of(dto.getJwtCategory(), dto.getJwtRole(), memberDTO);
     return om.convertValue(jwtClaimsDTO, new TypeReference<Map<String, ?>>() {
     });

@@ -26,11 +26,11 @@ public class JpaAuditAwareProvider implements AuditorAware<String> {
 
   @Override
   public Optional<String> getCurrentAuditor() {
-    
+
     String accessToken = CURRENT_TOKEN.get();
 
     if (!StringUtils.hasText(accessToken)) {
-      MemberDTO memberDTO = jwtTokenService.findMemberByToken(accessToken);
+      MemberDTO memberDTO = jwtTokenService.findMemberByAccessToken(accessToken);
       return Optional.ofNullable(memberDTO.getUuid());
     }
 
