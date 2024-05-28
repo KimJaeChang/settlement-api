@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "97. JWT", description = "JWT API 입니다.")
@@ -56,8 +55,8 @@ public class JwtApiController {
   )
   @PutMapping(value = "/authorization")
   public ResponseEntity<BaseResponseDTO<JwtTokenResDTO>> createRefreshToken(
-      @JwtAuthorization MemberDTO memberDTO, @ResponseBody JwtTokenReqDTO dto) {
+      @JwtAuthorization MemberDTO memberDTO, @RequestBody JwtTokenReqDTO dto) {
     return ResponseEntity.ok()
-        .body(jwtTokenService.update(memberDTO, dto));
+        .body(new BaseResponseDTO<>(jwtTokenService.update(memberDTO, dto)));
   }
 }
