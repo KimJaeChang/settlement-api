@@ -148,7 +148,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   }
 
   private Map<String, ?> createClaims(MemberDTO memberDTO, JwtTokenReqDTO dto) {
-    JwtClaimsDTO jwtClaimsDTO = JwtClaimsDTO.of(dto.getJwtCategory(), dto.getJwtRole(), memberDTO);
+    JwtClaimsDTO jwtClaimsDTO = JwtClaimsDTO.of(dto.getJwtRole(), memberDTO);
     return om.convertValue(jwtClaimsDTO, new TypeReference<Map<String, ?>>() {
     });
   }
