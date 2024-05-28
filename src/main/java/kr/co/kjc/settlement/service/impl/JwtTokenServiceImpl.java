@@ -47,7 +47,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 //    return redisTemplate.opsForHash().putIfAbsent(table, key, value);
     String uuid = dto.getUuid();
     MemberDTO memberDTO = memberService.findOneByUuid(uuid);
-    Map<String, ?> claims = createClaims(memberDTO, dto);
+    Map<String, ?> claims = createClaims(dto, memberDTO);
 
     String accessToken = null;
     String refreshToken = null;
@@ -72,9 +72,9 @@ public class JwtTokenServiceImpl implements JwtTokenService {
   }
 
   @Override
-  public JwtTokenResDTO update(MemberDTO memberDTO, JwtTokenReqDTO dto) {
+  public JwtTokenResDTO update(JwtTokenReqDTO dto, MemberDTO memberDTO) {
 
-    Map<String, ?> claims = createClaims(memberDTO, dto);
+    Map<String, ?> claims = createClaims(dto, memberDTO);
     String accessToken = null;
     String refreshToken = null;
 
@@ -147,7 +147,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     return memberService.findOneByUuid(token.getTokenBody().getUuid());
   }
 
-  private Map<String, ?> createClaims(MemberDTO memberDTO, JwtTokenReqDTO dto) {
+  private Map<String, ?> createClaims(JwtTokenReqDTO dto, MemberDTO memberDTO) {
     JwtClaimsDTO jwtClaimsDTO = JwtClaimsDTO.of(dto.getJwtRole(), memberDTO);
     return om.convertValue(jwtClaimsDTO, new TypeReference<Map<String, ?>>() {
     });

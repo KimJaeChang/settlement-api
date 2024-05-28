@@ -64,8 +64,8 @@ public class JwtApiController {
   )
   @PutMapping(value = "/authorization")
   public ResponseEntity<BaseResponseDTO<JwtTokenResDTO>> createRefreshToken(
-      @JwtAuthorization MemberDTO memberDTO, @RequestBody JwtTokenReqDTO dto) {
+      @RequestBody JwtTokenReqDTO dto, @JwtAuthorization MemberDTO memberDTO) {
     return ResponseEntity.ok()
-        .body(new BaseResponseDTO<>(jwtTokenService.update(memberDTO, dto)));
+        .body(new BaseResponseDTO<>(jwtTokenService.update(dto, memberDTO)));
   }
 }

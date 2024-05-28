@@ -8,7 +8,7 @@ public interface JwtTokenService {
 
   JwtTokenResDTO create(JwtTokenReqDTO dto);
 
-  JwtTokenResDTO update(MemberDTO memberDTO, JwtTokenReqDTO dto);
+  JwtTokenResDTO update(JwtTokenReqDTO dto, MemberDTO memberDTO);
 
   boolean isAccessTokenExpired(String accessToken);
 
