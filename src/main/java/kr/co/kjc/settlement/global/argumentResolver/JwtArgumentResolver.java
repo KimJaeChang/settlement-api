@@ -25,6 +25,7 @@ public class JwtArgumentResolver implements HandlerMethodArgumentResolver {
     return parameter.hasParameterAnnotation(JwtAuthorization.class);
   }
 
+  // Header validation 부분은 JwtInterceptor.class 에서 처리하고 있으므로 기본 로직만 작성함.
   @Override
   public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
       NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
