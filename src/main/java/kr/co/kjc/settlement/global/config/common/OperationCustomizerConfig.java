@@ -22,11 +22,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.http.ProblemDetail;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
 @Slf4j
-@Component
+//@Component
 @RequiredArgsConstructor
 public class OperationCustomizerConfig implements OperationCustomizer {
 
