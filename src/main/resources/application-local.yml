@@ -1,9 +1,9 @@
 spring:
   data:
     redis:
-      host: ENC(2j6ZLjGVvWR4+ICoRpy5pZH5K19EzZ5ilsWscmcZnzo=)
+      host: ENC(oDNuK8JGWNijgCrUDLTamAMoSzaUi5uA)
       port: 6379
-      password: ENC(O+EC4vrJkho0m2C4bHgjIkbpVWUtiMxEe8iPD+8x9jA=)
+  #      password: ENC(O+EC4vrJkho0m2C4bHgjIkbpVWUtiMxEe8iPD+8x9jA=)
   cloud:
     aws:
       s3:
