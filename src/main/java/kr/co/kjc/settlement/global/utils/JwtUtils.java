@@ -28,7 +28,7 @@ public class JwtUtils {
     return Jwts.builder()
         .claims(claims)
         .issuedAt(DateTimeUtils.nowDate())
-        .expiration(DateTimeUtils.afterDateMs(expiredMs))
+        .expiration(new Date(DateTimeUtils.nowDate().getTime() + expiredMs))
         .signWith(secretKey)
         .compact();
   }
@@ -42,7 +42,7 @@ public class JwtUtils {
   public static String createRefreshToken(SecretKey secretKey, long expiredMs)
       throws InvalidKeyException {
     return Jwts.builder()
-        .expiration(DateTimeUtils.afterDateMs(expiredMs))
+        .expiration(new Date(DateTimeUtils.nowDate().getTime() + expiredMs))
         .signWith(secretKey)
         .compact();
   }
