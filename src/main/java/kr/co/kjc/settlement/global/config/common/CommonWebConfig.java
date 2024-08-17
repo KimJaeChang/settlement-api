@@ -23,7 +23,7 @@ public class CommonWebConfig implements WebMvcConfigurer {
   private final static List<String> LOG_EXCLUDES = List.of("/css/**", "/*.ico", "/error",
       "/error-page/**");
   private final static List<String> JWT_EXCLUDES = List.of("/api-docs/**", "/swagger-ui/**",
-      "/health-check", "/api/v1/authorization/**", "/api/v1/spring-ai/**");
+      "/health-check", "/api/v1/authorization/**");
 
   //  private final JwtService jwtService;
   private final JwtTokenService jwtTokenService;
