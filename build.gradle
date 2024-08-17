@@ -18,6 +18,8 @@ ext {
     apache_poi_xlsx_version = "5.2.5"
     aws_cloud_version = "3.1.1"
     jwt_verson = "0.12.5"
+    open_ai_verson = "1.0.0-SNAPSHOT"
+    vertex_ai_gemini_verson = "1.0.0-SNAPSHOT"
 }
 
 configurations {
@@ -28,6 +30,7 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
 }
 
 dependencies {
@@ -44,6 +47,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.data:spring-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
@@ -67,6 +72,10 @@ dependencies {
 
     // Apache - POI
     implementation 'org.apache.poi:poi-ooxml:'.concat(apache_poi_xlsx_version)
+
+    //spring AI
+    implementation "org.springframework.ai:spring-ai-openai-spring-boot-starter:".concat(open_ai_verson)
+    implementation "org.springframework.ai:spring-ai-vertex-ai-gemini-spring-boot-starter:".concat(vertex_ai_gemini_verson)
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

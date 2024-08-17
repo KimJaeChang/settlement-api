@@ -1,8 +1,8 @@
 package kr.co.kjc.settlement.service;
 
 import java.util.List;
-import kr.co.kjc.settlement.global.dtos.S3BucketDTO;
-import kr.co.kjc.settlement.global.dtos.S3ObjectDTO;
+import kr.co.kjc.settlement.global.dtos.aws.s3.S3BucketDTO;
+import kr.co.kjc.settlement.global.dtos.aws.s3.S3ObjectDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface AwsS3Service {

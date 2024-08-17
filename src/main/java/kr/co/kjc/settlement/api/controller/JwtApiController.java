@@ -6,10 +6,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.co.kjc.settlement.global.annotation.JwtRefreshAuthorization;
-import kr.co.kjc.settlement.global.dtos.MemberDTO;
-import kr.co.kjc.settlement.global.dtos.request.JwtTokenReqDTO;
-import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
-import kr.co.kjc.settlement.global.dtos.response.JwtTokenResDTO;
+import kr.co.kjc.settlement.global.dtos.common.BaseResponseDTO;
+import kr.co.kjc.settlement.global.dtos.jwt.JwtTokenReqDTO;
+import kr.co.kjc.settlement.global.dtos.jwt.JwtTokenResDTO;
+import kr.co.kjc.settlement.global.dtos.member.MemberDTO;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ProblemDetail;
@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,8 +65,9 @@ public class JwtApiController {
   )
   @PutMapping(value = "/authorization")
   public ResponseEntity<BaseResponseDTO<JwtTokenResDTO>> createRefreshToken(
+      @RequestHeader(value = "refreshToken") String beforeRefreshToken,
       @RequestBody JwtTokenReqDTO dto, @JwtRefreshAuthorization MemberDTO memberDTO) {
     return ResponseEntity.ok()
-        .body(new BaseResponseDTO<>(jwtTokenService.update(dto, memberDTO)));
+        .body(new BaseResponseDTO<>(jwtTokenService.update(beforeRefreshToken, dto, memberDTO)));
   }
 }

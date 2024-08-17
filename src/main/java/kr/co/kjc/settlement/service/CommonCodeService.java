@@ -1,7 +1,7 @@
 package kr.co.kjc.settlement.service;
 
-import kr.co.kjc.settlement.global.dtos.CommonCodeDTO;
-import kr.co.kjc.settlement.global.dtos.request.BaseSearchDTO;
+import kr.co.kjc.settlement.global.dtos.code.CommonCodeDTO;
+import kr.co.kjc.settlement.global.dtos.common.BaseSearchDTO;
 import org.springframework.data.domain.Page;
 
 public interface CommonCodeService {

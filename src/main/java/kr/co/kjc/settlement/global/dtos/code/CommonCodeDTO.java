@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.dtos;
+package kr.co.kjc.settlement.global.dtos.code;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import kr.co.kjc.settlement.domain.jpa.CommonCode;

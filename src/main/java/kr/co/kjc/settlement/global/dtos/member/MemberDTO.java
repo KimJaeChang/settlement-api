@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.dtos;
+package kr.co.kjc.settlement.global.dtos.member;
 
 import kr.co.kjc.settlement.domain.jpa.Member;
 import lombok.Data;

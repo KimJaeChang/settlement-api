@@ -1,7 +1,7 @@
 package kr.co.kjc.settlement.global.component;
 
 import java.util.Optional;
-import kr.co.kjc.settlement.global.dtos.MemberDTO;
+import kr.co.kjc.settlement.global.dtos.member.MemberDTO;
 import kr.co.kjc.settlement.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;

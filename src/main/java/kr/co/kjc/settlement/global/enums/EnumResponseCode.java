@@ -41,6 +41,8 @@ public enum EnumResponseCode {
   NOT_FOUND_JWT_REFRESH_TOKEN(HttpStatus.NOT_FOUND, "RefreshToken을 찾을 수 없습니다."),
   NOT_FOUND_UPLOAD_FILE(HttpStatus.NOT_FOUND, "업로드한 파일을 찾을 수 없습니다."),
   NOT_FOUND_ENUM(HttpStatus.NOT_FOUND, "Enum을 찾을 수 없습니다."),
+  NOT_FOUND_PAYMENT_SERVICE(HttpStatus.NOT_FOUND, "Payment 서비스를 찾을 수 없습니다."),
+  NOT_FOUND_SPRING_AI_SERVICE(HttpStatus.NOT_FOUND, "Spring AI 서비스를 찾을 수 없습니다."),
   NOT_FOUND_ENUM_VALUE(HttpStatus.NOT_FOUND, "해당 Enum의 Value가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
   NOT_FOUND_ENUM_CODE(HttpStatus.NOT_FOUND, "해당 Enum의 Code가 존재하지 않습니다. 올바른 값으로 조회해주세요."),
   NOT_FOUND_COMMON_CODE(HttpStatus.NOT_FOUND, "해당 공통 코드가 존재하지 않습니다. 올바른 값으로 조회해주세요."),

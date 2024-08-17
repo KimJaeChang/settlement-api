@@ -2,7 +2,7 @@ package kr.co.kjc.settlement.global.argumentResolver;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Optional;
-import kr.co.kjc.settlement.global.dtos.request.BaseSearchDTO;
+import kr.co.kjc.settlement.global.dtos.common.BaseSearchDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

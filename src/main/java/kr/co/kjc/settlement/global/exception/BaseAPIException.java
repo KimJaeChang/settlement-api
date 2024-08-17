@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class BaseAPIException extends ResponseStatusException {
 
   private EnumResponseCode enumResponseCode;
+  private BaseAPIExceptionDto dto;
 
   // 표준 에러코드를 가지는지 확인
   public boolean isBaseErrorCodeType() {
@@ -23,6 +24,11 @@ public class BaseAPIException extends ResponseStatusException {
   public BaseAPIException(EnumResponseCode enumResponseCode) {
     super(enumResponseCode.getHttpStatus(), enumResponseCode.getDetail());
     this.enumResponseCode = enumResponseCode;
+  }
+
+  public BaseAPIException(BaseAPIExceptionDto dto) {
+    super(dto.getCode(), dto.getDetail());
+    this.dto = dto;
   }
 
   public BaseAPIException(HttpStatusCode status) {

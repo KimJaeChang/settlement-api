@@ -1,6 +1,6 @@
 package kr.co.kjc.settlement.service;
 
-import kr.co.kjc.settlement.global.dtos.MemberDTO;
+import kr.co.kjc.settlement.global.dtos.member.MemberDTO;
 import kr.co.kjc.settlement.global.enums.EnumJwtCategory;
 import kr.co.kjc.settlement.global.enums.EnumJwtRole;
 

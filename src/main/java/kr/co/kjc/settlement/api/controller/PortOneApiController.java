@@ -2,7 +2,7 @@ package kr.co.kjc.settlement.api.controller;
 
 import kr.co.kjc.settlement.global.enums.EnumPaymentBroker;
 import kr.co.kjc.settlement.service.PaymentService;
-import kr.co.kjc.settlement.service.custom.PaymentServiceFactory;
+import kr.co.kjc.settlement.service.custom.PaymentServiceRouter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PortOneApiController {
 
-  private final PaymentServiceFactory paymentServiceFactory;
+  private final PaymentServiceRouter paymentServiceRouter;
 
   @GetMapping("/create-payment-key")
   public void createPaymentKey() {
-    PaymentService paymentService = paymentServiceFactory.get(EnumPaymentBroker.PORT_ONE);
+    PaymentService paymentService = paymentServiceRouter.get(EnumPaymentBroker.PORT_ONE);
   }
 
   @GetMapping("/error")

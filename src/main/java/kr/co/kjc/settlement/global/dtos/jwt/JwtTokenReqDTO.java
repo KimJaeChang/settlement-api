@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.dtos.request;
+package kr.co.kjc.settlement.global.dtos.jwt;
 
 import kr.co.kjc.settlement.global.enums.EnumJwtRole;
 import lombok.Getter;

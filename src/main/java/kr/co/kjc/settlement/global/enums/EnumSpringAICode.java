@@ -5,18 +5,18 @@ import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public enum EnumPaymentBroker implements BaseEnum {
+public enum EnumSpringAICode implements BaseEnum {
 
-  PORT_ONE("port-one", "아임포트(포트원)"),
-  TOSS_PAYMENTS("toss-payments", "토스페이먼츠"),
-  TOSS_PAY("toss-pay", "토스페이");
+  OPEN_AI("open-ai", "Open AI"),
+  GEMINI_AI("gemini-ai", "Vertex Gemini AI"),
+  ;
 
   private final String code;
   private final String name;
 
   @Override
-  public EnumPaymentBroker getValue(String key) {
-    return Arrays.stream(EnumPaymentBroker.values())
+  public EnumSpringAICode getValue(String key) {
+    return Arrays.stream(EnumSpringAICode.values())
         .filter(f -> f.getValue(key).equals(key))
         .findFirst()
         .orElseThrow(() -> new BaseAPIException(EnumResponseCode.NOT_FOUND_ENUM));
@@ -31,4 +31,5 @@ public enum EnumPaymentBroker implements BaseEnum {
   public String getName() {
     return this.name;
   }
+
 }

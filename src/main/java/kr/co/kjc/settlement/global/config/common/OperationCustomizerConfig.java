@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Map;
 import kr.co.kjc.settlement.global.annotation.CustomApiResponseCodes;
-import kr.co.kjc.settlement.global.dtos.response.BaseResponseDTO;
+import kr.co.kjc.settlement.global.dtos.common.BaseResponseDTO;
 import kr.co.kjc.settlement.global.enums.EnumCustomApiResponseCodeGroup;
 import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.ProblemDetailHelper;

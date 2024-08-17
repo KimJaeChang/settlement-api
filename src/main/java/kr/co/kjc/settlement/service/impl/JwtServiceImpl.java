@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 import javax.crypto.SecretKey;
-import kr.co.kjc.settlement.global.dtos.MemberDTO;
+import kr.co.kjc.settlement.global.dtos.member.MemberDTO;
 import kr.co.kjc.settlement.global.enums.EnumJwtCategory;
 import kr.co.kjc.settlement.global.enums.EnumJwtRole;
 import kr.co.kjc.settlement.global.utils.JwtUtils;

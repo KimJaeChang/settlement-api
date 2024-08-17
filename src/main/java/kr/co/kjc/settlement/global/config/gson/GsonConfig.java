@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import kr.co.kjc.settlement.global.dtos.CodeDTO;
+import kr.co.kjc.settlement.global.dtos.code.CodeDTO;
 import kr.co.kjc.settlement.service.custom.EnumMapper;
 import org.springframework.boot.autoconfigure.gson.GsonBuilderCustomizer;
 import org.springframework.data.domain.Page;

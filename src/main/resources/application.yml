@@ -1,6 +1,14 @@
 spring:
   application:
     name: settlement
+  ai:
+    openai:
+      api-key: ENC(8dRa9sZgXQ4eyKxOjjisOWGMwb2/Kaw4/MZJzcQjwGuDgUG1tbdaSFMkgRnlSaZFzvpBW2/LJsxsguPAWlyMDgvXIqBYAwuaZuF61su5hKkGX6ZXFpQ+Cp+OsZIIT8JJNHP0u9P7cUALyf0kKDXksv+lTGzfKI+cD0fIVSPP+JREk6pcRUd7kzCtILLiOWR2)
+    vertex:
+      ai:
+        gemini:
+          project-id: ENC(KZgGAmSgkFYxJtU1cWcJadNPyJFBSfzXIsh1rNoPgmE=)
+          location: ENC(q7YVBe8vpFYMewrRy3BjzJjJrgbgWiaQ)
   #  config:
   #    import: kjc-secret.yml
   devtools:

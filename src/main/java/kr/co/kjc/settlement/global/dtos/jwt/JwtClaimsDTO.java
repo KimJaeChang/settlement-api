@@ -1,5 +1,6 @@
-package kr.co.kjc.settlement.global.dtos;
+package kr.co.kjc.settlement.global.dtos.jwt;
 
+import kr.co.kjc.settlement.global.dtos.member.MemberDTO;
 import kr.co.kjc.settlement.global.enums.EnumJwtRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

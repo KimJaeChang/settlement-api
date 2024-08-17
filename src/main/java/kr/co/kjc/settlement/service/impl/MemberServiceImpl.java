@@ -1,8 +1,8 @@
 package kr.co.kjc.settlement.service.impl;
 
 import kr.co.kjc.settlement.domain.jpa.Member;
-import kr.co.kjc.settlement.global.dtos.MemberDTO;
-import kr.co.kjc.settlement.global.dtos.request.BaseSearchDTO;
+import kr.co.kjc.settlement.global.dtos.common.BaseSearchDTO;
+import kr.co.kjc.settlement.global.dtos.member.MemberDTO;
 import kr.co.kjc.settlement.global.enums.EnumResponseCode;
 import kr.co.kjc.settlement.global.exception.BaseAPIException;
 import kr.co.kjc.settlement.repository.jpa.MemberJpaRepository;

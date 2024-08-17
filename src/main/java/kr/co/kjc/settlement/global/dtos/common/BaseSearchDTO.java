@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.dtos.request;
+package kr.co.kjc.settlement.global.dtos.common;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDate;

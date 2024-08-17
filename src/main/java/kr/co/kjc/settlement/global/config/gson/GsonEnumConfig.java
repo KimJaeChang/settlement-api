@@ -5,7 +5,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
-import kr.co.kjc.settlement.global.dtos.CodeDTO;
+import kr.co.kjc.settlement.global.dtos.code.CodeDTO;
 import kr.co.kjc.settlement.service.custom.EnumMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
