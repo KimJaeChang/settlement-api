@@ -4,11 +4,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.kjc.settlement.domain.jpa.PaymentHistory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.stereotype.Repository;
 
 public interface PaymentHistoryJpaRepository extends JpaRepository<PaymentHistory, Long>,
-    JpaSpecificationExecutor<PaymentHistory>, CustomPaymentHistoryJpaRepository {
+    QueryByExampleExecutor<PaymentHistory>, CustomPaymentHistoryJpaRepository {
 
 }
 
