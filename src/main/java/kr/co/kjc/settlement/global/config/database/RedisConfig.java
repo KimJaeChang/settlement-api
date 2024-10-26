@@ -14,6 +14,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 
 @Configuration
 @RequiredArgsConstructor
+//@EnableAutoConfiguration(exclude = RedisReactiveAutoConfiguration.class)
 @EnableRedisRepositories(basePackages = "kr.co.kjc.settlement.repository.redis", enableKeyspaceEvents = RedisKeyValueAdapter.EnableKeyspaceEvents.ON_STARTUP)
 // https://dkswnkk.tistory.com/709 참고
 public class RedisConfig {

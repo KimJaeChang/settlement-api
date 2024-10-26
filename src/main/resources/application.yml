@@ -66,6 +66,7 @@ spring:
 #        default_batch_fetch_size: 30
 #        jdbc:
 #          batch_size: 100
+
 # 로그 레벨 설정
 logging:
   level:
@@ -109,3 +110,16 @@ server:
 jasypt:
   encryptor:
     bean: jasyptStringEncryptor
+
+# Service Properties
+service:
+  mongodb:
+    host: localhost
+    port: 27017
+    username:
+    password:
+    authentication-database:
+    database:
+      common-log: common-log
+
+

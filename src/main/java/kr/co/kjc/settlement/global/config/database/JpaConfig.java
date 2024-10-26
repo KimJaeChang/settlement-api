@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EntityScan(basePackages = {"kr.co.kjc.settlement.domain.jpa"})
 @EnableJpaRepositories(basePackages = {"kr.co.kjc.settlement.repository.jpa"})
-public class QuerydslConfig {
+public class JpaConfig {
 
   @PersistenceContext
   private EntityManager entityManager;

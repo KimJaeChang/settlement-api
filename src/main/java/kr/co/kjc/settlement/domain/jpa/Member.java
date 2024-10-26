@@ -24,7 +24,7 @@ public class Member extends BaseEntity {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "COMPANY_ID")
+  @JoinColumn(name = "company_id")
   private Company company;
 
   @Column(name = "member_userid")
@@ -41,11 +41,11 @@ public class Member extends BaseEntity {
 
   public static Member of(String userId, String userName, String handPhone, Company company) {
     Member result = new Member();
+    result.company = company;
     result.userId = userId;
     result.uuid = UUID.randomUUID().toString();
     result.userName = userName;
     result.handPhone = handPhone;
-    result.company = company;
     return result;
   }
 
