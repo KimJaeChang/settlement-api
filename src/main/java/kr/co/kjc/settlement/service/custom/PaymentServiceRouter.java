@@ -29,7 +29,7 @@ public class PaymentServiceRouter {
   public PaymentService get(EnumPaymentBroker enumPaymentBroker) {
     return serviceMap.computeIfAbsent(enumPaymentBroker
         , (paymentBroker) -> {
-          throw new BaseAPIException(EnumResponseCode.NOT_FOUND_PAYMENT_SERVICE);
+          throw new BaseAPIException(EnumResponseCode.INVALID_PAYMENT_SERVICE);
         });
   }
 

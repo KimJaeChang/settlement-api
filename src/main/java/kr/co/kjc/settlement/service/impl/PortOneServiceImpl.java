@@ -3,7 +3,7 @@ package kr.co.kjc.settlement.service.impl;
 import kr.co.kjc.settlement.service.PaymentService;
 import org.springframework.stereotype.Service;
 
-@Service("port-one")
+@Service
 public class PortOneServiceImpl implements PaymentService {
 
   @Override

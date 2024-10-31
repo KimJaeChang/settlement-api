@@ -17,15 +17,17 @@ spring:
           access-key: ENC(jDLGE7NjYfXqdrYrRUDxHlPL7Gtlop8tsUbrJBwuX90=)
           secret-key: ENC(zxcCkAjJABQViY4GZk5KtUA1IOem8M805smRek34/9wu8TrQfQMOkxPCllZtwenwAEFPpMYVyt8=)
 
-payments:
-  toss-payments:
-    keys:
-      widget:
-        client-key: ENC(Gk72ZUVeABuvuMVkMCEqyNB2/H4bCvtpCXoaf0Nv3WK8j9e9b2AXXFCuPA52yWf8)
-        secret-key: ENC(aa3WAN+6SHzR1G+KPChDDM7Ql1eEL9K+lkBmznK3UzMDXeWroNmfW0/f+z8yFLc4)
-      api:
-        client-key: ENC(lae4cUts3QWv84R6Rzll/jH78kjLzgUzZPTxcqz1BEQP2dlBv6aLok+A/K02dDvy)
-        secret-key: ENC(zKrSfMHccnKJw+1PiOeZoTyG988ZO23+4/4RtUXjGQoe2tqoDYMWnzMm+AzdF7GF)
+service:
+  payments:
+    toss-payments:
+      host:
+      keys:
+        widget:
+          client-key: ENC(Gk72ZUVeABuvuMVkMCEqyNB2/H4bCvtpCXoaf0Nv3WK8j9e9b2AXXFCuPA52yWf8)
+          secret-key: ENC(aa3WAN+6SHzR1G+KPChDDM7Ql1eEL9K+lkBmznK3UzMDXeWroNmfW0/f+z8yFLc4)
+        api:
+          client-key: ENC(lae4cUts3QWv84R6Rzll/jH78kjLzgUzZPTxcqz1BEQP2dlBv6aLok+A/K02dDvy)
+          secret-key: ENC(zKrSfMHccnKJw+1PiOeZoTyG988ZO23+4/4RtUXjGQoe2tqoDYMWnzMm+AzdF7GF)
 
 logging:
   level:

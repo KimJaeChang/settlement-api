@@ -23,6 +23,7 @@ public class WebclientLoggingFilter {
 
   public static ExchangeFilterFunction logResponse() {
     return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
+      logResponseStatus(clientResponse);
       logResponseHeader(clientResponse);
       return logResponseBody(clientResponse);
     });
@@ -50,6 +51,11 @@ public class WebclientLoggingFilter {
     }
 
     return Mono.just(clientRequest);
+  }
+
+  private static void logResponseStatus(ClientResponse clientResponse) {
+    log.info("Webclient_Response_Status : [{}] [{}]", clientResponse.statusCode().value(),
+        clientResponse.statusCode());
   }
 
   private static void logResponseHeader(ClientResponse clientResponse) {
