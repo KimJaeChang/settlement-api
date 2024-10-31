@@ -1,4 +1,4 @@
-package kr.co.kjc.settlement.global.config.network;
+package kr.co.kjc.settlement.global.config.client.webclient;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.ssl.SslContextBuilder;
@@ -50,6 +50,8 @@ public class WebClientConfig {
     return WebClient.builder()
         .baseUrl(uri)
         .clientConnector(new ReactorClientHttpConnector(httpClient))
+        .filter(WebclientLoggingFilter.logRequest())
+        .filter(WebclientLoggingFilter.logResponse())
         .build()
         .mutate()
         .build();

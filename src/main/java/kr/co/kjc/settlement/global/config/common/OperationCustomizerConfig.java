@@ -11,6 +11,8 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Map;
 import kr.co.kjc.settlement.global.annotation.CustomApiResponseCodes;
@@ -96,16 +98,12 @@ public class OperationCustomizerConfig implements OperationCustomizer {
   private Schema customizeSchema(EnumResponseCode responseCode, Type dtoType) {
     Schema schema = ModelConverters.getInstance().readAllAsResolvedSchema(dtoType).schema;
     @SuppressWarnings("unchecked") Map<String, Schema> properties = schema.getProperties();
-    Boolean success = responseCode.getHttpStatus().is2xxSuccessful();
-    Integer status = responseCode.getHttpStatus().value();
-    Integer code = responseCode.getHttpStatus().value();
+    int statusCode = responseCode.getHttpStatus().value();
     String message = responseCode.getDetail();
 
-    properties.get("success")
-        .setDefault(status >= 200 && status < 300 ? Boolean.TRUE : Boolean.FALSE);
-    properties.get("status").setDefault(status);
-    properties.get("code").setDefault(code);
+    properties.get("code").setDefault(statusCode);
     properties.get("message").setDefault(message);
+    properties.get("timestamp").setDefault(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
 
     return schema;
   }

@@ -1,8 +1,8 @@
 package kr.co.kjc.settlement.repository.mongo;
 
+import jakarta.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.PostConstruct;
 import kr.co.kjc.settlement.global.enums.EnumMongoDataBase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;

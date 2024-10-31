@@ -120,7 +120,7 @@ public class SwaggerApiConfig {
 //    MediaType mediaType = new MediaType();
 //    Schema schema = new Schema<>();
 //    schema.$ref("#/components/schemas/ErrorResponse");
-//    mediaType.schema(schema).example(new BaseAPIException(EnumErrorCode.INVALID_SCHEMA));
+//    mediaType.schema(schema).example(new BaseAPIException(EnumResponseCode.INVALID_SCHEMA));
 //    content.addMediaType("application/json", mediaType);
 //    apiResponse.setContent(content);
 //  }

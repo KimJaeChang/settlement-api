@@ -10,7 +10,7 @@ import lombok.ToString;
 import org.springframework.http.HttpStatus;
 
 /**
- * Local CSMS API 표준응답 DTO
+ * API 표준응답 DTO
  *
  * @param <T>
  */
